@@ -36,7 +36,7 @@ const nav = [
 
   {
     id: "stock",
-    name: "Inventário",
+    name: "Stock",
     path: "pages/stock",
     icon: "archive",
     show: true,
@@ -155,4 +155,4 @@ async function removeItem(id, item) {
   }
 }
 
-document.querySelector('.logo').href = '#';
+document.querySelector('.logo').href = base_url;
