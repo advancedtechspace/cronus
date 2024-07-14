@@ -7,7 +7,7 @@ const api_url =
 const base_url =
   window.location.protocol === "https:"
     ? window.location.origin + '/cronus'
-    : "http://localhost:80/cronus";
+    : "http://localhost/cronus";
 
 const colors = {
   secondary: "#6495ed",

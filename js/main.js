@@ -121,8 +121,7 @@ document.getElementById("suggestions").innerHTML = n;
 //     if (id) document.querySelector(`a#${id} .sub-menu`).style.display = "none";
 //   });
 // });
-
-if (window.location.href === window.location.origin + "/") {
+if (window.location.href === base_url + "/") {
   document.querySelector("#suggestions a").style.backgroundColor =
     colors.primary;
   document.querySelector("#suggestions a").style.color = "#fff";
@@ -155,3 +154,5 @@ async function removeItem(id, item) {
     });
   }
 }
+
+document.querySelector('.logo').href = '#';
