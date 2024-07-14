@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="../../assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="../../assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <div class="main">
+        <div class="main-header">
+          <h3>Conceder crédito</h3>
+        </div>
+        <div class="main-body">
+          <form id="form-new-staff">
+            <div class="form">
+              <div class="form-group">
+                <label for="first-name">Nome:</label>
+                <input type="text" name="first-name" id="" autofocus />
+              </div>
+              <div class="form-group">
+                <label for="surname">Sobrenome:</label>
+                <input type="text" name="surname" id="" />
+              </div>
+              <div class="form-group">
+                <label for="id">BI:</label>
+                <input type="text" name="id" />
+              </div>
+              <div class="form-group">
+                <label for="tel">Contacto: </label>
+                <input type="tel" name="tel" />
+              </div>
+              <div class="form-group">
+                <label for="bairro">Bairro:</label>
+                <input name="bairro" id="select-bairro" />
+              </div>
+              <div class="form-group">
+                <label for="contract">Data: </label>
+                <input type="date" name="contract" />
+              </div>
+              <div class="form-group">
+                <label for="contract-ends">Limite: </label>
+                <input type="date" name="contract-ends" />
+              </div>
+              <div class="form-group">
+                <label for="valor-emprestimo">Valor do emprestimo: </label>
+                <input type="number" name="valor-emprestimo" id="" />
+              </div>
+              <div class="form-group">
+                <label for="taxa-juro">Taxa de juro (%): </label>
+                <input type="number" name="taxa-juro" id="" />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="main-footer">
+          <button type="submit" form="form-new-staff" id="btn-submit">Salvar</button>
+        </div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+    </main>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    document
+      .getElementById("form-new-staff")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        document.querySelector('#btn-submit').disabled = true;
+        const form = new FormData(e.target);
+
+        const firstName = form.get("first-name");
+        const surname = form.get("surname");
+        const dataEmprestimo = form.get("contract");
+        const dataLimite = form.get("contract-ends");
+        const id = form.get("id");
+        const tel = form.get("tel");
+        const valor = form.get("valor-emprestimo");
+        const taxaJuro = form.get("taxa-juro");
+        const bairro = form.get("bairro");
+
+        const data = {
+          firstName,
+          surname,
+          dataEmprestimo,
+          dataLimite,
+          id,
+          tel,
+          valor,
+          taxaJuro,
+          bairro,
+        };
+
+        const res = await fetch(api_url + "/cronus/credito/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            user: localStorage.getItem("user"),
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (res.status === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Gravado com sucesso",
+          }).then(() => {
+            e.target.reset();
+          })
+        }
+        document.querySelector('#btn-submit').disabled = false;
+      });
+  </script>
+</html>

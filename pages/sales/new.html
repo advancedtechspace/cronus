@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="../../assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="../../assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <div class="main">
+        <div class="main-header">
+          <h3>Efectuar nova venda</h3>
+        </div>
+        <div class="main-body">
+          <form id="form-new-sell">
+            <div class="form">
+              <div class="form-group">
+                <label for="select-product">Producto:</label>
+                <select
+                  type="text"
+                  name="categoria"
+                  id="select-product"
+                ></select>
+                <div class="form-group">
+                  <label for="valor">Quantidade: </label>
+                  <input
+                    type="number"
+                    class="input-thin"
+                    name="quantidade"
+                    id="quantidade"
+                    min="1"
+                    required
+                    value="1"
+                  />
+                </div>
+                <button class="btn-circle" id="btn-add-product">
+                  <i class="la la-plus-circle"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="main-body">
+            <table width="100%">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="main-footer">
+          <button type="submit" form="form-new-sell" id="btn-submit">
+            Concluir
+          </button>
+        </div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+    </main>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
+  <script>
+    let cart = [];
+
+    document
+      .getElementById("form-new-sell")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (cart.length === 0) {
+          return;
+        }
+
+        document.querySelector("#btn-submit").disabled = true;
+
+        const form = new FormData(e.target);
+
+        const res = await fetch(api_url + "/cronus/sales/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            user: localStorage.getItem("user"),
+          },
+          body: JSON.stringify(cart),
+        });
+
+        if (res.status === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Gravado com sucesso",
+          }).then(async () => {
+            const sell = await res.json();
+            console.log(sell);
+            cart = [];
+            document.querySelector("thead").innerHTML = "";
+            document.querySelector("tbody").innerHTML = "";
+            document.getElementById("quantidade").value = 1;
+            getStock();
+          });
+        }
+
+        document.querySelector("#btn-submit").disabled = false;
+      });
+
+    //
+
+    document
+      .querySelector("#btn-add-product")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        addProducts();
+      });
+
+    getStock();
+
+    async function getStock() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/stock", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        let options = new String();
+        for (c of data) {
+          const { _id, desc } = c;
+          options += `<option value='${_id}'>${desc}</option>`;
+        }
+        document.getElementById("select-product").innerHTML = options;
+      }
+    }
+
+    //
+
+    async function addProducts() {
+      const selected = document.getElementById("select-product");
+      const product = selected.value;
+      const quantidade = document.getElementById("quantidade").value;
+      const product_label =
+        document.getElementById("select-product").options[
+          selected.selectedIndex
+        ].text;
+
+      if (cart.map((p) => p.product)?.includes(product)) {
+        return;
+      }
+
+      if (!quantidade) {
+        return;
+      }
+
+      cart.push({ product, quantidade, product_label });
+
+      const thead = `
+          <th>Producto</th>
+          <th>Quantidade</th>
+          <th>Remover</th>`;
+
+      let trows = new String();
+
+      if (cart.length !== 0) {
+        for (p of cart) {
+          trows += `
+            <tr>
+              <td>${p.product_label}</td>
+              <td>${p.quantidade}</td>
+              <td width='20%'>
+                <button class="btn-circle btn-circle-delete btn-delete-staff" id="${p.product}"><i class='la la-trash'></i></button>
+              </td>
+            </tr>
+          `;
+        }
+
+        document.querySelector("thead").innerHTML = thead;
+        document.querySelector("tbody").innerHTML = trows;
+
+        document.querySelectorAll(".btn-delete-staff").forEach((btn) => {
+          btn.addEventListener("click", (evt) => {
+            const id = evt.target.id;
+            cart = cart.filter(({ product }) => product !== id);
+            trows = "";
+            for (p of cart) {
+              trows += `
+                <tr>
+                  <td>${p.product_label}</td>
+                  <td>${p.quantidade}</td>
+                  <td width='20%'>
+                    <button class="btn-circle btn-circle-delete btn-delete-staff" id="${p.product}"><i class='la la-trash'></i></button>
+                  </td>
+                </tr>
+              `;
+            }
+
+            document.querySelector("thead").innerHTML = thead;
+            document.querySelector("tbody").innerHTML = trows;
+          });
+        });
+      }
+    }
+  </script>
+</html>

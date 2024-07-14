@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="./assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <!-- <div class="company-name">
+        <p>Cronus, inc</p>
+      </div> -->
+
+      <div class="cards">
+        <div class="card-container">
+          <span class="title">Activos</span>
+          <div class="content" style="color: #78ee9b">
+            <span id="activo-total" class="counter"></span>
+          </div>
+        </div>
+        <!-- <div class="card-container">
+          <span class="title">Passivos</span>
+          <span class="content" style="color: #ff2430"
+            ><span
+              class="counter"
+              style="--from: 50; --to: 100; --time: 2s"
+            ></span
+          ></span>
+        </div> -->
+      </div>
+    </main>
+    <div id="loader">
+      <p>Loading...</p>
+    </div>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="./js/config.js"></script>
+  <script src="./js/util.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/index.js"></script>
+  <script>
+    if (localStorage.getItem("user") === null) {
+      window.location.href = base_url + "/login.html";
+    }
+
+    wakeupAPI()
+  </script>
+</html>

@@ -1,0 +1,53 @@
+.company-name {
+  width: 60%;
+  border-radius: 15px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 0 2px 2px 2px #eee;
+  margin: 20px auto;
+}
+
+.company-name p {
+  font-size: 48px;
+  color: #aaa;
+}
+
+.cards {
+  display: flex;
+  /* background-color: blue; */
+  width: 60%;
+}
+
+.card-container {
+  height: 150px;
+  background: url(../assets/img/charts/dollar-sign-solid.svg) no-repeat 30px
+    center/50px;
+  background-color: #fff;
+  flex: 100%;
+  width: 100%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container .title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 18px;
+  /* color: #eee; */
+}
+
+.card-container .content {
+  font-size: 48px;
+  color: #222;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <title>CRONUS</title>
+  </head>
+  <body>
+    <div class="left">
+      <a href="/" class="logo">
+        <img src="assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <p>Somos a solução para a <b>gestão eficiente</b> do seu negócio!</p>
+      <p><i class="la la-phone-square la-lg"></i><span>847460853 / 872081978</span></p>
+    </div>
+    <div class="right">
+      <form>
+        <label for="email">Email:</label>
+        <input type="email" name="email" required autofocus />
+        <label for="pass">Senha:</label>
+        <input type="password" name="pass" required />
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+  </body>
+
+  <script src="js/config.js"></script>
+  <script src="js/util.js"></script>
+  <script>
+    if (localStorage.getItem("user") !== null) {
+      window.location.href = "/";
+    }
+
+    document.querySelector("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.querySelector("button");
+      btn.disabled = true;
+      const form = new FormData(e.target);
+      const email = form.get("email");
+      const pass = form.get("pass");
+
+      const res = await fetch(api_url + "/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, pass }),
+      });
+
+      if (res.status === 200) {
+        const user = await res.json();
+        localStorage.setItem("user", user._id);
+        Toast.fire({
+          icon: "success",
+          text: "Autenticado com êxito.",
+        }).then(() => {
+          window.location.href = base_url;
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          text: "Erro ao autenticar",
+        });
+      }
+
+      btn.disabled = false;
+    });
+  </script>
+</html>
