@@ -34,6 +34,10 @@
         <button type="submit">Entrar</button>
       </form>
     </div>
+
+    <div id="loader">
+      <p>Loading...</p>
+    </div>
   </body>
 
   <script src="js/config.js"></script>
@@ -77,5 +81,7 @@
 
       btn.disabled = false;
     });
+
+    wakeupAPI();
   </script>
 </html>
