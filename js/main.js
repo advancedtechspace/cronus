@@ -22,7 +22,12 @@ const nav = [
       {
         label: "Listagem",
         url: "",
-        icon: null
+        icon: null,
+      },
+      {
+        label: "Cadastrar colaborador",
+        url: "",
+        icon: null,
       },
     ],
   },
@@ -33,7 +38,6 @@ const nav = [
     icon: "couch",
     show: true,
   },
-
   {
     id: "stock",
     name: "Stock",
@@ -57,10 +61,17 @@ const nav = [
   },
   {
     id: "credito",
-    name: "Microcédito",
+    name: "Microcrédito",
     path: "pages/credito",
     icon: "coins",
     show: true,
+    submenu: [
+      {
+        label: "Listagem",
+        url: "",
+        icon: null,
+      },
+    ],
   },
   {
     id: "ensurance",
@@ -83,7 +94,6 @@ const nav = [
     icon: "bus",
     show: false,
   },
-  
 ];
 
 let n = "";
@@ -93,34 +103,33 @@ for (let elt of nav) {
   const active = window.location.href.includes(id);
   if (show) {
     const color = active ? colors.primary : "auto;";
+    let sm = ''
+    if(submenu !== undefined) {
+      for({label} of submenu) {
+        sm += `<li><a href='#'>${label}</a></li>`;
+      }
+    }
+
     n += `
-    <a href='${base_url}/${path}' id='${id}'
-      style='background-color: ${color};color: ${active ? "#fff" : "auto"};'
-    >
-      <i class='la la-${icon}'></i>
-      <span>${name}</span>
-      <!--<div class='sub-menu' id='${id}'>
-        ${submenu?.map(({ label, url }) => `<a>${label}</a>`)}
-      </div>-->
-    </a>`;
+    <ul class='main-link'>
+      <li>
+        <a href='${base_url}/${path}' id='${id}'
+          style='background-color: ${color};color: ${active ? "#fff" : "auto"};'
+        >
+          <i class='la la-${icon}'></i>
+          <span>${name}</span>
+        </a>
+      </li>
+      <ul class='sub-menu' id='${id}'>
+        ${sm}
+      </ul>
+    </ul>`;
+  
   }
 }
 
 document.getElementById("suggestions").innerHTML = n;
 
-// document.querySelectorAll("#suggestions a").forEach((link) => {
-//   link.addEventListener("mouseover", (e) => {
-//     const id = e.target.id;
-//     if (id) document.querySelector(`a#${id} .sub-menu`).style.display = "block";
-//   });
-// });
-
-// document.querySelectorAll("#suggestions a").forEach((link) => {
-//   link.addEventListener("mouseout", (e) => {
-//     const id = e.target.id;
-//     if (id) document.querySelector(`a#${id} .sub-menu`).style.display = "none";
-//   });
-// });
 if (window.location.href === base_url + "/") {
   document.querySelector("#suggestions a").style.backgroundColor =
     colors.primary;
@@ -155,4 +164,4 @@ async function removeItem(id, item) {
   }
 }
 
-document.querySelector('.logo').href = base_url;
+document.querySelector(".logo").href = base_url;

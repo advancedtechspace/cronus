@@ -68,7 +68,7 @@
               <div class="form-group">
                 <label for="area-formacao">Area:</label>
                 <select type="text" name="area-formacao" id="area-formacao">
-                  <option value="">--Seleccione uma--</option>
+                  <!-- <option value="">--Seleccione uma--</option>
                   <option value="0">Matemática & Estatistica</option>
                   <option value="1">Engenharia</option>
                   <option value="2">Administração & Gestão</option>
@@ -76,7 +76,7 @@
                   <option value="4">Contabilidade e Auditoria</option>
                   <option value="5">Dirieto</option>
                   <option value="6">Saúde</option>
-                  <option value="-1">Outro</option>
+                  <option value="-1">Outro</option> -->
                 </select>
               </div>
               <div class="form-group">
@@ -146,7 +146,9 @@
           </form>
         </div>
         <div class="main-footer">
-          <button type="submit" form="form-new-staff" id="btn-update">Salvar</button>
+          <button type="submit" form="form-new-staff" id="btn-update">
+            Salvar
+          </button>
         </div>
       </div>
 
@@ -224,7 +226,7 @@
       .getElementById("form-new-staff")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
-        const btnUpdate = document.getElementById('btn-update');
+        const btnUpdate = document.getElementById("btn-update");
         btnUpdate.disabled = true;
         const form = new FormData(e.target);
 
@@ -240,6 +242,7 @@
         const contract = form.get("contract");
         const contractEnds = form.get("contract-ends");
         const morada = form.get("morada");
+        const areaFormacao = form.get("area-formacao");
 
         const data = {
           firstName,
@@ -253,6 +256,7 @@
           contract,
           contractEnds,
           morada,
+          areaFormacao
         };
 
         const res = await fetch(api_url + "/cronus/staff/update", {
@@ -324,6 +328,14 @@
       }
     }
 
-    wakeupAPI()
+    wakeupAPI();
+
+    let areas_de_formacao = "";
+
+    for ({ id, label } of areas) {
+      areas_de_formacao += `<option value='${id}'>${label}</option>`;
+    }
+
+    document.getElementById("area-formacao").innerHTML = areas_de_formacao;
   </script>
 </html>
