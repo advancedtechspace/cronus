@@ -314,12 +314,13 @@ label {
 }
 
 .main-link {
-  /* margin: 10px; */
+  margin: 5px;
+  background-color: #eee;
+  border-radius: var(--btn-radius);
 }
 
 .main-link > a {
   border-radius: 5px;
-  /* background-color: var(--body-color); */
 }
 
 .main-link:hover .sub-menu {
@@ -340,8 +341,9 @@ label {
   background-color: var(--primary-color);
   padding: 10px 10px;
   position: absolute;
-  width: 200px;
-  height: 200px;
+  min-width: 170px;
+  border-radius: var(--btn-radius);
+  border-top-left-radius: 0;
   top: calc(var(--header-height) + 10px);
   transition: all .3s ease-in-out;
   display: none;
@@ -353,6 +355,12 @@ label {
 
 .sub-menu a {
   color: #fff;
+  display: block;
+  text-align: left;
+}
+
+.sub-menu a:hover {
+  opacity: .8;
 }
 
 #loader {

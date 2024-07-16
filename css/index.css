@@ -10,6 +10,11 @@
   margin: 20px auto;
 }
 
+#chart {
+  display: block;
+  width: 100%;
+}
+
 .company-name p {
   font-size: 48px;
   color: #aaa;
@@ -17,8 +22,8 @@
 
 .cards {
   display: flex;
-  /* background-color: blue; */
-  width: 60%;
+  flex-direction: column;
+  width: 40%;
 }
 
 .card-container {
@@ -26,7 +31,6 @@
   background: url(../assets/img/charts/dollar-sign-solid.svg) no-repeat 30px
     center/50px;
   background-color: #fff;
-  flex: 100%;
   width: 100%;
   margin: 5px;
   padding: 10px;

@@ -20,13 +20,13 @@ const nav = [
     show: true,
     submenu: [
       {
-        label: "Listagem",
-        url: "",
+        label: "Cadastrar novo",
+        url: "new.html",
         icon: null,
       },
       {
-        label: "Cadastrar colaborador",
-        url: "",
+        label: "Categoria",
+        url: "#",
         icon: null,
       },
     ],
@@ -37,6 +37,13 @@ const nav = [
     path: "pages/asset",
     icon: "couch",
     show: true,
+    submenu: [
+      {
+        label: "Cadastrar novo",
+        url: "new.html",
+        icon: null,
+      },
+    ],
   },
   {
     id: "stock",
@@ -44,6 +51,13 @@ const nav = [
     path: "pages/stock",
     icon: "archive",
     show: true,
+    submenu: [
+      {
+        label: "Cadastrar novo",
+        url: "new.html",
+        icon: null,
+      },
+    ],
   },
   {
     id: "sales",
@@ -51,6 +65,13 @@ const nav = [
     path: "pages/sales",
     icon: "store",
     show: true,
+    submenu: [
+      {
+        label: "Nova",
+        url: "new.html",
+        icon: null,
+      },
+    ],
   },
   {
     id: "accounting",
@@ -67,8 +88,8 @@ const nav = [
     show: true,
     submenu: [
       {
-        label: "Listagem",
-        url: "",
+        label: "Conceder crédito",
+        url: "new.html",
         icon: null,
       },
     ],
@@ -103,10 +124,12 @@ for (let elt of nav) {
   const active = window.location.href.includes(id);
   if (show) {
     const color = active ? colors.primary : "auto;";
-    let sm = ''
-    if(submenu !== undefined) {
-      for({label} of submenu) {
-        sm += `<li><a href='#'>${label}</a></li>`;
+    let sm = "";
+    if (submenu !== undefined) {
+      for ({ label, url } of submenu) {
+        sm += `<li><a href='${
+          base_url + "/" + path + "/" + url
+        }'>${label}</a></li>`;
       }
     }
 
@@ -117,14 +140,13 @@ for (let elt of nav) {
           style='background-color: ${color};color: ${active ? "#fff" : "auto"};'
         >
           <i class='la la-${icon}'></i>
-          <span>${name}</span>
+          <span>${name}</span><i class='la la-angle-down'></i>
         </a>
       </li>
       <ul class='sub-menu' id='${id}'>
         ${sm}
       </ul>
     </ul>`;
-  
   }
 }
 
