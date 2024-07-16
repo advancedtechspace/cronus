@@ -8,6 +8,7 @@
   background-color: #fff;
   box-shadow: 0 0 2px 2px 2px #eee;
   margin: 20px auto;
+  display: none;
 }
 
 #chart {

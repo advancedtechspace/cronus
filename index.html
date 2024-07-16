@@ -31,9 +31,9 @@
     </header>
     <main>
       <div id="suggestions"></div>
-      <!-- <div class="company-name">
+      <div class="company-name">
         <p>Cronus, inc</p>
-      </div> -->
+      </div>
 
       <div class="cards">
         <div class="card-container">
@@ -42,15 +42,6 @@
             <span id="activo-total" class="counter"></span>
           </div>
         </div>
-        <!-- <div class="card-container">
-          <span class="title">Passivos</span>
-          <span class="content" style="color: #ff2430"
-            ><span
-              class="counter"
-              style="--from: 50; --to: 100; --time: 2s"
-            ></span
-          ></span>
-        </div> -->
         <div>
           <canvas id="chart"></canvas>
         </div>
@@ -78,7 +69,7 @@
 
       // Create a new Chart instance
       new Chart(ctx, {
-        type: "bar", // The type of chart we want to create
+        type: "line", // The type of chart we want to create
         data: {
           labels: [
             "Jan",
@@ -97,7 +88,7 @@
               data: [65, 59, 80, 81, 56, 55, 40, 85, 55],
               borderColor: colors.primary,
               backgroundColor: "rgba(175, 142, 192, 0.6)",
-              fill: true,
+              fill: false,
             },
           ],
         },
