@@ -13,7 +13,7 @@
 
 #chart {
   display: block;
-  width: 100%;
+  width: 60%;
 }
 
 .company-name p {
@@ -24,7 +24,8 @@
 .cards {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 640px;
+  align-items: center;
 }
 
 .card-container {
@@ -49,7 +50,7 @@
   top: 10px;
   left: 10px;
   font-size: 18px;
-  /* color: #eee; */
+  color: #666;
 }
 
 .card-container .content {

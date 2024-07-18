@@ -9,6 +9,7 @@ const nav = [
       {
         label: "Configurações",
         url: "",
+        icon: 'la-cogs'
       },
     ],
   },
@@ -22,10 +23,29 @@ const nav = [
       {
         label: "Cadastrar novo",
         url: "new.html",
-        icon: null,
+        icon: "la la-plus",
       },
       {
-        label: "Categoria",
+        label: "Categorias",
+        url: "#",
+        icon: null,
+      },
+    ],
+  },
+  {
+    id: "clients",
+    name: "Clientes",
+    path: "pages/clients",
+    icon: "male",
+    show: true,
+    submenu: [
+      {
+        label: "Cadastrar novo",
+        url: "new.html",
+        icon: 'la-plus',
+      },
+      {
+        label: "Categorias",
         url: "#",
         icon: null,
       },
@@ -41,6 +61,11 @@ const nav = [
       {
         label: "Cadastrar novo",
         url: "new.html",
+        icon: 'la-plus',
+      },
+      {
+        label: "Categorias",
+        url: "#",
         icon: null,
       },
     ],
@@ -55,6 +80,11 @@ const nav = [
       {
         label: "Cadastrar novo",
         url: "new.html",
+        icon: 'la-plus',
+      },
+      {
+        label: "Categorias",
+        url: "#",
         icon: null,
       },
     ],
@@ -69,7 +99,7 @@ const nav = [
       {
         label: "Nova",
         url: "new.html",
-        icon: null,
+        icon: 'la-plus',
       },
     ],
   },
@@ -85,7 +115,7 @@ const nav = [
     name: "Microcrédito",
     path: "pages/credito",
     icon: "coins",
-    show: true,
+    show: false,
     submenu: [
       {
         label: "Conceder crédito",
@@ -126,10 +156,10 @@ for (let elt of nav) {
     const color = active ? colors.primary : "auto;";
     let sm = "";
     if (submenu !== undefined) {
-      for ({ label, url } of submenu) {
+      for ({ label, url, icon: ic } of submenu) {
         sm += `<li><a href='${
           base_url + "/" + path + "/" + url
-        }'>${label}</a></li>`;
+        }'><i class='la ${ic || "la-circle"}'></i>${label}</a></li>`;
       }
     }
 
@@ -140,7 +170,7 @@ for (let elt of nav) {
           style='background-color: ${color};color: ${active ? "#fff" : "auto"};'
         >
           <i class='la la-${icon}'></i>
-          <span>${name}</span><i class='la la-angle-down'></i>
+          <span>${name}</span><tiny><i class='la la-angle-down dropdown-icon'></i></tiny>
         </a>
       </li>
       <ul class='sub-menu' id='${id}'>

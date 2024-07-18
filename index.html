@@ -37,14 +37,14 @@
 
       <div class="cards">
         <div class="card-container">
-          <span class="title">Activos</span>
+          <span class="title">Total em activos & Stock</span>
           <div class="content" style="color: #78ee9b">
             <span id="activo-total" class="counter"></span>
           </div>
         </div>
-        <div>
-          <canvas id="chart"></canvas>
-        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart" width="640px"></canvas>
       </div>
     </main>
     <div id="loader">
@@ -52,6 +52,7 @@
     </div>
     <footer>
       <p>CRONUS &copy; 2024</p>
+      <p>Powered by AdvancedTechSpace (ATS)</p>
     </footer>
   </body>
   <script src="./js/config.js"></script>
@@ -81,11 +82,14 @@
             "Jul",
             "Ago",
             "Set",
+            "Out",
+            "Nov",
+            "Dez"
           ],
           datasets: [
             {
               label: "Vendas mensais",
-              data: [65, 59, 80, 81, 56, 55, 40, 85, 55],
+              data: [65, 59, 80, 81, 56, 55, 85],
               borderColor: colors.primary,
               backgroundColor: "rgba(175, 142, 192, 0.6)",
               fill: false,
@@ -96,12 +100,13 @@
           responsive: true,
           scales: {
             x: {
-              beginAtZero: true, 
+              beginAtZero: true,
             },
             y: {
               beginAtZero: true,
             },
           },
+          tension: 0.4
         },
       });
     });
