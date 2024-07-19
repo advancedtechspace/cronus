@@ -188,6 +188,10 @@ input, select {
   margin-bottom: 10px;
 }
 
+input[type="radio"] {
+  margin: auto 5px;
+}
+
 form button {
   margin-top: 10px;
 }
@@ -264,14 +268,13 @@ label {
 }
 
 .form-group label {
-  margin-right: 10px;
+  margin: 10px;
 }
 
 #suggestions {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-bottom: 40px; */
   background-color: var(--body-color);
   width: 100%;
   margin-top: 0;
@@ -285,13 +288,12 @@ label {
   border-radius: 7px;
 }
 
-#suggestions a:hover {
+#suggestions > li a:hover {
   background-color: var(--primary-color);
   color: #fff;
 }
 
 #suggestions > li a {
-  /* margin: auto 5px; */
   border-radius: 10px;
   cursor: pointer;
   color: var(--primary-color);
@@ -323,6 +325,10 @@ label {
   border-radius: var(--btn-radius);
 }
 
+.main-link > li {
+  z-index: 2;
+}
+
 .main-link > a {
   border-radius: 5px;
 }
@@ -341,16 +347,18 @@ label {
 }
 
 .sub-menu {
-  color: #fff;
-  background-color: var(--primary-color);
+  background-color: #fff;
+  color: var(--primary-color);
   padding: 10px 10px;
   position: absolute;
   min-width: 170px;
   border-radius: var(--btn-radius);
   border-top-left-radius: 0;
-  top: calc(var(--header-height) + 5px);
+  top: calc(var(--header-height) + 12px);
   transition: all .3s ease-in-out;
   display: none;
+  z-index: -1;
+  box-shadow: 0 0 1px 1px #f6f6f6;
 }
 
 .sub-menu li {
@@ -358,7 +366,6 @@ label {
 }
 
 .sub-menu a {
-  color: #fff;
   display: block;
   text-align: left;
 }

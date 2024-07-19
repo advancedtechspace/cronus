@@ -65,12 +65,10 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      // Get the canvas element
       const ctx = document.getElementById("chart").getContext("2d");
 
-      // Create a new Chart instance
       new Chart(ctx, {
-        type: "line", // The type of chart we want to create
+        type: "line",
         data: {
           labels: [
             "Jan",

@@ -7,9 +7,10 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'dashboard-config',
         label: "Configurações",
         url: "",
-        icon: 'la-cogs'
+        icon: 'la-tools'
       },
     ],
   },
@@ -21,11 +22,13 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'staff-new',
         label: "Cadastrar novo",
         url: "new.html",
         icon: "la la-plus",
       },
       {
+        id: 'staff-category',
         label: "Categorias",
         url: "#",
         icon: null,
@@ -40,11 +43,19 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'clients-new',
         label: "Cadastrar novo",
         url: "new.html",
         icon: 'la-plus',
       },
       {
+        id: 'clients-payment',
+        label: "Registar um pagamento",
+        url: "#",
+        icon: null,
+      },
+      {
+        id: 'clients-category',
         label: "Categorias",
         url: "#",
         icon: null,
@@ -59,11 +70,13 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'asset-new',
         label: "Cadastrar novo",
         url: "new.html",
         icon: 'la-plus',
       },
       {
+        id: 'asset-category',
         label: "Categorias",
         url: "#",
         icon: null,
@@ -72,17 +85,19 @@ const nav = [
   },
   {
     id: "stock",
-    name: "Stock",
+    name: "Stock e serviços",
     path: "pages/stock",
     icon: "archive",
     show: true,
     submenu: [
       {
+        id: 'stock-new',
         label: "Cadastrar novo",
         url: "new.html",
         icon: 'la-plus',
       },
       {
+        id: 'stock-category',
         label: "Categorias",
         url: "#",
         icon: null,
@@ -97,6 +112,7 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'sales-new',
         label: "Nova",
         url: "new.html",
         icon: 'la-plus',
@@ -118,9 +134,10 @@ const nav = [
     show: false,
     submenu: [
       {
+        id: 'credito-new',
         label: "Conceder crédito",
         url: "new.html",
-        icon: null,
+        icon: 'la-plus',
       },
     ],
   },

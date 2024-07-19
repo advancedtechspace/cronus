@@ -1,5 +1,5 @@
 (async function () {
-  const res = await fetch(api_url + "/cronus/asset/", {
+  const res = await fetch(api_url + "/cronus//stock/total-stock-servicos", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -9,15 +9,22 @@
 
   if (res.status === 200) {
     const data = await res.json();
-    const asset = data.filter(({ removed }) => !removed);
-    let v = 0;
+    const formatterCurrency = new Intl.NumberFormat("pt-MZ", {
+      style: "decimal",
+      currency: "MZN",
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    });
+    const v = data.total;
 
-    for (a of asset) {
-      v += parseFloat(a.valor) || 0;
-    }
     document.getElementById("activo-total").style = `--from: ${(
       v -
       0.1 * v
     ).toFixed(2)}; --to: ${v}; --time: 2s`;
+
+    setTimeout(() => {
+      document.getElementById("activo-total").style = null;
+      document.getElementById("activo-total").innerText = formatterCurrency.format(v);
+    }, 1700);
   }
 })();
