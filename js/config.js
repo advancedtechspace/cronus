@@ -6,12 +6,12 @@ const api_url =
 // For test on github host /cronus
 const base_url =
   window.location.protocol === "https:"
-    ? window.location.origin + '/cronus'
+    ? window.location.origin
     : "http://localhost/cronus";
 
 const colors = {
   secondary: "#6495ed",
-  primary: "#9f34c0"
+  primary: "#9f34c0",
 };
 
 const grade_levels = [
