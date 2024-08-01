@@ -125,7 +125,7 @@ const nav = [
     name: "Contabilidade",
     path: "pages/accounting",
     icon: "credit-card",
-    show: true,
+    show: false,
     submenu: [
       {
         id: 'accounting-new',
