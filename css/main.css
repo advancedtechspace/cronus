@@ -1,7 +1,7 @@
 /*  */
 
 @property --from {
-  syntax: '<integer>';
+  syntax: "<integer>";
   initial-value: 0;
   inherits: false;
 }
@@ -27,7 +27,6 @@
   src: url(../assets/fonts/NunitoSans_10pt-Regular.ttf);
 }
 
-
 /*  */
 
 :root {
@@ -42,6 +41,24 @@
   --light-green: #78ee9b;
   --body-color: #fcfcfc;
 }
+
+/*  */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--body-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
+}
+/*  */
 
 * {
   padding: 0;
@@ -64,7 +81,8 @@ p {
   margin-bottom: 5px;
 }
 
-#a-dashboard {
+#a-dashboard,
+#a-notifications {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,9 +90,36 @@ p {
   background-color: #eee;
   outline: none;
   border: none;
-  /* width: 40px;
-  height: 40px; */
   border-radius: 100%;
+}
+
+#a-notifications {
+  margin-right: 20px;
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+#a-notifications span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: red;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  transform: scale(0);
+  /* animation: notify .4s 2s 1 forwards; */
+}
+
+@keyframes notify {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 ul {
@@ -103,6 +148,11 @@ header {
   top: 0;
   background-color: #fffffff8;
   z-index: 2;
+}
+
+header > div {
+  display: flex;
+  align-items: center;
 }
 
 main {
@@ -177,7 +227,8 @@ form {
   /* display: flex; */
 }
 
-input, select {
+input,
+select {
   font-size: 14px;
   color: #888;
   padding: 5px;
@@ -238,7 +289,8 @@ form button {
   border-radius: var(--btn-radius);
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: var(--primary-color);
 }
 
@@ -300,7 +352,7 @@ label {
   font-size: 14px;
   display: flex;
   align-items: center;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   position: relative;
   padding: 5px;
 }
@@ -355,7 +407,7 @@ label {
   border-radius: var(--btn-radius);
   border-top-left-radius: 0;
   top: calc(var(--header-height) + 12px);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   display: none;
   z-index: -1;
   box-shadow: 0 0 1px 1px #f6f6f6;
@@ -371,7 +423,7 @@ label {
 }
 
 .sub-menu a:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 #loader {
@@ -391,7 +443,7 @@ label {
 .btn-new {
   min-width: 70px;
   background-color: #fff !important;
-  border:  1px solid var(--primary-color);
+  border: 1px solid var(--primary-color);
   color: var(--primary-color) !important;
 }
 
@@ -415,11 +467,11 @@ i {
 }
 
 .btn-circle:hover {
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .btn-circle:active {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .btn-circle-delete {
@@ -451,8 +503,6 @@ tbody {
 th {
   padding: 5px 10px;
 }
-
-
 
 td {
   padding: 10px;

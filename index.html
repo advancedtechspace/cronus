@@ -20,14 +20,6 @@
   </head>
   <body>
     <header>
-      <a href="#" class="logo">
-        <img src="assets/logo.svg" width="30" height="30" />
-        <h1>CRONUS</h1>
-      </a>
-
-      <a id="a-dashboard" href="#">
-        <img width="20" height="20" src="./assets/user.svg" alt="user" />
-      </a>
     </header>
     <main>
       <div id="suggestions"></div>
@@ -51,12 +43,12 @@
       <p>Loading...</p>
     </div>
     <footer>
-      <p>CRONUS &copy; 2024</p>
-      <p>Powered by AdvancedTechSpace (ATS)</p>
+     
     </footer>
   </body>
   <script src="./js/config.js"></script>
   <script src="./js/util.js"></script>
+  <script src="./js/components/index.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/index.js"></script>
   <script>
@@ -64,50 +56,50 @@
       window.location.href = base_url + "/login.html";
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const ctx = document.getElementById("chart").getContext("2d");
+    // document.addEventListener("DOMContentLoaded", () => {
+    //   const ctx = document.getElementById("chart").getContext("2d");
 
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: [
-            "Jan",
-            "Fev",
-            "Mar",
-            "Abr",
-            "Mai",
-            "jun",
-            "Jul",
-            "Ago",
-            "Set",
-            "Out",
-            "Nov",
-            "Dez"
-          ],
-          datasets: [
-            {
-              label: "Vendas mensais",
-              data: [65, 59, 80, 81, 56, 55, 85],
-              borderColor: colors.primary,
-              backgroundColor: "rgba(175, 142, 192, 0.6)",
-              fill: false,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: {
-              beginAtZero: true,
-            },
-            y: {
-              beginAtZero: true,
-            },
-          },
-          tension: 0.4
-        },
-      });
-    });
+    //   new Chart(ctx, {
+    //     type: "line",
+    //     data: {
+    //       labels: [
+    //         "Jan",
+    //         "Fev",
+    //         "Mar",
+    //         "Abr",
+    //         "Mai",
+    //         "jun",
+    //         "Jul",
+    //         "Ago",
+    //         "Set",
+    //         "Out",
+    //         "Nov",
+    //         "Dez"
+    //       ],
+    //       datasets: [
+    //         {
+    //           label: "Vendas mensais",
+    //           data: [0, 0, 0, 0, 0, 0, 0],
+    //           borderColor: colors.primary,
+    //           backgroundColor: "rgba(175, 142, 192, 0.6)",
+    //           fill: false,
+    //         },
+    //       ],
+    //     },
+    //     options: {
+    //       responsive: true,
+    //       scales: {
+    //         x: {
+    //           beginAtZero: true,
+    //         },
+    //         y: {
+    //           beginAtZero: true,
+    //         },
+    //       },
+    //       tension: 0.4
+    //     },
+    //   });
+    // });
 
     wakeupAPI();
   </script>

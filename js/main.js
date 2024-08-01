@@ -37,23 +37,24 @@ const nav = [
   },
   {
     id: "clients",
-    name: "Clientes",
+    name: "Consumidores",
     path: "pages/clients",
     icon: "male",
     show: true,
     submenu: [
+      {
+        id: 'clients-list',
+        label: "Listagem",
+        url: "#",
+        icon: null,
+      },
       {
         id: 'clients-new',
         label: "Cadastrar novo",
         url: "new.html",
         icon: 'la-plus',
       },
-      {
-        id: 'clients-payment',
-        label: "Registar um pagamento",
-        url: "#",
-        icon: null,
-      },
+     
       {
         id: 'clients-category',
         label: "Categorias",
@@ -109,7 +110,7 @@ const nav = [
     name: "Vendas",
     path: "pages/sales",
     icon: "store",
-    show: true,
+    show: false,
     submenu: [
       {
         id: 'sales-new',
@@ -124,7 +125,15 @@ const nav = [
     name: "Contabilidade",
     path: "pages/accounting",
     icon: "credit-card",
-    show: false,
+    show: true,
+    submenu: [
+      {
+        id: 'accounting-new',
+        label: "Nova transação",
+        url: "new.html",
+        icon: 'la-plus',
+      },
+    ],
   },
   {
     id: "credito",
@@ -205,6 +214,10 @@ if (window.location.href === base_url + "/") {
   document.querySelector("#suggestions a").style.color = "#fff";
 }
 
+document.querySelector('header').innerHTML = main_header;
+document.querySelector('footer').innerHTML = main_footer;
+
+
 document.getElementById("a-dashboard").addEventListener("click", () => {
   localStorage.removeItem("user");
   window.location.href = base_url + "/login.html";
@@ -232,5 +245,6 @@ async function removeItem(id, item) {
     });
   }
 }
+
 
 document.querySelector(".logo").href = base_url;
