@@ -1,6 +1,6 @@
 const api_url =
   window.location.protocol === "https:"
-    ? "https://api-master.onrender.com"
+    ? "https://api-production-dbdb.up.railway.app/"
     : "http://localhost:8000";
 
 const base_url =
