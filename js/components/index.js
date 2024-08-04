@@ -18,5 +18,5 @@ const main_header = `
 
 const main_footer = `
     <p>CRONUS &copy; 2024</p>
-    <p>Powered by AdvancedTechSpace (ATS)</p>
+    <p>Powered by <a href='https://advancedtechspace.com' target='_blank'>AdvancedTechSpace (ATS)</a></p>
 `

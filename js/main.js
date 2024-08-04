@@ -110,7 +110,7 @@ const nav = [
     name: "Vendas",
     path: "pages/sales",
     icon: "store",
-    show: false,
+    show: true,
     submenu: [
       {
         id: 'sales-new',

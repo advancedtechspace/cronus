@@ -6,21 +6,21 @@
     <title>CRONUS</title>
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
       integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
-    />
+    /> -->
+    <link rel="stylesheet" href="libraries/css/line-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-    <header>
-    </header>
+    <header></header>
     <main>
       <div id="suggestions"></div>
       <div class="company-name">
@@ -39,12 +39,17 @@
         <canvas id="chart" width="640px"></canvas>
       </div>
     </main>
-    <div id="loader">
-      <p>Loading...</p>
-    </div>
-    <footer>
-     
-    </footer>
+    <!-- <div id="loader">
+      <p>
+        <img
+          src="assets/img/loading.gif"
+          width="20"
+          height="20"
+          alt="loader"
+        /><span>Carregando...</span>
+      </p>
+    </div> -->
+    <footer></footer>
   </body>
   <script src="./js/config.js"></script>
   <script src="./js/util.js"></script>
