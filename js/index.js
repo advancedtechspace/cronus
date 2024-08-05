@@ -28,3 +28,21 @@
     }, 1700);
   }
 })();
+
+
+getUser()
+
+async function getUser() {
+  const res = await fetch(api_url + "/user/" + localStorage.getItem('user'), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if(res.status === 200) {
+    const user = await res.json()
+    document.querySelector('.company-name p').innerText = user.name;
+    console.log(user)
+  }
+}

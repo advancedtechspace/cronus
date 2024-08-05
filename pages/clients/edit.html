@@ -33,10 +33,10 @@
       <div id="suggestions"></div>
       <div class="main">
         <div class="main-header">
-          <h3>Editar cliente</h3>
+          <h3>Editar consumidor</h3>
         </div>
         <div class="main-body">
-          <form id="form-new-staff">
+          <form id="form-new-client">
             <div class="form">
               <div class="form-group">
                 <label for="first-name">Nome:</label>
@@ -54,32 +54,6 @@
                 <input type="text" name="surname" id="surname" required />
               </div>
               <div class="form-group">
-                <label for="nivel">Nivel:</label>
-                <select type="text" name="nivel" id="nivel">
-                  <option value="">--Seleccion um--</option>
-                  <option value="0">Básico</option>
-                  <option value="1">Médio</option>
-                  <option value="2">Bacharel</option>
-                  <option value="3">Licenciado</option>
-                  <option value="4">Mestre</option>
-                  <option value="5">PhD</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="area-formacao">Area:</label>
-                <select type="text" name="area-formacao" id="area-formacao">
-                  <!-- <option value="">--Seleccione uma--</option>
-                  <option value="0">Matemática & Estatistica</option>
-                  <option value="1">Engenharia</option>
-                  <option value="2">Administração & Gestão</option>
-                  <option value="3">Economia e finaças</option>
-                  <option value="4">Contabilidade e Auditoria</option>
-                  <option value="5">Dirieto</option>
-                  <option value="6">Saúde</option>
-                  <option value="-1">Outro</option> -->
-                </select>
-              </div>
-              <div class="form-group">
                 <label for="birthday">Nascimento: </label>
                 <input type="date" name="birthday" id="birthday" required />
               </div>
@@ -92,16 +66,6 @@
                   <option value="2">Divorciado</option>
                   <option value="3">Viuvo</option>
                 </select>
-              </div>
-              <div class="form-group">
-                <label for="dependentes">Dependentes:</label>
-                <input
-                  type="number"
-                  name="dependentes"
-                  class="input-thin"
-                  min="0"
-                  id="dependentes"
-                />
               </div>
               <div class="form-group">
                 <label for="id">BI:</label>
@@ -128,10 +92,6 @@
                 <input type="date" name="contract-ends" id="contract-ends" />
               </div>
               <div class="form-group">
-                <label for="salario">Salário: </label>
-                <input type="number" name="salario" id="salario" min="1000" />
-              </div>
-              <div class="form-group">
                 <label for="categoria">Categoria:</label>
                 <select
                   type="text"
@@ -146,7 +106,7 @@
           </form>
         </div>
         <div class="main-footer">
-          <button type="submit" form="form-new-staff" id="btn-update">
+          <button type="submit" form="form-new-client" id="btn-update">
             Salvar
           </button>
         </div>
@@ -163,19 +123,19 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
-  <!-- <script src="../../js/staff/index.js"></script> -->
+  <script src="../../js/client/index.js"></script>
   <script>
     const url = new URL(window.location.href);
-    const staff = url.searchParams.get("col");
+    const client = url.searchParams.get("col");
 
     getCategorias().then(() => {
-      getStaff();
+      getClient();
     });
 
-    async function getStaff() {
+    async function getClient() {
       let trows = "";
 
-      const res = await fetch(api_url + "/cronus/staff/", {
+      const res = await fetch(api_url + "/cronus/client/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -185,7 +145,7 @@
 
       if (res.status === 200) {
         const data = await res.json();
-        const col = data.find(({ _id }) => _id === staff);
+        const col = data.find(({ _id }) => _id === client);
         console.log(col);
         const {
           firstName,
@@ -223,7 +183,7 @@
     }
 
     document
-      .getElementById("form-new-staff")
+      .getElementById("form-new-client")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
         const btnUpdate = document.getElementById("btn-update");
@@ -259,12 +219,12 @@
           areaFormacao
         };
 
-        const res = await fetch(api_url + "/cronus/staff/update", {
+        const res = await fetch(api_url + "/cronus/client/update", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
-            staff,
+            client,
           },
           body: JSON.stringify(data),
         });
@@ -289,7 +249,7 @@
         const categoria = prompt("Nome da categoria:");
 
         if (categoria) {
-          const res = await fetch(api_url + "/cronus/staff/categoria/create", {
+          const res = await fetch(api_url + "/cronus/client/categoria/create", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -308,7 +268,7 @@
     async function getCategorias() {
       let trows = "";
 
-      const res = await fetch(api_url + "/cronus/staff/categoria", {
+      const res = await fetch(api_url + "/cronus/client/categoria", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

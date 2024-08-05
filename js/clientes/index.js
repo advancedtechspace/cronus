@@ -1,9 +1,9 @@
 const inpSearch = document.querySelector(".inp-search");
 
-async function getStaff() {
+async function getClient() {
   let trows = "";
 
-  const res = await fetch(api_url + "/cronus/staff/", {
+  const res = await fetch(api_url + "/cronus/client/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -13,8 +13,6 @@ async function getStaff() {
 
   const thead = `
     <th>Nome</th>
-    <th>Area</th>
-    <th>Nivel</th>
     <th>Telefone</th>
     <th>Morada</th>
     <th>Acções</th>`;
@@ -22,22 +20,17 @@ async function getStaff() {
   if (res.status === 200) {
     const d = await res.json();
     const data = d.filter(({ removed }) => !removed);
-    for (colaborador of data) {
-      const { firstName, categoria, morada, tel, nivel, areaFormacao, _id } =
-        colaborador;
+    for (cliente of data) {
+      const { firstName, morada, tel, _id } = cliente;
 
       trows += `
         <tr>
           <td>${firstName}</td>
-          <td>${
-            areaFormacao && areas.find(({ id }) => id === areaFormacao)?.label
-          }</td>
-          <td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>
           <td>${tel}</td>
           <td>${morada || ""}</td>
           <td width='20%'>
-            <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
-            <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
+            <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="client-edit-0"><i class='la la-edit'></i></button></a>
+            <button class="btn-circle btn-circle-delete btn-delete-client" id="${_id}"><i class='la la-trash'></i></button>
           </td>
         </tr>
       `;
@@ -47,10 +40,10 @@ async function getStaff() {
     document.querySelector("thead").innerHTML = thead;
 
     inpSearch.addEventListener("keyup", (e) =>
-      searchStaff(e.target.value, data)
+      searchClient(e.target.value, data)
     );
 
-    document.querySelectorAll(".btn-delete-staff").forEach((btn) => {
+    document.querySelectorAll(".btn-delete-client").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         Swal.fire({
           title: "Tem certeza?",
@@ -63,7 +56,7 @@ async function getStaff() {
         }).then((result) => {
           if (result.isConfirmed) {
             const id = e.target.id;
-            removeItem(id, "staff");
+            removeItem(id, "client");
           }
         });
       });
@@ -71,40 +64,34 @@ async function getStaff() {
   }
 }
 
-getStaff();
+getClient();
 
-function searchStaff(value, data) {
+function searchClient(value, data) {
   let trows = "";
 
   const thead = `
     <th>Nome</th>
-    <th>Area</th>
-    <th>Nivel</th>
     <th>Telefone</th>
     <th>Morada</th>
     <th>Acções</th>`;
 
-  const d = data.filter(({ firstName, surname }) =>
-    firstName.toLowerCase().includes(value.toLowerCase()) ||
-    surname.toLowerCase().includes(value.toLowerCase())
+  const d = data.filter(
+    ({ firstName, surname }) =>
+      firstName.toLowerCase().includes(value.toLowerCase()) ||
+      surname.toLowerCase().includes(value.toLowerCase())
   );
 
-  for (colaborador of d) {
-    const { firstName, categoria, morada, tel, nivel, areaFormacao, _id } =
-      colaborador;
+  for (cliente of d) {
+    const { firstName, morada, tel, _id } = cliente;
 
     trows += `
       <tr>
         <td>${firstName}</td>
-        <td>${
-          areaFormacao && areas.find(({ id }) => id === areaFormacao)?.label
-        }</td>
-        <td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>
         <td>${tel}</td>
         <td>${morada || ""}</td>
         <td width='20%'>
-          <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
-          <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
+          <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="client-edit-0"><i class='la la-edit'></i></button></a>
+          <button class="btn-circle btn-circle-delete btn-delete-client" id="${_id}"><i class='la la-trash'></i></button>
         </td>
       </tr>
     `;
@@ -114,4 +101,4 @@ function searchStaff(value, data) {
   document.querySelector("thead").innerHTML = thead;
 }
 
-wakeupAPI()
+wakeupAPI();

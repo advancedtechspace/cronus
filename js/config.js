@@ -23,12 +23,13 @@ const grade_levels = [
 ];
 
 const areas = [
-  { id: "0", label: "Engenharia" },
-  { id: "1", label: "Administração & Gestão" },
-  { id: "2", label: "Economia e finaças" },
-  { id: "3", label: "Contabilidade e Auditoria" },
-  { id: "4", label: "Direito" },
-  { id: "5", label: "Saúde" },
+  { id: "eng", label: "Engenharia" },
+  { id: "mat", label: "Matemática & Estatística" },
+  { id: "adm", label: "Administração & Gestão" },
+  { id: "fin", label: "Economia e finaças" },
+  { id: "cont", label: "Contabilidade e Auditoria" },
+  { id: "direito", label: "Direito" },
+  { id: "saude", label: "Saúde" },
   { id: "-1", label: "Outro" },
 ];
 

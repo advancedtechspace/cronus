@@ -225,6 +225,7 @@ document.getElementById("a-dashboard").addEventListener("click", () => {
 
 //
 async function removeItem(id, item) {
+  console.log(item, id)
   const res = await fetch(api_url + "/cronus/remove", {
     method: "DELETE",
     headers: {
