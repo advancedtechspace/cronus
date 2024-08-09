@@ -30,7 +30,7 @@ async function getStock() {
       trows += `
           <tr>
             <td>${desc}</td>
-            <td>${valor}</td>
+            <td>${formatCurrency(valor)}</td>
             <td>${quantidade}</td>
             <td width='20%'>
               <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>

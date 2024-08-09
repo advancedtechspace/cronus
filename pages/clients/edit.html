@@ -9,14 +9,9 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
-      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -68,8 +63,8 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="id">BI:</label>
-                <input type="text" name="id" id="id" />
+                <label for="bi">BI:</label>
+                <input type="text" name="bi" id="bi" />
               </div>
               <div class="form-group">
                 <label for="nuit">NUIT:</label>
@@ -81,7 +76,7 @@
               </div>
               <div class="form-group">
                 <label for="morada">Morada: </label>
-                <input type="tel" name="morada" id="morada" />
+                <input type="text" name="morada" id="morada" />
               </div>
               <div class="form-group">
                 <label for="contract">Início do contracto: </label>
@@ -122,6 +117,7 @@
   </body>
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
   <script src="../../js/main.js"></script>
   <script src="../../js/client/index.js"></script>
   <script>
@@ -152,7 +148,7 @@
           categoria,
           surname,
           morada,
-          id,
+          bi,
           nuit,
           tel,
           salario,
@@ -166,15 +162,11 @@
         } = col;
         document.querySelector("#first-name").value = firstName;
         document.querySelector("#surname").value = surname;
-        document.querySelector("#id").value = id || "";
+        document.querySelector("#bi").value = bi || "";
         document.querySelector("#nuit").value = nuit || "";
         document.querySelector("#tel").value = tel;
-        document.querySelector("#salario").value = salario;
-        document.querySelector("#dependentes").value = dependentes;
         document.querySelector("#birthday").value = birthday;
-        document.querySelector("#nivel").value = nivel;
         document.querySelector("#estado-civil").value = estadoCivil;
-        document.querySelector("#area-formacao").value = areaFormacao;
         document.querySelector("#select-categoria").value = categoria || "";
         document.querySelector("#contract").value = contract || "";
         document.querySelector("#contract-ends").value = contractEnds || "";
@@ -192,7 +184,7 @@
 
         const firstName = form.get("first-name");
         const surname = form.get("surname");
-        const id = form.get("id");
+        const bi = form.get("bi");
         const nuit = form.get("nuit");
         const tel = form.get("tel");
         const salario = form.get("salario");
@@ -216,7 +208,9 @@
           contract,
           contractEnds,
           morada,
-          areaFormacao
+          areaFormacao,
+          nuit,
+          bi,
         };
 
         const res = await fetch(api_url + "/cronus/client/update", {
@@ -295,7 +289,5 @@
     for ({ id, label } of areas) {
       areas_de_formacao += `<option value='${id}'>${label}</option>`;
     }
-
-    document.getElementById("area-formacao").innerHTML = areas_de_formacao;
   </script>
 </html>

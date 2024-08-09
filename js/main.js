@@ -107,14 +107,14 @@ const nav = [
   },
   {
     id: "sales",
-    name: "Vendas",
+    name: "Pagamentos",
     path: "pages/sales",
-    icon: "store",
+    icon: "credit-card",
     show: true,
     submenu: [
       {
         id: 'sales-new',
-        label: "Nova",
+        label: "Nova venda",
         url: "new.html",
         icon: 'la-plus',
       },

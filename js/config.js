@@ -44,3 +44,14 @@ const Toast = Swal.mixin({
     toast.onmouseleave = Swal.resumeTimer;
   },
 });
+
+function formatCurrency(val) {
+  const formatterCurrency = new Intl.NumberFormat("pt-MZ", {
+    style: "decimal",
+    currency: "MZN",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  return formatterCurrency.format(val);
+};

@@ -9,14 +9,9 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
-      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css">
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -57,6 +52,7 @@
                     value="1"
                   />
                 </div>
+               
                 <button class="btn-circle" id="btn-add-product">
                   <i class="la la-plus-circle"></i>
                 </button>
@@ -71,6 +67,15 @@
           </div>
         </div>
         <div class="main-footer">
+          <div class="form-group">
+            <label for="bi">BI: </label>
+            <input
+              type="text"
+              name="bi"
+              id="bi"
+              placeholder="BI do utilizador"
+            />
+          </div>
           <button type="submit" form="form-new-sell" id="btn-submit">
             Concluir
           </button>
@@ -87,6 +92,7 @@
   </body>
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
   <script src="../../js/main.js"></script>
   <!-- <script src="../../js/asset/index.js"></script> -->
   <script>
@@ -97,13 +103,13 @@
       .addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        const bi = document.getElementById("bi").value;
+
         if (cart.length === 0) {
           return;
         }
 
         document.querySelector("#btn-submit").disabled = true;
-
-        const form = new FormData(e.target);
 
         const res = await fetch(api_url + "/cronus/sales/create", {
           method: "POST",
@@ -111,16 +117,15 @@
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
           },
-          body: JSON.stringify(cart),
+          body: JSON.stringify({cart, bi}),
         });
 
         if (res.status === 200) {
           Toast.fire({
             icon: "success",
-            title: "Gravado com sucesso",
+            text: "Gravado com sucesso",
           }).then(async () => {
             const sell = await res.json();
-            console.log(sell);
             cart = [];
             document.querySelector("thead").innerHTML = "";
             document.querySelector("tbody").innerHTML = "";
@@ -156,7 +161,6 @@
 
       if (res.status === 200) {
         const data = await res.json();
-        console.log(data);
         let options = new String();
         for (c of data) {
           const { _id, desc } = c;
@@ -172,6 +176,7 @@
       const selected = document.getElementById("select-product");
       const product = selected.value;
       const quantidade = document.getElementById("quantidade").value;
+      
       const product_label =
         document.getElementById("select-product").options[
           selected.selectedIndex
@@ -186,6 +191,7 @@
       }
 
       cart.push({ product, quantidade, product_label });
+      console.log(cart)
 
       const thead = `
           <th>Producto</th>
@@ -216,6 +222,7 @@
             cart = cart.filter(({ product }) => product !== id);
             trows = "";
             for (p of cart) {
+              console.log(p)
               trows += `
                 <tr>
                   <td>${p.product_label}</td>

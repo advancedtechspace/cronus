@@ -10,10 +10,10 @@
       type="image/x-icon"
     />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css">
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../../css/main.css" />
     <script src="../../libraries/js/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
   </head>
   <body>
     <header>
@@ -29,7 +29,7 @@
       <div id="suggestions"></div>
       <div class="main">
         <div class="main-header">
-          <h3>Editar colaborador</h3>
+          <h3>Consultar colaborador</h3>
         </div>
         <div class="main-body">
           <form id="form-new-staff">
@@ -42,16 +42,23 @@
                   id="first-name"
                   autofocus
                   required
+                  disabled
                 />
               </div>
 
               <div class="form-group">
                 <label for="surname">Sobrenome:</label>
-                <input type="text" name="surname" id="surname" required />
+                <input
+                  type="text"
+                  name="surname"
+                  id="surname"
+                  required
+                  disabled
+                />
               </div>
               <div class="form-group">
                 <label for="nivel">Nivel:</label>
-                <select type="text" name="nivel" id="nivel">
+                <select type="text" name="nivel" id="nivel" disabled>
                   <option value="">--Seleccion um--</option>
                   <option value="0">Básico</option>
                   <option value="1">Médio</option>
@@ -63,7 +70,12 @@
               </div>
               <div class="form-group">
                 <label for="area-formacao">Area:</label>
-                <select type="text" name="area-formacao" id="area-formacao">
+                <select
+                  type="text"
+                  name="area-formacao"
+                  id="area-formacao"
+                  disabled
+                >
                   <option value="">--Seleccione uma--</option>
                   <option value="eng">Engenharia</option>
                   <option value="mat">Matemática & Estatística</option>
@@ -77,11 +89,17 @@
               </div>
               <div class="form-group">
                 <label for="birthday">Nascimento: </label>
-                <input type="date" name="birthday" id="birthday" required />
+                <input
+                  type="date"
+                  name="birthday"
+                  id="birthday"
+                  required
+                  disabled
+                />
               </div>
               <div class="form-group">
                 <label for="estado-civil">Estado civil: </label>
-                <select name="estado-civil" id="estado-civil">
+                <select name="estado-civil" id="estado-civil" disabled>
                   <option value="">--Seleccione um--</option>
                   <option value="0">Solteiro</option>
                   <option value="1">Casado</option>
@@ -97,35 +115,47 @@
                   class="input-thin"
                   min="0"
                   id="dependentes"
+                  disabled
                 />
               </div>
               <div class="form-group">
                 <label for="bi">BI:</label>
-                <input type="text" name="bi" id="bi" />
+                <input type="text" name="bi" id="bi" disabled />
               </div>
               <div class="form-group">
                 <label for="nuit">NUIT:</label>
-                <input type="text" name="nuit" id="nuit" />
+                <input type="text" name="nuit" id="nuit" disabled />
               </div>
               <div class="form-group">
                 <label for="tel">Telefone: </label>
-                <input type="tel" name="tel" id="tel" />
+                <input type="tel" name="tel" id="tel" disabled />
               </div>
               <div class="form-group">
                 <label for="morada">Morada: </label>
-                <input type="tel" name="morada" id="morada" />
+                <input type="tel" name="morada" id="morada" disabled />
               </div>
               <div class="form-group">
                 <label for="contract">Início do contracto: </label>
-                <input type="date" name="contract" id="contract" />
+                <input type="date" name="contract" id="contract" disabled />
               </div>
               <div class="form-group">
                 <label for="contract-ends">Fim do contracto: </label>
-                <input type="date" name="contract-ends" id="contract-ends" />
+                <input
+                  type="date"
+                  name="contract-ends"
+                  id="contract-ends"
+                  disabled
+                />
               </div>
               <div class="form-group">
                 <label for="salario">Salário: </label>
-                <input type="number" name="salario" id="salario" min="1000" />
+                <input
+                  type="number"
+                  name="salario"
+                  id="salario"
+                  min="1000"
+                  disabled
+                />
               </div>
               <div class="form-group">
                 <label for="categoria">Categoria:</label>
@@ -133,19 +163,14 @@
                   type="text"
                   name="categoria"
                   id="select-categoria"
+                  disabled
                 ></select>
-                <span class="btn-circle" id="btn-add-categoria"
-                  ><i class="la la-plus-circle"></i
-                ></span>
+               
               </div>
             </div>
           </form>
         </div>
-        <div class="main-footer">
-          <button type="submit" form="form-new-staff" id="btn-update">
-            Salvar
-          </button>
-        </div>
+        <div class="main-footer"></div>
       </div>
 
       <div id="loader">
@@ -223,6 +248,7 @@
       .getElementById("form-new-staff")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
+        return;
         const btnUpdate = document.getElementById("btn-update");
         btnUpdate.disabled = true;
         const form = new FormData(e.target);
@@ -253,7 +279,7 @@
           contract,
           contractEnds,
           morada,
-          areaFormacao
+          areaFormacao,
         };
 
         const res = await fetch(api_url + "/cronus/staff/update", {
@@ -278,29 +304,6 @@
         btnUpdate.disabled = false;
       });
 
-    //
-    document
-      .querySelector("#btn-add-categoria")
-      .addEventListener("click", async (e) => {
-        e.preventDefault();
-        const categoria = prompt("Nome da categoria:");
-
-        if (categoria) {
-          const res = await fetch(api_url + "/cronus/staff/categoria/create", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              user: localStorage.getItem("user"),
-            },
-            body: JSON.stringify({ label: categoria }),
-          });
-
-          if (res.status === 200) {
-            getCategorias();
-            alert("Gravado com sucesso.");
-          }
-        }
-      });
 
     async function getCategorias() {
       let trows = "";
@@ -315,7 +318,6 @@
 
       if (res.status === 200) {
         const data = await res.json();
-        console.log(data);
         let options = new String();
         for (c of data) {
           const { _id, label } = c;

@@ -1,5 +1,5 @@
 (async function () {
-  const res = await fetch(api_url + "/cronus//stock/total-stock-servicos", {
+  const res = await fetch(api_url + "/cronus/stock/total-stock-servicos", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -9,6 +9,7 @@
 
   if (res.status === 200) {
     const data = await res.json();
+    console.log(data)
     const formatterCurrency = new Intl.NumberFormat("pt-MZ", {
       style: "decimal",
       currency: "MZN",
@@ -22,10 +23,10 @@
       0.1 * v
     ).toFixed(2)}; --to: ${v}; --time: 2s`;
 
-    setTimeout(() => {
-      document.getElementById("activo-total").style = null;
-      document.getElementById("activo-total").innerText = formatterCurrency.format(v);
-    }, 1700);
+    // setTimeout(() => {
+    //   document.getElementById("activo-total").style = null;
+    //   document.getElementById("activo-total").innerText = formatterCurrency.format(v);
+    // }, 1700);
   }
 })();
 
@@ -42,6 +43,7 @@ async function getUser() {
 
   if(res.status === 200) {
     const user = await res.json()
+    console.log(user)
     document.querySelector('.company-name p').innerText = user.name;
     console.log(user)
   }
