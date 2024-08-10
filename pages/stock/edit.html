@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="../../assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="../../assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <div class="main">
+        <div class="main-header">
+          <h3>Editar item</h3>
+        </div>
+        <div class="main-body">
+          <form id="form-new-stock">
+            <div class="form">
+              <div class="form-group">
+                <label for="desc">Nome:</label>
+                <input type="text" name="desc" id="desc" required />
+              </div>
+              <div class="form-group">
+                <label for="valor">Valor unitáro: </label>
+                <input type="number" name="valor" id="valor" />
+              </div>
+              <div class="form-group">
+                <label for="quantidade">Quantidade: </label>
+                <input
+                  type="number"
+                  name="quantidade"
+                  class="input-thin"
+                  id="quantidade"
+                  min="1"
+                />
+              </div>
+              <div class="form-group">
+                <label>Tipo:</label>
+                <label for="radio-stock">Stock</label>
+                <input
+                  type="radio"
+                  name="s-s"
+                  id="radio-stock"
+                  value="0"
+                  checked
+                />
+                <label for="radio-servico">Serviço</label>
+                <input type="radio" name="s-s" id="radio-servico" value="1" />
+              </div>
+              <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select
+                  type="text"
+                  name="categoria"
+                  id="select-categoria"
+                ></select>
+                <button class="btn-circle" id="btn-add-categoria">
+                  <i class="la la-plus-circle"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="main-footer">
+          <button type="submit" form="form-new-stock" id="btn-submit">
+            Salvar
+          </button>
+        </div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+    </main>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
+  <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
+  <script>
+    const url = new URL(window.location.href);
+    const stock = url.searchParams.get("id");
+
+    getCategorias().then(() => {
+      getStock();
+    });
+
+    async function getStock() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/stock/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        const col = data.find(({ _id }) => _id === stock);
+        console.log(col);
+        const { desc, quantidade, categoria, valor } = col;
+        document.querySelector("#desc").value = desc;
+        document.querySelector("#quantidade").value = quantidade;
+        document.querySelector("#valor").value = valor;
+        document.querySelector("#select-categoria").value = categoria;
+      }
+    }
+
+    document
+      .getElementById("form-new-stock")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        document.querySelector("#btn-submit").disabled = true;
+
+        const form = new FormData(e.target);
+
+        const desc = form.get("desc");
+        const valor = form.get("valor");
+        const quantidade = form.get("quantidade");
+        const categoria = form.get("categoria");
+        const tipo = form.get("s-s");
+
+        const data = {
+          desc,
+          valor,
+          quantidade,
+          categoria,
+          tipo,
+        };
+
+        const res = await fetch(api_url + "/cronus/stock/update", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            user: localStorage.getItem("user"),
+            stock,
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (res.status === 200) {
+          Toast.fire({
+            icon: "success",
+            text: "Gravado com sucesso",
+          })
+        }
+
+        document.querySelector("#btn-submit").disabled = false;
+      });
+
+    //
+
+    document
+      .querySelector("#btn-add-categoria")
+      .addEventListener("click", async (e) => {
+        e.preventDefault();
+        const categoria = prompt("Nome da categoria:");
+
+        if (categoria) {
+          const res = await fetch(api_url + "/cronus/stock/categoria/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              user: localStorage.getItem("user"),
+            },
+            body: JSON.stringify({ label: categoria }),
+          });
+
+          if (res.status === 200) {
+            Toast.fire({
+              icon: "success",
+              title: "Gravado com sucesso",
+            });
+            getCategorias();
+          }
+        }
+      });
+
+    async function getCategorias() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/stock/categoria", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        let options = new String();
+        for (c of data) {
+          const { _id, label } = c;
+          options += `<option value='${_id}'>${label}</option>`;
+        }
+        document.getElementById("select-categoria").innerHTML = options;
+      }
+    }
+
+    wakeupAPI();
+  </script>
+</html>

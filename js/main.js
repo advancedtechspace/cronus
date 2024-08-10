@@ -22,6 +22,12 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'staff-list',
+        label: "Listagem",
+        url: "#",
+        icon: null,
+      },
+      {
         id: 'staff-new',
         label: "Cadastrar novo",
         url: "new.html",
@@ -71,6 +77,12 @@ const nav = [
     show: true,
     submenu: [
       {
+        id: 'asset-list',
+        label: "Listagem",
+        url: "#",
+        icon: null,
+      },
+      {
         id: 'asset-new',
         label: "Cadastrar novo",
         url: "new.html",
@@ -86,11 +98,17 @@ const nav = [
   },
   {
     id: "stock",
-    name: "Stock e serviços",
+    name: "Inventário e serviços",
     path: "pages/stock",
     icon: "archive",
     show: true,
     submenu: [
+      {
+        id: 'stock-list',
+        label: "Listagem",
+        url: "#",
+        icon: null,
+      },
       {
         id: 'stock-new',
         label: "Cadastrar novo",
@@ -107,11 +125,17 @@ const nav = [
   },
   {
     id: "sales",
-    name: "Pagamentos",
+    name: "Contabilidade",
     path: "pages/sales",
-    icon: "credit-card",
+    icon: "dollar",
     show: true,
     submenu: [
+      {
+        id: 'sales-list',
+        label: "Listagem de facturas",
+        url: "#",
+        icon: null,
+      },
       {
         id: 'sales-new',
         label: "Nova venda",

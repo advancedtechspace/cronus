@@ -1,7 +1,18 @@
 const main_header = `
     <div id="header-left">
+        <label class="ui-switch">
+        <input type="checkbox" ${
+          localStorage.getItem("theme-mode") !== "light" && "checked"
+        } onchange="changeTheme();">
+        <div class="slider">
+          <div class="circle"></div>
+        </div>
+      </label>
+    </div>
+
+    <div id="header-center">
         <a href="#" class="logo">
-        <img src="${base_url}/assets/logo.svg" width="30" height="30" />
+        <img src="${base_url}/assets/logo.svg" width="25" height="25" />
         <h1>CRONUS</h1>
         </a>
     </div>
@@ -47,4 +58,19 @@ function toggleNottifications() {
     notifications.style.display = "block";
   }
   shown = !shown;
+}
+
+function changeTheme() {
+  const themeMode = localStorage.getItem("theme-mode");
+  if (themeMode === null) {
+    localStorage.setItem("theme-mode", "dark");
+    return;
+  }
+
+  localStorage.setItem(
+    "theme-mode",
+    localStorage.getItem("theme-mode") === "light" ? "dark" : "light"
+  );
+
+  theme();
 }
