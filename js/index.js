@@ -9,7 +9,6 @@
 
   if (res.status === 200) {
     const data = await res.json();
-    console.log(data)
     const formatterCurrency = new Intl.NumberFormat("pt-MZ", {
       style: "decimal",
       currency: "MZN",
@@ -43,8 +42,6 @@ async function getUser() {
 
   if(res.status === 200) {
     const user = await res.json()
-    console.log(user)
     document.querySelector('.company-name p').innerText = user.name;
-    console.log(user)
   }
 }

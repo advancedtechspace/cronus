@@ -401,6 +401,8 @@ label {
   transition: all 0.3s ease-in-out;
   position: relative;
   padding: 5px;
+  background-color: #eee;
+
 }
 
 #suggestions a i {
@@ -418,18 +420,12 @@ label {
 }
 
 .main-link {
-  margin: 5px 2px;
+  margin: 5px 5px;
   border-radius: var(--btn-radius);
-  /* background-color: #eee; */
-  padding: 3px;
 }
 
 .main-link > li {
   z-index: 2;
-}
-
-.main-link > a {
-  border-radius: 5px;
 }
 
 .main-link:hover .sub-menu {
