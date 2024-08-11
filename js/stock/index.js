@@ -14,24 +14,31 @@ async function getStock() {
     <th>Nome</th>
     <th>Valor unitario</th>
     <th>Quantidade</th>
+    <th>Expira</th>
     <th>Acções</th>
   `;
 
   if (res.status === 200) {
-    const data = (await res.json()).filter(({desc, removed}) => desc && !removed);
-    
+    const data = (await res.json()).filter(
+      ({ desc, removed }) => desc && !removed
+    );
+
     console.log(data);
     for (stock of data) {
-      const {
-        desc, valor, quantidade,
-        _id,
-      } = stock;
+      const { desc, valor, quantidade, _id, expira } = stock;
+
+      const oneDay = 1000 * 60 * 60 * 24;
+      const exp = !expira
+        ? ""
+        : (new Date().getTime() - new Date(expira).getTime()) / oneDay;
+      const ramainingDays = Math.round(Math.abs(exp));
 
       trows += `
           <tr>
             <td>${desc}</td>
             <td>${formatCurrency(valor)}</td>
             <td>${quantidade}</td>
+            <td style='color:${ramainingDays < 32 ? 'red' : 'green'};'>${exp == 0 ? '' : `${expira} (${ramainingDays} dias)`}</td>
             <td width='20%'>
               <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
               <button class="btn-circle btn-circle-delete btn-delete-stock" id="${_id}"><i class='la la-trash'></i></button>
@@ -56,7 +63,7 @@ async function getStock() {
         }).then((result) => {
           if (result.isConfirmed) {
             const id = e.target.id;
-            removeItem(id, 'stock');
+            removeItem(id, "stock");
           }
         });
       });
@@ -64,4 +71,4 @@ async function getStock() {
   }
 }
 
-wakeupAPI()
+wakeupAPI();

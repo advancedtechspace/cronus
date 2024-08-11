@@ -14,10 +14,9 @@ async function getStaff() {
   const thead = `
     <th>Nome</th>
     <th>Area</th>
-    <th>Nivel</th>
+    <!--<th>Nivel</th>-->
     <th>Telefone</th>
-    <th>Morada</th>
-    <th>Acções</th>`;
+    <th style="width: 30%;">Acções</th>`;
 
   if (res.status === 200) {
     const d = await res.json();
@@ -32,9 +31,8 @@ async function getStaff() {
           <td>${
             areaFormacao && areas.find(({ id }) => id === areaFormacao)?.label
           }</td>
-          <td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>
+          <!--<td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>-->
           <td>${tel}</td>
-          <td>${morada || ""}</td>
           <td width='20%'>
             <a href="./show.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>

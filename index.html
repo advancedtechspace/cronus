@@ -69,16 +69,7 @@
 
       if (res.status === 200) {
         const d = await res.json();
-        let data = new Array(12);
-
-        for (let i = 0; i < data.length; i++) {
-          data[i] = d.find(({ _id }) => _id.month == i + 1) || {
-            totalSales: 0,
-            _id: { month: i + 1 },
-          };
-        }
-
-        const ds = data.map((v, i) => v.totalSales);
+        
 
         new Chart(ctx, {
           type: "line",
@@ -100,7 +91,7 @@
             datasets: [
               {
                 label: "Vendas mensais",
-                data: ds,
+                data: d,
                 borderColor: colors.primary,
                 backgroundColor: "rgba(175, 142, 192, 0.6)",
                 fill: false,

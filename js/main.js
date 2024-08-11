@@ -9,8 +9,14 @@ const nav = [
       {
         id: 'dashboard-config',
         label: "Configurações",
-        url: "",
+        url: "#",
         icon: 'la-tools'
+      },
+      {
+        id: 'dashboard-users',
+        label: "Utilizadores",
+        url: "#",
+        icon: 'la-users'
       },
     ],
   },

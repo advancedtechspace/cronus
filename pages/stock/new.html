@@ -59,6 +59,14 @@
                 <input type="radio" name="s-s" id="radio-servico" value="1" />
               </div>
               <div class="form-group">
+                <label for="quantidade">Expira: </label>
+                <input
+                  type="date"
+                  name="expira"
+                  id="expira"
+                />
+              </div>
+              <div class="form-group">
                 <label for="categoria">Categoria:</label>
                 <select
                   type="text"
@@ -106,13 +114,15 @@
         const quantidade = form.get("quantidade");
         const categoria = form.get("categoria");
         const tipo = form.get('s-s');
+        const expira = form.get('expira');
 
         const data = {
           desc,
           valor,
           quantidade,
           categoria,
-          tipo
+          tipo,
+          expira
         };
 
         const res = await fetch(api_url + "/cronus/stock/create", {

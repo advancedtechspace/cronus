@@ -65,6 +65,14 @@
                 <input type="radio" name="s-s" id="radio-servico" value="1" />
               </div>
               <div class="form-group">
+                <label for="quantidade">Expira: </label>
+                <input
+                  type="date"
+                  name="expira"
+                  id="expira"
+                />
+              </div>
+              <div class="form-group">
                 <label for="categoria">Categoria:</label>
                 <select
                   type="text"
@@ -120,12 +128,12 @@
       if (res.status === 200) {
         const data = await res.json();
         const col = data.find(({ _id }) => _id === stock);
-        console.log(col);
-        const { desc, quantidade, categoria, valor } = col;
+        const { desc, quantidade, categoria, valor, expira } = col;
         document.querySelector("#desc").value = desc;
         document.querySelector("#quantidade").value = quantidade;
         document.querySelector("#valor").value = valor;
         document.querySelector("#select-categoria").value = categoria;
+        document.querySelector("#expira").value = expira;
       }
     }
 
@@ -142,6 +150,7 @@
         const quantidade = form.get("quantidade");
         const categoria = form.get("categoria");
         const tipo = form.get("s-s");
+        const expira = form.get("expira");
 
         const data = {
           desc,
@@ -149,6 +158,7 @@
           quantidade,
           categoria,
           tipo,
+          expira
         };
 
         const res = await fetch(api_url + "/cronus/stock/update", {
