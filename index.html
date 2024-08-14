@@ -28,6 +28,14 @@
         </div>
       </div>
       <div class="chart-container">
+        
+      </div>
+      <div class="chart-container">
+        <canvas
+        id="chart-sales-per-stock"
+          width="340px"
+          height="150px"
+        ></canvas>
         <canvas id="chart" width="640px" height="250px"></canvas>
       </div>
     </main>
@@ -69,7 +77,6 @@
 
       if (res.status === 200) {
         const d = await res.json();
-        
 
         new Chart(ctx, {
           type: "line",
@@ -112,7 +119,55 @@
           },
         });
       }
+
+      getSalesPerProduct();
     });
+
+    async function getSalesPerProduct() {
+      const ctx2 = document
+        .getElementById("chart-sales-per-stock")
+        .getContext("2d");
+
+      const res = await fetch(api_url + "/cronus/sales/per-stock", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+          app: "cronus",
+        },
+      });
+
+      if (res.status === 200) {
+        const d = await res.json();
+
+        new Chart(ctx2, {
+          type: "bar",
+          data: {
+            labels: d.map(({ desc }) => desc),
+            datasets: [
+              {
+                label: "Vendas por productos e serviços",
+                data: d.map(({ sales }) => sales),
+                borderColor: colors.primary,
+                backgroundColor: "rgba(175, 142, 192, 0.6)",
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                beginAtZero: true,
+              },
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    }
 
     wakeupAPI();
   </script>

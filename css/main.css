@@ -242,6 +242,11 @@ button {
   cursor: pointer;
 }
 
+input:disabled {
+  background-color: #aaa;
+  color: #eee;
+}
+
 button:disabled {
   background-color: #eee;
 }
@@ -279,6 +284,7 @@ form button {
 }
 
 table {
+  background-color: unset;
 }
 
 table * {
@@ -286,9 +292,14 @@ table * {
 
 }
 
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+
 table th {
-  color: #777;
+  color: #fff;
   font-weight: 100;
+  background-color: #aaa;
 }
 
 .main {
@@ -572,6 +583,30 @@ td {
   background: url(../assets/img/search-solid.svg) no-repeat 10px center/15px;
   padding-left: 40px;
   border: 1px solid #999;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  align-items: center;
+}
+
+.pagination p {
+  margin: auto 10px;
+  color: #aaa;
+}
+
+.pagination button {
+  padding: 5px;
+  margin: 5px;
+  min-width: auto;
+  display: inline-block;
+  width: 40px;
+}
+
+.pagination i {
+  margin: unset;
 }
 
 /* switch settings 👇 */

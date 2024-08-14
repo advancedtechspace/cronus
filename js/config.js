@@ -13,6 +13,8 @@ const colors = {
   secondary: "#6495ed",
 };
 
+const perPage = 5;
+
 const grade_levels = [
   { id: "0", label: "Basico" },
   { id: "1", label: "Medio" },
@@ -60,6 +62,11 @@ theme();
 
 function theme() {
   const themeMode = localStorage.getItem("theme-mode");
+  
+  if(!themeMode) {
+    localStorage.setItem('theme-mode', 'light');
+  }
+
   const theme_config = {
     headerColor: themeMode === "light" ? "#fff" : "#444",
     headerShadow: themeMode === 'light' ? '0 0 1px 1px #f6f6f6' : '0 0 1px 1px #333',

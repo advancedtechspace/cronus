@@ -62,7 +62,7 @@ function toggleNottifications() {
 
 function changeTheme() {
   const themeMode = localStorage.getItem("theme-mode");
-  if (themeMode === null) {
+  if (!themeMode) {
     localStorage.setItem("theme-mode", "dark");
     return;
   }
