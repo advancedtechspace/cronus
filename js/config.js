@@ -75,6 +75,8 @@ function theme() {
     bodyColor: themeMode === "light" ? "#fcfcfc" : "#555",
     footerColor: themeMode === "light" ? "#fafafa" : "#575757",
     mainBorder: themeMode === "light" ? "1px solid #eee" : "1px solid #777",
+    cardColor: themeMode === "light" ? "#fff" : "#888",
+    inputColor: themeMode === "light" ? "#888" : "#ddd",
   };
 
   document.querySelector("header").style.backgroundColor = theme_config.headerColor;
@@ -86,12 +88,27 @@ function theme() {
 
   // Card
   document.querySelector(".main-body").style.border = theme_config.mainBorder
+  document.querySelector(".main-body").style.backgroundColor = theme_config.cardColor
+  document.querySelector(".main-header").style.backgroundColor = theme_config.cardColor
+  document.querySelector(".main-header h3").style.color = theme_config.inputColor
+  document.querySelector(".main-footer").style.backgroundColor = theme_config.cardColor
   document.querySelector(".main-body").style.borderTop = 'none';
+
   document.querySelector(".main-body").style.borderBottom = 'none';
   document.querySelector(".main-header").style.border = theme_config.mainBorder
   document.querySelector(".main-footer").style.border = theme_config.mainBorder
-  document.querySelector(".card-container").style.border = theme_config.mainBorder
+  // document.querySelector(".card-container").style.border = theme_config.mainBorder
+
+  // Form
+  document.querySelectorAll('label').forEach(label => {
+    console.log(label)
+    label.style.color = theme_config.inputColor
+  })
+
+  document.querySelectorAll('input').forEach(input => {
+    input.style.backgroundColor = theme_config.cardColor
+    input.style.color = theme_config.inputColor
+  })
 
   document.querySelector(".inp-search").style.border = theme_config.mainBorder
-
 }

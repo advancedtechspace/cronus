@@ -273,6 +273,7 @@ select {
   outline: none;
   transition: all 0.3s ease;
   margin-bottom: 10px;
+  background-color: none;
 }
 
 input[type="radio"] {
@@ -313,7 +314,8 @@ table th {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border: 1px solid #eee;
-  padding: 10px;
+  padding: 10px 20px;
+  background-color: #fff;
 }
 
 .main-body {
@@ -331,6 +333,7 @@ table th {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top: none;
+  background-color: #fff;
 }
 
 .main-header h3 {

@@ -9,15 +9,15 @@ const nav = [
       {
         id: 'dashboard-config',
         label: "Configurações",
-        url: "#",
+        url: "pages/dashboard/config.html",
         icon: 'la-tools'
       },
-      {
-        id: 'dashboard-users',
-        label: "Utilizadores",
-        url: "#",
-        icon: 'la-users'
-      },
+      // {
+      //   id: 'dashboard-users',
+      //   label: "Utilizadores",
+      //   url: "#",
+      //   icon: 'la-users'
+      // },
     ],
   },
   {
