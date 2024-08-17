@@ -294,7 +294,7 @@ table * {
 }
 
 table tr:nth-child(even) {
-  background-color: #eee;
+  background-color: #f2f2f2;
 }
 
 table th {
@@ -350,6 +350,7 @@ table th {
 input:focus,
 select:focus {
   border-color: var(--primary-color);
+  box-shadow: 0 0 2px 2px #eee;
 }
 
 form #btn-submit {
@@ -395,7 +396,7 @@ label {
 }
 
 #suggestions a {
-  border-radius: 7px;
+  border-radius: 5px;
   border-top-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -456,11 +457,10 @@ label {
 }
 
 .sub-menu {
-  background-color: #fff;
   color: var(--primary-color);
   padding: 10px 10px;
   position: absolute;
-  min-width: 170px;
+  min-width: 200px;
   border-radius: var(--btn-radius);
   border-top-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -468,8 +468,8 @@ label {
   transition: all 0.3s ease-in-out;
   display: none;
   z-index: -1;
-  /* box-shadow: 0 0 1px 1px #f6f6f6; */
-  border: 1px solid #eee;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .sub-menu li {
@@ -698,4 +698,11 @@ td {
   opacity: 1;
   width: 0;
   height: 0;
+}
+
+
+@media screen and (max-width: 414px) {
+  #suggestions {
+    display: none;
+  }
 }

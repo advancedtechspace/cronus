@@ -7,11 +7,17 @@ const nav = [
     show: true,
     submenu: [
       {
-        id: 'dashboard-config',
+        id: "dashboard-config",
         label: "Configurações",
         url: "pages/dashboard/config.html",
-        icon: 'la-tools'
+        icon: "la-tools",
       },
+      // {
+      //   id: 'dashboard-privacy',
+      //   label: "Privacidade",
+      //   url: "#",
+      //   icon: ''
+      // },
       // {
       //   id: 'dashboard-users',
       //   label: "Utilizadores",
@@ -28,19 +34,19 @@ const nav = [
     show: true,
     submenu: [
       {
-        id: 'staff-list',
+        id: "staff-list",
         label: "Listagem",
         url: "#",
         icon: null,
       },
       {
-        id: 'staff-new',
+        id: "staff-new",
         label: "Cadastrar novo",
         url: "new.html",
         icon: "la la-plus",
       },
       {
-        id: 'staff-category',
+        id: "staff-category",
         label: "Categorias",
         url: "#",
         icon: null,
@@ -55,20 +61,19 @@ const nav = [
     show: true,
     submenu: [
       {
-        id: 'clients-list',
+        id: "clients-list",
         label: "Listagem",
         url: "#",
         icon: null,
       },
       {
-        id: 'clients-new',
+        id: "clients-new",
         label: "Cadastrar novo",
         url: "new.html",
-        icon: 'la-plus',
+        icon: "la-plus",
       },
-     
       {
-        id: 'clients-category',
+        id: "clients-category",
         label: "Categorias",
         url: "#",
         icon: null,
@@ -83,19 +88,19 @@ const nav = [
     show: true,
     submenu: [
       {
-        id: 'asset-list',
+        id: "asset-list",
         label: "Listagem",
         url: "#",
         icon: null,
       },
       {
-        id: 'asset-new',
+        id: "asset-new",
         label: "Cadastrar novo",
         url: "new.html",
-        icon: 'la-plus',
+        icon: "la-plus",
       },
       {
-        id: 'asset-category',
+        id: "asset-category",
         label: "Categorias",
         url: "#",
         icon: null,
@@ -110,19 +115,19 @@ const nav = [
     show: true,
     submenu: [
       {
-        id: 'stock-list',
+        id: "stock-list",
         label: "Listagem",
         url: "#",
         icon: null,
       },
       {
-        id: 'stock-new',
+        id: "stock-new",
         label: "Cadastrar novo",
         url: "new.html",
-        icon: 'la-plus',
+        icon: "la-plus",
       },
       {
-        id: 'stock-category',
+        id: "stock-category",
         label: "Categorias",
         url: "#",
         icon: null,
@@ -137,16 +142,22 @@ const nav = [
     show: true,
     submenu: [
       {
-        id: 'sales-list',
+        id: "sales-dashboard",
+        label: "Dashboard",
+        url: "dashboard.html",
+        icon: null,
+      },
+      {
+        id: "sales-list",
         label: "Listagem de facturas",
         url: "#",
         icon: null,
       },
       {
-        id: 'sales-new',
+        id: "sales-new",
         label: "Nova venda",
         url: "new.html",
-        icon: 'la-plus',
+        icon: "la-plus",
       },
     ],
   },
@@ -158,10 +169,10 @@ const nav = [
     show: false,
     submenu: [
       {
-        id: 'accounting-new',
+        id: "accounting-new",
         label: "Nova transação",
         url: "new.html",
-        icon: 'la-plus',
+        icon: "la-plus",
       },
     ],
   },
@@ -169,14 +180,14 @@ const nav = [
     id: "credito",
     name: "Microcrédito",
     path: "pages/credito",
-    icon: "coins",
+    icon: "hand-holding-usd",
     show: false,
     submenu: [
       {
-        id: 'credito-new',
+        id: "credito-new",
         label: "Conceder crédito",
         url: "new.html",
-        icon: 'la-plus',
+        icon: "la-plus",
       },
     ],
   },
@@ -229,7 +240,10 @@ for (let elt of nav) {
           <span>${name}</span><tiny><i class='la la-angle-down dropdown-icon'></i></tiny>
         </a>
       </li>
-      <ul class='sub-menu' id='${id}'>
+      <ul class='sub-menu' id='${id}' style='
+        background: ${localStorage.getItem("theme-mode") === "dark" ? "#444" : "#fff"};
+        border-color: ${localStorage.getItem("theme-mode") === "dark" ? "#444" : "#eee"};'
+      >
         ${sm}
       </ul>
     </ul>`;
@@ -244,9 +258,8 @@ if (window.location.href === base_url + "/") {
   document.querySelector("#suggestions a").style.color = "#fff";
 }
 
-document.querySelector('header').innerHTML = main_header;
-document.querySelector('footer').innerHTML = main_footer;
-
+document.querySelector("header").innerHTML = main_header;
+document.querySelector("footer").innerHTML = main_footer;
 
 document.getElementById("a-dashboard").addEventListener("click", () => {
   localStorage.removeItem("user");
@@ -255,7 +268,7 @@ document.getElementById("a-dashboard").addEventListener("click", () => {
 
 //
 async function removeItem(id, item) {
-  console.log(item, id)
+  console.log(item, id);
   const res = await fetch(api_url + "/cronus/remove", {
     method: "DELETE",
     headers: {
@@ -276,6 +289,5 @@ async function removeItem(id, item) {
     });
   }
 }
-
 
 document.querySelector(".logo").href = base_url;

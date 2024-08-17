@@ -25,7 +25,7 @@
 
 .card-container {
   height: 150px;
-  background: url(../assets/img/charts/coins-solid.svg) no-repeat 60px
+  background: url(../assets/img/charts/coins-solid.svg) no-repeat 40px
     center/50px;
   width: 100%;
   margin: 5px;
@@ -44,12 +44,21 @@
 .card-container .title {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
   font-size: 18px;
-  color: #666;
+  color: #aaa;
+  text-align: center;
 }
 
 .card-container .content {
-  font-size: 48px;
+  font-size: 42px;
   color: #222;
+}
+
+@media screen and (max-width: 414px) {
+  .cards {
+    width: 90%;
+  }
 }

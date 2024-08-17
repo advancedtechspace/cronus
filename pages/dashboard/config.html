@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>CRONUS</title>
     <link
       rel="shortcut icon"
@@ -36,28 +35,43 @@
             <div class="form">
               <div class="form-group">
                 <label for="empresa">Empresa:</label>
-                <input type="text" name="empresa" id="empresa" autofocus required />
+                <input
+                  type="text"
+                  name="empresa"
+                  id="empresa"
+                  autofocus
+                  required
+                />
               </div>
               <div class="form-group">
                 <label for="unidade">Unidade Monetária:</label>
                 <select type="text" name="unidade" id="unidade">
-                  <option value="">--Seleccion uma--</option>
+                  <option value="">--Seleccione uma--</option>
                   <option value="0">Metical (MZN)</option>
                   <option value="1">Dolar ($)</option>
                   <option value="2">Euro</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="edificio">Edifício Nr.:</label>
-                <input type="number" name="edificio" id="edificio" class="input-thin" />
-              </div>
-              <div class="form-group">
                 <label for="tel">Telefone: </label>
                 <input type="tel" name="tel" id="tel" />
               </div>
               <div class="form-group">
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email" disabled />
+              </div>
+              <div class="form-group">
                 <label for="localizacao">Localização: </label>
                 <input type="text" name="localizacao" id="localizacao" />
+              </div>
+              <div class="form-group">
+                <label for="edificio">Edifício Nr.:</label>
+                <input
+                  type="number"
+                  name="edificio"
+                  id="edificio"
+                  class="input-thin"
+                />
               </div>
             </div>
           </form>
@@ -95,6 +109,7 @@
         const edificio = form.get("edificio");
         const tel = form.get("tel");
         const localizacao = form.get("localizacao");
+        // const email = form.get("email");
 
         const data = {
           name,
@@ -102,6 +117,7 @@
           edificio,
           tel,
           localizacao,
+          // email
         };
 
         const res = await fetch(api_url + "/user/update", {
@@ -123,7 +139,7 @@
       });
 
     //
-    
+
     getUser();
 
     async function getUser() {
@@ -139,11 +155,12 @@
 
       if (res.status === 200) {
         const user = await res.json();
-        document.querySelector('#empresa').value = user.name;
-        document.querySelector('#edificio').value = user.edificio;
-        document.querySelector('#localizacao').value = user.localizacao;
-        document.querySelector('#tel').value = user.tel;
-        document.querySelector('#unidade').value = user.unidade;
+        document.querySelector("#empresa").value = user.name || "";
+        document.querySelector("#edificio").value = user.edificio || "";
+        document.querySelector("#localizacao").value = user.localizacao || "";
+        document.querySelector("#tel").value = user.tel || "";
+        document.querySelector("#unidade").value = user.unidade || "";
+        document.querySelector("#email").value = user.email;
       }
     }
 

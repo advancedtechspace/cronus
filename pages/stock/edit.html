@@ -128,12 +128,14 @@
       if (res.status === 200) {
         const data = await res.json();
         const col = data.find(({ _id }) => _id === stock);
-        const { desc, quantidade, categoria, valor, expira } = col;
+        const { desc, quantidade, categoria, valor, expira, tipo } = col;
         document.querySelector("#desc").value = desc;
         document.querySelector("#quantidade").value = quantidade;
         document.querySelector("#valor").value = valor;
         document.querySelector("#select-categoria").value = categoria;
         document.querySelector("#expira").value = expira;
+        document.querySelector("#radio-stock").checked = tipo == '0' | null | undefined;
+        document.querySelector("#radio-servico").checked = tipo != '0';
       }
     }
 

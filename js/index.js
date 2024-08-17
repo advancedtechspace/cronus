@@ -42,6 +42,6 @@ async function getUser() {
 
   if(res.status === 200) {
     const user = await res.json()
-    document.querySelector('.company-name p').innerText = user.name;
+    document.querySelector('.company-name p').innerText = user.name || "";
   }
 }
