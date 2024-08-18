@@ -241,8 +241,12 @@ for (let elt of nav) {
         </a>
       </li>
       <ul class='sub-menu' id='${id}' style='
-        background: ${localStorage.getItem("theme-mode") === "dark" ? "#444" : "#fff"};
-        border-color: ${localStorage.getItem("theme-mode") === "dark" ? "#444" : "#eee"};'
+        background: ${
+          localStorage.getItem("theme-mode") === "dark" ? "#444" : "#fff"
+        };
+        border-color: ${
+          localStorage.getItem("theme-mode") === "dark" ? "#444" : "#eee"
+        };'
       >
         ${sm}
       </ul>
@@ -251,6 +255,40 @@ for (let elt of nav) {
 }
 
 document.getElementById("suggestions").innerHTML = n;
+
+let links = "";
+
+for (let elt of nav) {
+  const { id, name, path, icon, show, submenu } = elt;
+  const active = window.location.href.includes(id);
+  if (show) {
+    const color = active ? colors.primary : "auto;";
+    let sm = "";
+    if (submenu !== undefined) {
+      for ({ label, url, icon: ic } of submenu) {
+        sm += `<li><a href='${
+          base_url + "/" + path + "/" + url
+        }'><i class='la ${ic || "la-circle"}'></i>${label}</a></li>`;
+      }
+    }
+
+    links += `
+      <div style='margin: 5px;'>
+        <div style='background: ${colors.primary};padding: 10px;border-radius: 5px;color: #fff;'>
+          <i class="la la-${icon}" style='margin-right: 10px;'></i>
+          ${name}
+        </div>
+        <ul style='padding: 10px;'>
+          ${sm}
+        </ul>
+      </div>
+
+    `;
+  }
+}
+
+document.querySelector(".menu").innerHTML = links;
+
 
 if (window.location.href === base_url + "/") {
   document.querySelector("#suggestions a").style.backgroundColor =
@@ -291,3 +329,20 @@ async function removeItem(id, item) {
 }
 
 document.querySelector(".logo").href = base_url;
+
+const menuContainer = document.querySelector(".menu-container");
+
+if (menuContainer) {
+  menuContainer.addEventListener("click", (e) => {
+    if ((e.target.className = "menu-container")) {
+      e.target.style.display = "none";
+    }
+  });
+}
+
+
+const btnMenu = document.querySelector("#btn-menu")
+
+btnMenu.addEventListener("click", () => {
+  menuContainer.style.display = "block";
+});

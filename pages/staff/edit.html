@@ -151,6 +151,10 @@
       <div id="loader">
         <p>Loading...</p>
       </div>
+      <div class="menu-container">
+        <div class="menu">
+      </div>
+  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -183,7 +187,6 @@
       if (res.status === 200) {
         const data = await res.json();
         const col = data.find(({ _id }) => _id === staff);
-        console.log(col);
         const {
           firstName,
           categoria,

@@ -1,6 +1,9 @@
 const main_header = `
     <div id="header-left">
-        <label class="ui-switch">
+      <button id="btn-menu">
+        <i class='la la-bars btn-menu'></i>
+      </button>
+      <label class="ui-switch">
         <input type="checkbox" ${
           localStorage.getItem("theme-mode") !== "light" && "checked"
         } onchange="changeTheme();">
@@ -74,3 +77,4 @@ function changeTheme() {
 
   theme();
 }
+
