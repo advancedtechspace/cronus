@@ -1,8 +1,10 @@
 const api_url =
   window.location.protocol === "https:"
-    ? "https://api-production-dbdb.up.railway.app"
-    : "http://localhost:8000";
+  ? "https://api.advancedtechspace.com"
+  : "http://localhost:8000";
 
+  //  https://api-production-dbdb.up.railway.app
+  
 const base_url =
   window.location.protocol === "https:"
     ? window.location.origin
@@ -71,7 +73,7 @@ function theme() {
     headerColor: themeMode === "light" ? "#fff" : "#444",
     headerShadow: themeMode === 'light' ? '0 0 1px 1px #f6f6f6' : '0 0 1px 1px #333',
     navColor: themeMode === "light" ? "#fff" : "#444",
-    headerBorder: themeMode === "light" ? "1px solid #eee" : "1px solid #555",
+    headerBorder: themeMode === "light" ? "1px solid #eee" : "1px solid #444",
     bodyColor: themeMode === "light" ? "#fcfcfc" : "#555",
     footerColor: themeMode === "light" ? "#fafafa" : "#575757",
     mainBorder: themeMode === "light" ? "1px solid #eee" : "1px solid #777",
@@ -101,7 +103,6 @@ function theme() {
 
   // Form
   document.querySelectorAll('label').forEach(label => {
-    console.log(label)
     label.style.color = theme_config.inputColor
   })
 

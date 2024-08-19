@@ -82,7 +82,7 @@ const nav = [
   },
   {
     id: "asset",
-    name: "Activos",
+    name: "Activos e passivos",
     path: "pages/asset",
     icon: "couch",
     show: true,
@@ -266,15 +266,15 @@ for (let elt of nav) {
     let sm = "";
     if (submenu !== undefined) {
       for ({ label, url, icon: ic } of submenu) {
-        sm += `<li><a href='${
+        sm += `<li style='margin-bottom: 10px;'><a style='font-size: 14px;' href='${
           base_url + "/" + path + "/" + url
-        }'><i class='la ${ic || "la-circle"}'></i>${label}</a></li>`;
+        }'><i class='la ${ic || "la-circle"}' style='margin-right: 5px;'></i>${label}</a></li>`;
       }
     }
 
     links += `
       <div style='margin: 5px;'>
-        <div style='background: ${colors.primary};padding: 10px;border-radius: 5px;color: #fff;'>
+        <div style='background: #eee;padding: 10px;border-radius: 5px;color: ${colors.primary};'>
           <i class="la la-${icon}" style='margin-right: 10px;'></i>
           ${name}
         </div>

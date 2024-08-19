@@ -51,6 +51,13 @@
                 <button class="btn-circle" id="btn-add-categoria">
                   <i class="la la-plus-circle"></i>
                 </button>
+                <div class="form-group">
+                  <label>Tipo:</label>
+                  <label for="radio-activo">Activo</label>
+                  <input type="radio" name="p-a" id="radio-activo" value="0" checked/>
+                  <label for="radio-passivo">Passivo</label>
+                  <input type="radio" name="p-a" id="radio-passivo" value="1" />
+                </div>
               </div>
             </div>
           </form>
@@ -101,11 +108,12 @@
       if (res.status === 200) {
         const data = await res.json();
         const col = data.find(({ _id }) => _id === asset);
-        console.log(col);
-        const { desc, valor, categoria } = col;
+        const { desc, valor, categoria, tipo } = col;
         document.querySelector("#desc").value = desc;
         document.querySelector("#valor").value = valor;
         document.querySelector("#select-categoria").value = categoria;
+        document.querySelector("#radio-activo").checked = tipo == '0' | null | undefined;
+        document.querySelector("#radio-passivo").checked = tipo != '0';
       }
     }
 
@@ -120,8 +128,10 @@
         const desc = form.get("desc");
         const valor = form.get("valor");
         const categoria = form.get("categoria");
+        const tipo = form.get('p-a');
 
         const data = {
+          tipo,
           desc,
           valor,
           categoria,

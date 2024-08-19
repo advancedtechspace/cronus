@@ -75,15 +75,7 @@ getStaff();
 
 function searchStaff(value, data) {
   let trows = "";
-
-  const thead = `
-    <th>Nome</th>
-    <th>Area</th>
-    <th>Nivel</th>
-    <th>Telefone</th>
-    <th>Morada</th>
-    <th>Acções</th>`;
-
+  
   const d = data.filter(
     ({ firstName, surname }) =>
       firstName.toLowerCase().includes(value.toLowerCase()) ||
@@ -100,13 +92,11 @@ function searchStaff(value, data) {
         <td>${
           areaFormacao && areas.find(({ id }) => id === areaFormacao)?.label
         }</td>
-        <td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>
         <td>${tel}</td>
-        <td>${morada || ""}</td>
         <td width='20%'>
-          <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
-          <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
-          <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
+        <a href="./show.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
+        <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
+        <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
         </td>
       </tr>
     `;
@@ -172,7 +162,7 @@ const showTable = (data, limInf, limSup) => {
           }</td>
           <!--<td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>-->
           <td>${tel}</td>
-          <td width='20%'>
+          <td width='30%'>
             <a href="./show.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>

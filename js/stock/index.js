@@ -75,14 +75,6 @@ async function getStock() {
 function searchStock(value, data) {
   let trows = "";
 
-  const thead = `
-    <th>Nome</th>
-    <th>Valor unitario</th>
-    <th>Quantidade</th>
-    <th>Expira</th>
-    <th>Acções</th>
-  `;
-
   const d = data.filter(({ desc }) =>
     desc.toLowerCase().includes(value.toLowerCase())
   );

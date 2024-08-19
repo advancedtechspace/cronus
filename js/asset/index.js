@@ -9,6 +9,7 @@ let trows = "";
 
 const thead = `
 <th>Nome</th>
+<th>Tipo</th>
 <th>Valor</th>
 <th>Acções</th>
 `;
@@ -73,22 +74,17 @@ async function getAsset() {
 function searchAsset(value, data) {
   let trows = "";
 
-  const thead = `
-    <th>Nome</th>
-    <th>Valor</th>
-    <th>Acções</th>
-  `;
-
   const d = data.filter(({ desc }) =>
     desc.toLowerCase().includes(value.toLowerCase())
   );
 
   for (asset of d) {
-    const { desc, valor, _id } = asset;
+    const { desc,tipo, valor, _id } = asset;
 
     trows += `
         <tr>
           <td>${desc}</td>
+          <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "passivo" : "activo"}</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
@@ -147,11 +143,12 @@ const showTable = (data, limInf, limSup) => {
     const asset = data[i];
     if (!asset) continue;
 
-    const { desc, valor, _id } = asset;
+    const { desc, tipo, valor, _id } = asset;
 
     trows += `
         <tr>
           <td>${desc}</td>
+          <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "passivo" : "activo"}</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
@@ -173,8 +170,7 @@ const showTable = (data, limInf, limSup) => {
       <button id='btn-right'><i class='la la-angle-right'></i></button>
   `;
 
-    document.querySelector("#btn-left").onclick = () =>
-      paginate(data, "left");
+    document.querySelector("#btn-left").onclick = () => paginate(data, "left");
     document.querySelector("#btn-right").onclick = () =>
       paginate(data, "right");
   }
