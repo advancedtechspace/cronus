@@ -12,7 +12,7 @@ const thead = `
 <th>Area</th>
 <!--<th>Nivel</th>-->
 <th>Telefone</th>
-<th style="width: 30%;">Acções</th>`;
+<th width='150'>Acções</th>`;
 
 async function getStaff() {
   let trows = "";
@@ -93,7 +93,7 @@ function searchStaff(value, data) {
           areaFormacao && areas.find(({ id }) => id === areaFormacao)?.label
         }</td>
         <td>${tel}</td>
-        <td width='20%'>
+        <td>
         <a href="./show.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
         <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
         <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
@@ -156,13 +156,13 @@ const showTable = (data, limInf, limSup) => {
 
     trows += `
         <tr>
-          <td>${firstName}</td>
+          <td><a href='./show.html?col=${_id}' style='font-size: 14px;'>${firstName}</a></td>
           <td>${
             areaFormacao && areas.find(({ id }) => id === areaFormacao)?.label
           }</td>
           <!--<td>${grade_levels.find(({ id }) => id === nivel)?.label}</td>-->
           <td>${tel}</td>
-          <td width='30%'>
+          <td>
             <a href="./show.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="./edit.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>

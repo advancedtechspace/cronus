@@ -92,7 +92,7 @@ function searchClient(value, data) {
 
     trows += `
       <tr>
-        <td>${firstName}</td>
+        <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${firstName}</a></td>
         <td>${tel}</td>
         <td>${morada || ""}</td>
         <td width='20%'>
@@ -156,7 +156,7 @@ const showTable = (data, limInf, limSup) => {
 
     trows += `
       <tr>
-        <td>${firstName}</td>
+        <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${firstName}</a></td>
         <td>${tel}</td>
         <td>${morada || ""}</td>
         <td width='20%'>

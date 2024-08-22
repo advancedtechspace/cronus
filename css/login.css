@@ -37,10 +37,10 @@ form {
   width: 340px;
   height: 370px;
   margin: auto;
-  box-shadow: 0 0 1px 1px #f8f8f8;
+  box-shadow: 0 0 10px 1px #f8f8f8;
   border-radius: 10px;
   background-color: #fff;
-  padding: 40px;
+  padding: 20px;
 }
 
 form label {
@@ -50,6 +50,10 @@ form label {
 form input,
 button {
   padding: 15px;
+}
+
+.logo {
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 414px) {

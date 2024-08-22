@@ -21,6 +21,13 @@ const main_header = `
     </div>
 
     <div id="header-right">
+        <button 
+          style='margin-right: 10px;
+          padding: 5px; 
+          color: #2bccb1; width: 100px; 
+          background-color: unset;border: 1px solid #2bccb1; min-width: unset;'>
+          Trial Plan
+        </button>
         <a href="#" id="a-notifications" onclick='toggleNottifications();'>
             <i class="la la-bell la-lg"></i>
             <span></span>
@@ -37,7 +44,7 @@ const main_header = `
                 <div class='notification'>
                     <p>Seja bem vindo ao CRONUS</p>
                     <div class='action-buttons'>
-                        <button>Marcar como lida</button>
+                        <button class='btn-outlined'>Marcar como lida</button>
                     </div>
                 </div>
             </div>
@@ -77,4 +84,3 @@ function changeTheme() {
 
   theme();
 }
-

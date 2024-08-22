@@ -30,6 +30,7 @@
       <div class="main">
         <div class="main-header">
           <h3>Consultar colaborador</h3>
+          <a href="./new.html" class="btn-new"><i class="la la-edit"></i> Editar</a>
         </div>
         <div class="main-body">
           <form id="form-new-staff">
@@ -193,6 +194,8 @@
   <script>
     const url = new URL(window.location.href);
     const staff = url.searchParams.get("col");
+
+    document.querySelector('.main-header a').href = './edit.html?col=' + staff;
 
     getCategorias().then(() => {
       getStaff();

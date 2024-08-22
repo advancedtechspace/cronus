@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
     <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css">
     <link rel="stylesheet" href="../../css/main.css" />
-    <link rel="stylesheet" href="../../css/pages/sales/index.css">
   </head>
   <body>
     <header>
@@ -29,26 +28,23 @@
       <div id="suggestions"></div>
       <div class="main">
         <div class="main-header">
-          <h3>Consultar factura</h3>
+          <h3>Utilizadores</h3>
+          <a href="new-user.html" class="btn-new"><i class="la la-plus-circle"></i> Novo</a>
         </div>
         <div class="main-body">
-          <p>ID: <span id="factura-id"></span></p>
+          <input type="search" class="inp-search" placeholder="Pesquisar">
           <table width="100%">
             <thead></thead>
             <tbody></tbody>
           </table>
-          <p>BI: <span id="bi"></span></p>
-          <p>Data: <span id="factura-data"></span></p>
+          <div class="pagination"></div>
         </div>
-        <div class="main-footer">
-          <button type="submit" form="form-new-staff" id="btn-submit">
-            <i class="la la-print"></i>
-            Imprimir
-          </button>
-        </div>
+        <div class="main-footer"></div>
       </div>
     </main>
-
+    <div id="loader">
+      <p>Loading...</p>
+    </div>
     <div class="menu-container">
       <div class="menu">
     </div>
@@ -61,5 +57,5 @@
   <script src="../../js/util.js"></script>
   <script src="../../js/components/index.js"></script>
   <script src="../../js/main.js"></script>
-  <script src="../../js/sales/factura.js"></script>
+  <script src="../../js/dashboard/index.js"></script>
 </html>

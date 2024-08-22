@@ -9,7 +9,7 @@ let trows = "";
 const thead = `
       <th>ID</th>
       <th>Data</th>
-      <th>Valor total</th>
+      <th>Quantidade</th>
       <th>Acções</th>`;
 
 async function getSales() {
@@ -73,27 +73,21 @@ async function getSales() {
 function searchSales(value, data) {
   let trows = "";
 
-  const thead = `
-    <th>ID</th>
-    <th>Data</th>
-    <th>Valor total</th>
-    <th>Acções</th>`;
-
   const d = data.filter(({ _id }) =>
     _id.toLowerCase().includes(value.toLowerCase())
   );
 
   for (sale of d) {
-    const { created_at, _id } = sale;
+    const { created_at, cart, _id } = sale;
 
     trows += `
       <tr>
-        <td>${_id}</td>
+        <td><a href='./factura.html?col=${_id}' style='font-size: 14px;'>${_id}</a></td>
         <td>
           ${new Date(created_at).toLocaleDateString()}
           ${new Date(created_at).toLocaleTimeString()}
         </td>
-        <td></td>
+        <td>${cart.length}</td>
         <td width='20%'>
         <a href="./factura.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-eye'></i></button></a>
           <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
@@ -131,16 +125,16 @@ const showTable = (data, limInf, limSup) => {
   for (let i = limInf; i < limSup; i++) {
     const sale = data[i];
     if (!sale) continue;
-    const { created_at, _id } = sale;
+    const { created_at, cart, _id } = sale;
 
     trows += `
           <tr>
-            <td>${_id}</td>
+            <td><a href='./factura.html?col=${_id}' style='font-size: 14px;'>${_id}</a></td>
             <td>
               ${new Date(created_at).toLocaleDateString()}
               ${new Date(created_at).toLocaleTimeString()}
             </td>
-            <td></td>
+            <td>${cart.length}</td>
             <td width='20%'>
             <a href="./factura.html?col=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-eye'></i></button></a>
               <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>

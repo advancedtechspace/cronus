@@ -28,53 +28,43 @@
       <div id="suggestions"></div>
       <div class="main">
         <div class="main-header">
-          <h3>Conceder crédito</h3>
+          <h3>Cadastrar novo utilizador</h3>
         </div>
         <div class="main-body">
-          <form id="form-new-staff">
+          <form id="form-new-asset">
             <div class="form">
               <div class="form-group">
-                <label for="first-name">Nome:</label>
-                <input type="text" name="first-name" id="" autofocus />
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" required />
               </div>
               <div class="form-group">
-                <label for="surname">Sobrenome:</label>
-                <input type="text" name="surname" id="" />
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required />
               </div>
               <div class="form-group">
-                <label for="id">BI:</label>
-                <input type="text" name="id" />
+                <label for="pass">Senha: </label>
+                <input type="password" name="pass" id="pass" />
               </div>
               <div class="form-group">
-                <label for="tel">Contacto: </label>
-                <input type="tel" name="tel" />
-              </div>
-              <div class="form-group">
-                <label for="bairro">Bairro:</label>
-                <input name="bairro" id="select-bairro" />
-              </div>
-              <div class="form-group">
-                <label for="contract">Data: </label>
-                <input type="date" name="contract" />
-              </div>
-              <div class="form-group">
-                <label for="contract-ends">Limite: </label>
-                <input type="date" name="contract-ends" />
-              </div>
-              <div class="form-group">
-                <label for="valor-emprestimo">Valor do emprestimo: </label>
-                <input type="number" name="valor-emprestimo" id="" />
-              </div>
-              <div class="form-group">
-                <label for="taxa-juro">Taxa de juro (%): </label>
-                <input type="number" name="taxa-juro" id="" />
+                <label>Módulos:</label>
+                <label for="staff">Colaboradores: </label>
+                <input type="checkbox" name="staff" id="staff" checked>
+                <label for="clients">Consumidores: </label>
+                <input type="checkbox" name="clients" id="clients" checked>
+                <label for="asset">Activos e passivos: </label>
+                <input type="checkbox" name="asset" id="asset" checked>
+                <label for="stock">Inventário e serviços: </label>
+                <input type="checkbox" name="stock" id="stock" checked>
+                <label for="sales">Contabilidade: </label>
+                <input type="checkbox" name="sales" id="sales" checked>
               </div>
             </div>
           </form>
         </div>
         <div class="main-footer">
-          <button type="submit" form="form-new-staff" id="btn-submit">
-            <i class="la la-save"></i>Salvar
+          <button type="submit" form="form-new-asset" id="btn-submit">
+            <i class="la la-save"></i>
+            Salvar
           </button>
         </div>
       </div>
@@ -82,6 +72,10 @@
       <div id="loader">
         <p>Loading...</p>
       </div>
+      <div class="menu-container">
+        <div class="menu">
+      </div>
+  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -91,41 +85,35 @@
   <script src="../../js/util.js"></script>
   <script src="../../js/components/index.js"></script>
   <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
   <script>
     document
-      .getElementById("form-new-staff")
+      .getElementById("form-new-asset")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
         document.querySelector("#btn-submit").disabled = true;
+
         const form = new FormData(e.target);
 
-        const firstName = form.get("first-name");
-        const surname = form.get("surname");
-        const dataEmprestimo = form.get("contract");
-        const dataLimite = form.get("contract-ends");
-        const id = form.get("id");
-        const tel = form.get("tel");
-        const valor = form.get("valor-emprestimo");
-        const taxaJuro = form.get("taxa-juro");
-        const bairro = form.get("bairro");
+        const nome = form.get("nome");
+        const email = form.get("email");
+        const pass = form.get("pass");
+        const activo = !!form.get("activo");
+
+        const modulos = ['staff', 'clients', 'asset', 'stock', 'sales'].filter((e) => 
+          form.get(e) === 'on'
+        );
 
         const data = {
-          firstName,
-          surname,
-          dataEmprestimo,
-          dataLimite,
-          id,
-          tel,
-          valor,
-          taxaJuro,
-          bairro,
+          nome, email, pass, activo, modulos, perms: []
         };
 
-        const res = await fetch(api_url + "/cronus/credito/create", {
+        const res = await fetch(api_url + "/user/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
+            app: 'cronus'
           },
           body: JSON.stringify(data),
         });
@@ -133,14 +121,18 @@
         if (res.status === 200) {
           Toast.fire({
             icon: "success",
-            title: "Gravado com sucesso",
+            text: "Gravado com sucesso",
           }).then(() => {
             e.target.reset();
           });
         }
+
         document.querySelector("#btn-submit").disabled = false;
       });
 
+    //
+
+    
     wakeupAPI();
   </script>
 </html>

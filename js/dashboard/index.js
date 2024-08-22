@@ -1,23 +1,20 @@
 const inpSearch = document.querySelector(".inp-search");
 
-getStock();
-
-// const perPage = 3;
+// const perPage = 2;
 let lInf = 0;
 let lSup = perPage;
 let page = 1;
 
 let trows = "";
+
 const thead = `
-  <th>Nome</th>
-  <th>Valor unitario</th>
-  <th>Quantidade</th>
-  <th>Expira</th>
-  <th>Acções</th>
+<th>Nome</th>
+<th>Acções</th>
 `;
 
-async function getStock() {
-  const res = await fetch(api_url + "/cronus/stock/", {
+getAsset();
+async function getAsset() {
+  const res = await fetch(api_url + "/user/", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -26,9 +23,8 @@ async function getStock() {
   });
 
   if (res.status === 200) {
-    const data = (await res.json()).filter(
-      ({ desc, removed }) => desc && !removed
-    );
+    const data = (await res.json()).filter((e) => !!e.assoc_user);
+    console.log(data);
 
     showTable(data, lInf, lSup);
 
@@ -36,8 +32,8 @@ async function getStock() {
       document.querySelector(".pagination").innerHTML = `
         <button id='btn-left'><i class='la la-angle-left'></i></button>
           <p>Página <span class='current-page'>${page}</span> de ${Math.ceil(
-            data.length / perPage
-          )}</p>
+        data.length / perPage
+      )}</p>
         <button id='btn-right'><i class='la la-angle-right'></i></button>
     `;
 
@@ -48,10 +44,10 @@ async function getStock() {
     }
 
     inpSearch.addEventListener("keyup", (e) =>
-      searchStock(e.target.value, data)
+      searchAsset(e.target.value, data)
     );
 
-    document.querySelectorAll(".btn-delete-stock").forEach((btn) => {
+    document.querySelectorAll(".btn-delete-asset").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         Swal.fire({
           title: "Tem certeza?",
@@ -64,7 +60,7 @@ async function getStock() {
         }).then((result) => {
           if (result.isConfirmed) {
             const id = e.target.id;
-            removeItem(id, "stock");
+            removeItem(id, "asset");
           }
         });
       });
@@ -72,33 +68,26 @@ async function getStock() {
   }
 }
 
-function searchStock(value, data) {
+function searchAsset(value, data) {
   let trows = "";
 
   const d = data.filter(({ desc }) =>
     desc.toLowerCase().includes(value.toLowerCase())
   );
 
-  for (stock of d) {
-    const { desc, valor, quantidade, _id, expira } = stock;
-
-    const oneDay = 1000 * 60 * 60 * 24;
-    const exp = !expira
-      ? ""
-      : (new Date().getTime() - new Date(expira).getTime()) / oneDay;
-    const ramainingDays = Math.round(Math.abs(exp));
+  for (asset of d) {
+    const { desc, tipo, valor, _id } = asset;
 
     trows += `
         <tr>
           <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
-          <td>${formatCurrency(valor)}</td>
-          <td>${quantidade}</td>
-          <td style='color:${ramainingDays < 32 ? "red" : "green"};'>${
-      exp == 0 ? "" : `${expira} (${ramainingDays} dias)`
+          <td style='color: ${tipo == "1" ? "coral" : "green"};'>${
+      tipo == "1" ? "Passivo" : "Activo"
     }</td>
+          <td>${formatCurrency(valor)}</td>
           <td width='20%'>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
-            <button class="btn-circle btn-circle-delete btn-delete-stock" id="${_id}"><i class='la la-trash'></i></button>
+            <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
           </td>
         </tr>
       `;
@@ -107,7 +96,7 @@ function searchStock(value, data) {
   document.querySelector("tbody").innerHTML = trows;
   document.querySelector("thead").innerHTML = thead;
 
-  document.querySelectorAll(".btn-delete-stock").forEach((btn) => {
+  document.querySelectorAll(".btn-delete-asset").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       Swal.fire({
         title: "Tem certeza?",
@@ -120,7 +109,7 @@ function searchStock(value, data) {
       }).then((result) => {
         if (result.isConfirmed) {
           const id = e.target.id;
-          removeItem(id, "stock");
+          removeItem(id, "asset");
         }
       });
     });
@@ -150,36 +139,38 @@ function paginate(data, dir) {
 const showTable = (data, limInf, limSup) => {
   trows = "";
   for (let i = limInf; i < limSup; i++) {
-    const stock = data[i];
+    const user = data[i];
+    if (!user) continue;
 
-    if (!stock) continue;
-
-    const { desc, valor, quantidade, _id, expira } = stock;
-
-    const oneDay = 1000 * 60 * 60 * 24;
-    const exp = !expira
-      ? ""
-      : (new Date().getTime() - new Date(expira).getTime()) / oneDay;
-    const ramainingDays = Math.round(Math.abs(exp));
+    const { nome, tipo, valor, _id } = user;
 
     trows += `
-      <tr>
-        <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
-        <td>${formatCurrency(valor)}</td>
-        <td>${quantidade}</td>
-        <td style='color:${ramainingDays < 32 ? "red" : "green"};'>${
-      exp == 0 ? "" : `${expira} (${ramainingDays} dias)`
-    }</td>
-        <td width='20%'>
-          <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
-          <button class="btn-circle btn-circle-delete btn-delete-stock" id="${_id}"><i class='la la-trash'></i></button>
-        </td>
-      </tr>
-    `;
+        <tr>
+          <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${nome || ''}</a></td>
+          <td width='20%'>
+            <a href="edit-user.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
+            <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
+          </td>
+        </tr>
+      `;
   }
 
   document.querySelector("tbody").innerHTML = trows;
   document.querySelector("thead").innerHTML = thead;
+
+  if (data.length > perPage) {
+    document.querySelector(".pagination").innerHTML = `
+      <button id='btn-left'><i class='la la-angle-left'></i></button>
+        <p>Página <span class='current-page'>${page}</span> de ${Math.round(
+      data.length / perPage
+    )}</p>
+      <button id='btn-right'><i class='la la-angle-right'></i></button>
+  `;
+
+    document.querySelector("#btn-left").onclick = () => paginate(data, "left");
+    document.querySelector("#btn-right").onclick = () =>
+      paginate(data, "right");
+  }
 };
 
 wakeupAPI();

@@ -28,7 +28,7 @@
       <div id="suggestions"></div>
       <div class="main">
         <div class="main-header">
-          <h3>Cadastrar novo activo</h3>
+          <h3>Cadastrar novo item</h3>
         </div>
         <div class="main-body">
           <form id="form-new-asset">
@@ -42,6 +42,21 @@
                 <input type="number" name="valor" id="" />
               </div>
               <div class="form-group">
+                <label for="periodicidade">Periodicidade: </label>
+                <select name="periodicidade" id="periodicidade">
+                  <option value="">Seleccione uma</option>
+                  <option value="0">Mensal</option>
+                  <option value="1">Anual</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tipo:</label>
+                <label for="radio-activo">Activo</label>
+                <input type="radio" name="p-a" id="radio-activo" value="0" checked/>
+                <label for="radio-passivo">Passivo</label>
+                <input type="radio" name="p-a" id="radio-passivo" value="1" />
+              </div>
+              <div class="form-group">
                 <label for="categoria">Categoria:</label>
                 <select
                   type="text"
@@ -51,19 +66,21 @@
                 <button class="btn-circle" id="btn-add-categoria">
                   <i class="la la-plus-circle"></i>
                 </button>
-                <div class="form-group">
-                  <label>Tipo:</label>
-                  <label for="radio-activo">Activo</label>
-                  <input type="radio" name="p-a" id="radio-activo" value="0" checked/>
-                  <label for="radio-passivo">Passivo</label>
-                  <input type="radio" name="p-a" id="radio-passivo" value="1" />
-                </div>
+              </div>
+              <div class="form-group">
+                <label for="colaborador">O colaborador:</label>
+                <select
+                  type="text"
+                  name="colaborador"
+                  id="colaborador"
+                ></select>
               </div>
             </div>
           </form>
         </div>
         <div class="main-footer">
           <button type="submit" form="form-new-asset" id="btn-submit">
+            <i class="la la-save"></i>
             Salvar
           </button>
         </div>
@@ -100,12 +117,14 @@
         const categoria = form.get("categoria");
         const validade = form.get("validade");
         const tipo = form.get('p-a');
+        const periodicidade = form.get('periodicidade');
 
         const data = {
           desc,
           valor,
           categoria,
-          tipo
+          tipo,
+          periodicidade
         };
 
         const res = await fetch(api_url + "/cronus/asset/create", {
@@ -182,6 +201,29 @@
       }
     }
 
+    getColaboradores()
+    async function getColaboradores() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/staff/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        let options = new String('<option value="">--Seleccionar um--</option>');
+        for (c of data) {
+          const { _id, firstName } = c;
+          options += `<option value='${_id}'>${firstName}</option>`;
+        }
+        document.getElementById("colaborador").innerHTML = options;
+      }
+    }
     wakeupAPI();
   </script>
 </html>

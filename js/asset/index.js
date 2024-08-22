@@ -83,8 +83,8 @@ function searchAsset(value, data) {
 
     trows += `
         <tr>
-          <td>${desc}</td>
-          <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "passivo" : "activo"}</td>
+          <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
+          <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "Passivo" : "Activo"}</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
@@ -147,8 +147,8 @@ const showTable = (data, limInf, limSup) => {
 
     trows += `
         <tr>
-          <td>${desc}</td>
-          <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "passivo" : "activo"}</td>
+          <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
+          <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "Passivo" : "Activo"}</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>

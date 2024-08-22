@@ -20,12 +20,12 @@
     document.getElementById("activo-total").style = `--from: ${(
       v -
       0.1 * v
-    ).toFixed(2)}; --to: ${v}; --time: 2s`;
+    ).toFixed(2)}; --to: ${v}; --time: 1s`;
 
-    // setTimeout(() => {
-    //   document.getElementById("activo-total").style = null;
-    //   document.getElementById("activo-total").innerText = formatterCurrency.format(v);
-    // }, 1700);
+    setTimeout(() => {
+      document.getElementById("activo-total").style = null;
+      document.getElementById("activo-total").innerText = formatterCurrency.format(v);
+    }, 1700);
   }
 })();
 

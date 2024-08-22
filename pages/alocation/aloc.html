@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="../../assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="../../assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <div class="main">
+        <div class="main-header">
+          <h3>Alocar entidades</h3>
+        </div>
+        <div class="main-body">
+          <form id="form-new-asset">
+            <div class="form">
+              <div class="form-group">
+                <label for="desc">Nome:</label>
+                <input type="text" name="desc" id="" required />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="main-footer">
+          <button type="submit" form="form-new-asset" id="btn-submit">
+            <i class="la la-save"></i>
+            Salvar
+          </button>
+        </div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+      <div class="menu-container">
+        <div class="menu">
+      </div>
+  
+    </main>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
+  <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
+  <script>
+    document
+      .getElementById("form-new-asset")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        document.querySelector("#btn-submit").disabled = true;
+
+        const form = new FormData(e.target);
+
+        const desc = form.get("desc");
+        
+
+        const data = {
+          desc,
+        };
+
+        const res = await fetch(api_url + "/cronus/asset/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            user: localStorage.getItem("user"),
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (res.status === 200) {
+          Toast.fire({
+            icon: "success",
+            text: "Gravado com sucesso",
+          }).then(() => {
+            e.target.reset();
+          });
+        }
+
+        document.querySelector("#btn-submit").disabled = false;
+      });
+
+    //
+    wakeupAPI();
+  </script>
+</html>

@@ -115,7 +115,6 @@ p {
 
 #notifications {
   width: 320px;
-  height: 420px;
   border: 1px solid #eee;
   background-color: #fff;
   border-radius: 10px;
@@ -138,6 +137,7 @@ p {
 .notification-body {
   overflow-y: scroll;
   background-color: #fefefe;
+  height: 420px;
 }
 
 .action-buttons button {
@@ -187,6 +187,17 @@ header {
 header > div {
   display: flex;
   align-items: center;
+  flex: 1;
+}
+
+header > #header-center {
+  justify-content: center;
+
+}
+
+header > #header-right {
+  justify-content: flex-end;
+
 }
 
 main {
@@ -242,6 +253,7 @@ button {
   padding: 10px;
   min-width: 120px;
   cursor: pointer;
+  box-shadow: 0 0 1px 1px #f8f8f8;
 }
 
 input:disabled {
@@ -261,8 +273,10 @@ button:active {
   opacity: 0.5;
 }
 
-form {
-  /* display: flex; */
+.btn-outlined {
+  background-color: unset;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 input,
@@ -321,10 +335,12 @@ table th {
 }
 
 .main-body {
+  display: flex;
   border: 1px solid #eee;
   border-top: none;
   padding: 20px;
   min-height: 200px;
+  flex-wrap: wrap;
   /* overflow-y: scroll; */
   /* overflow-x: scroll; */
 }
@@ -408,6 +424,8 @@ label {
   color: #fff;
 }
 
+
+
 #suggestions > li a {
   border-radius: 10px;
   cursor: pointer;
@@ -425,11 +443,6 @@ label {
 #suggestions a i {
   display: inline-block;
   margin-right: 10px;
-}
-
-#suggestions > li a:hover {
-  background-color: var(--primary-color);
-  color: #fff;
 }
 
 #suggestions i.dropdown-icon {
@@ -616,6 +629,7 @@ td {
   justify-content: flex-end;
   padding: 10px;
   align-items: center;
+  width: 100%;
 }
 
 .pagination p {
@@ -629,6 +643,9 @@ td {
   min-width: auto;
   display: inline-block;
   width: 40px;
+  color: var(--primary-color);
+  background-color: #fff;
+  box-shadow: 0 0 1px 2px #f8f8f8;
 }
 
 .pagination i {
