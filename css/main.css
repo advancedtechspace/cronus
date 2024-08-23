@@ -339,10 +339,8 @@ table th {
   border: 1px solid #eee;
   border-top: none;
   padding: 20px;
-  min-height: 200px;
+  /* min-height: 200px; */
   flex-wrap: wrap;
-  /* overflow-y: scroll; */
-  /* overflow-x: scroll; */
 }
 
 .main-footer {
@@ -612,6 +610,10 @@ tbody {
 
 th {
   padding: 5px 10px;
+}
+
+td {
+  padding: 10px;
 }
 
 .inp-search {
