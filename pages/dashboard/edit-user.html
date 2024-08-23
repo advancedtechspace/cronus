@@ -45,9 +45,7 @@
                 <label for="pass">Senha: </label>
                 <input type="password" name="pass" id="pass" />
               </div>
-              <div class="form-group" id="modules">
-                
-              </div>
+              <div class="form-group" id="modules"></div>
             </div>
           </form>
         </div>
@@ -63,9 +61,8 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -78,31 +75,30 @@
   <!-- <script src="../../js/asset/index.js"></script> -->
   <script>
     const url = new URL(window.location.href);
-    const usr = url.searchParams.get('id');
+    const usr = url.searchParams.get("id");
 
-    getUser()
+    getUser();
 
     async function getUser() {
       const res = await fetch(api_url + "/user/" + usr);
 
       if (res.status === 200) {
-        const data = await res.json()
-        console.log(data)
-        document.getElementById('nome').value = data.nome;
-        document.getElementById('email').value = data.email;
+        const data = await res.json();
+        console.log(data);
+        document.getElementById("nome").value = data.nome;
+        document.getElementById("email").value = data.email;
 
-        
-                
+        let mds = "<label>Módulos:</label>";
 
-        let mds = '<label>Módulos:</label>';
-
-        ["staff", "clients", "asset", "stock", "sales"].map(e => {
-          mds  += `
+        ["staff", "clients", "asset", "stock", "sales"].map((e) => {
+          mds += `
             <label for="staff">${e}: </label>
-            <input type="checkbox" name="${e}" id="${e}" ${data.modulos.includes(e) ? 'checked' : 'unchecked'}>`
-        })
+            <input type="checkbox" name="${e}" id="${e}" ${
+            data.modulos.includes(e) ? "checked" : "unchecked"
+          }>`;
+        });
 
-        document.getElementById('modules').innerHTML =  mds;
+        document.getElementById("modules").innerHTML = mds;
       }
     }
 
@@ -119,12 +115,17 @@
         const pass = form.get("pass");
         const activo = !!form.get("activo");
 
-        const modulos = ['staff', 'clients', 'asset', 'stock', 'sales'].filter((e) => 
-          form.get(e) === 'on'
+        const modulos = ["staff", "clients", "asset", "stock", "sales"].filter(
+          (e) => form.get(e) === "on"
         );
 
         const data = {
-          nome, email, pass, activo, modulos, perms: []
+          nome,
+          email,
+          pass,
+          activo,
+          modulos,
+          perms: [],
         };
 
         const res = await fetch(api_url + "/user/update-assoc-user", {
@@ -133,7 +134,7 @@
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
             assoc_user: usr,
-            app: 'cronus'
+            app: "cronus",
           },
           body: JSON.stringify(data),
         });
@@ -142,7 +143,7 @@
           Toast.fire({
             icon: "success",
             text: "Gravado com sucesso",
-          })
+          });
         }
 
         document.querySelector("#btn-submit").disabled = false;
@@ -150,7 +151,6 @@
 
     //
 
-    
     wakeupAPI();
   </script>
 </html>

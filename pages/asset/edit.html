@@ -52,7 +52,13 @@
               <div class="form-group">
                 <label>Tipo:</label>
                 <label for="radio-activo">Activo</label>
-                <input type="radio" name="p-a" id="radio-activo" value="0" checked/>
+                <input
+                  type="radio"
+                  name="p-a"
+                  id="radio-activo"
+                  value="0"
+                  checked
+                />
                 <label for="radio-passivo">Passivo</label>
                 <input type="radio" name="p-a" id="radio-passivo" value="1" />
               </div>
@@ -90,9 +96,8 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -125,14 +130,16 @@
       if (res.status === 200) {
         const data = await res.json();
         const col = data.find(({ _id }) => _id === asset);
-        const { desc, valor, categoria, tipo, periodicidade, colaborador } = col;
+        const { desc, valor, categoria, tipo, periodicidade, colaborador } =
+          col;
         document.querySelector("#desc").value = desc;
         document.querySelector("#valor").value = valor;
         document.querySelector("#select-categoria").value = categoria;
-        document.querySelector("#radio-activo").checked = tipo == '0' | null | undefined;
-        document.querySelector("#radio-passivo").checked = tipo != '0';
-        document.querySelector("#periodicidade").value = periodicidade || '';
-        document.querySelector("#colaborador").value = colaborador || '';
+        document.querySelector("#radio-activo").checked =
+          (tipo == "0") | null | undefined;
+        document.querySelector("#radio-passivo").checked = tipo != "0";
+        document.querySelector("#periodicidade").value = periodicidade || "";
+        document.querySelector("#colaborador").value = colaborador || "";
       }
     }
 
@@ -147,9 +154,9 @@
         const desc = form.get("desc");
         const valor = form.get("valor");
         const categoria = form.get("categoria");
-        const tipo = form.get('p-a');
-        const periodicidade= form.get('periodicidade');
-        const colaborador= form.get('colaborador');
+        const tipo = form.get("p-a");
+        const periodicidade = form.get("periodicidade");
+        const colaborador = form.get("colaborador");
 
         const data = {
           tipo,
@@ -157,7 +164,7 @@
           valor,
           categoria,
           periodicidade,
-          colaborador
+          colaborador,
         };
 
         const res = await fetch(api_url + "/cronus/asset/update", {
@@ -173,7 +180,7 @@
           Toast.fire({
             icon: "success",
             text: "Gravado com sucesso",
-          })
+          });
         }
 
         document.querySelector("#btn-submit").disabled = false;
@@ -229,7 +236,7 @@
       }
     }
 
-    getColaboradores()
+    getColaboradores();
     async function getColaboradores() {
       let trows = "";
 
@@ -244,7 +251,9 @@
       if (res.status === 200) {
         const data = await res.json();
         console.log(data);
-        let options = new String('<option value="">--Seleccionar um--</option>');
+        let options = new String(
+          '<option value="">--Seleccionar um--</option>'
+        );
         for (c of data) {
           const { _id, firstName } = c;
           options += `<option value='${_id}'>${firstName}</option>`;

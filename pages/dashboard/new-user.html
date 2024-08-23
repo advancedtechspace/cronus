@@ -48,15 +48,15 @@
               <div class="form-group">
                 <label>Módulos:</label>
                 <label for="staff">Colaboradores: </label>
-                <input type="checkbox" name="staff" id="staff" checked>
+                <input type="checkbox" name="staff" id="staff" checked />
                 <label for="clients">Consumidores: </label>
-                <input type="checkbox" name="clients" id="clients" checked>
+                <input type="checkbox" name="clients" id="clients" checked />
                 <label for="asset">Activos e passivos: </label>
-                <input type="checkbox" name="asset" id="asset" checked>
+                <input type="checkbox" name="asset" id="asset" checked />
                 <label for="stock">Inventário e serviços: </label>
-                <input type="checkbox" name="stock" id="stock" checked>
+                <input type="checkbox" name="stock" id="stock" checked />
                 <label for="sales">Contabilidade: </label>
-                <input type="checkbox" name="sales" id="sales" checked>
+                <input type="checkbox" name="sales" id="sales" checked />
               </div>
             </div>
           </form>
@@ -73,9 +73,8 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -100,12 +99,17 @@
         const pass = form.get("pass");
         const activo = !!form.get("activo");
 
-        const modulos = ['staff', 'clients', 'asset', 'stock', 'sales'].filter((e) => 
-          form.get(e) === 'on'
+        const modulos = ["staff", "clients", "asset", "stock", "sales"].filter(
+          (e) => form.get(e) === "on"
         );
 
         const data = {
-          nome, email, pass, activo, modulos, perms: []
+          nome,
+          email,
+          pass,
+          activo,
+          modulos,
+          perms: [],
         };
 
         const res = await fetch(api_url + "/user/create", {
@@ -113,7 +117,7 @@
           headers: {
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
-            app: 'cronus'
+            app: "cronus",
           },
           body: JSON.stringify(data),
         });
@@ -132,7 +136,6 @@
 
     //
 
-    
     wakeupAPI();
   </script>
 </html>

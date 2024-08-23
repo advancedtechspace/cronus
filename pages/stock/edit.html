@@ -66,11 +66,7 @@
               </div>
               <div class="form-group">
                 <label for="quantidade">Expira: </label>
-                <input
-                  type="date"
-                  name="expira"
-                  id="expira"
-                />
+                <input type="date" name="expira" id="expira" />
               </div>
               <div class="form-group">
                 <label for="categoria">Categoria:</label>
@@ -99,9 +95,8 @@
       </div>
 
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -140,8 +135,9 @@
         document.querySelector("#valor").value = valor;
         document.querySelector("#select-categoria").value = categoria;
         document.querySelector("#expira").value = expira;
-        document.querySelector("#radio-stock").checked = tipo == '0' | null | undefined;
-        document.querySelector("#radio-servico").checked = tipo != '0';
+        document.querySelector("#radio-stock").checked =
+          (tipo == "0") | null | undefined;
+        document.querySelector("#radio-servico").checked = tipo != "0";
       }
     }
 
@@ -166,7 +162,7 @@
           quantidade,
           categoria,
           tipo,
-          expira
+          expira,
         };
 
         const res = await fetch(api_url + "/cronus/stock/update", {
@@ -183,7 +179,7 @@
           Toast.fire({
             icon: "success",
             text: "Gravado com sucesso",
-          })
+          });
         }
 
         document.querySelector("#btn-submit").disabled = false;

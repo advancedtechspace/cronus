@@ -146,9 +146,8 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -181,7 +180,7 @@
         const dependentes = form.get("dependentes");
         const nivel = form.get("nivel");
         const categoria = form.get("categoria");
-        const morada = form.get('morada');
+        const morada = form.get("morada");
 
         const data = {
           firstName,
@@ -198,7 +197,7 @@
           categoria,
           morada,
           bi,
-          nuit
+          nuit,
         };
 
         const res = await fetch(api_url + "/cronus/staff/create", {

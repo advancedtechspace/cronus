@@ -11,7 +11,7 @@
     />
     <script src="../../libraries/js/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
-    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css">
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -52,7 +52,7 @@
                     value="1"
                   />
                 </div>
-               
+
                 <button class="btn-circle" id="btn-add-product">
                   <i class="la la-plus-circle"></i>
                 </button>
@@ -87,7 +87,7 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
     </main>
     <footer>
@@ -121,7 +121,7 @@
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
           },
-          body: JSON.stringify({cart, bi}),
+          body: JSON.stringify({ cart, bi }),
         });
 
         if (res.status === 200) {
@@ -180,7 +180,7 @@
       const selected = document.getElementById("select-product");
       const product = selected.value;
       const quantidade = document.getElementById("quantidade").value;
-      
+
       const product_label =
         document.getElementById("select-product").options[
           selected.selectedIndex
@@ -195,7 +195,7 @@
       }
 
       cart.push({ product, quantidade, product_label });
-      console.log(cart)
+      console.log(cart);
 
       const thead = `
           <th>Producto</th>
@@ -226,7 +226,7 @@
             cart = cart.filter(({ product }) => product !== id);
             trows = "";
             for (p of cart) {
-              console.log(p)
+              console.log(p);
               trows += `
                 <tr>
                   <td>${p.product_label}</td>
@@ -245,6 +245,6 @@
       }
     }
 
-    wakeupAPI()
+    wakeupAPI();
   </script>
 </html>

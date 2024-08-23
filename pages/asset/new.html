@@ -52,7 +52,13 @@
               <div class="form-group">
                 <label>Tipo:</label>
                 <label for="radio-activo">Activo</label>
-                <input type="radio" name="p-a" id="radio-activo" value="0" checked/>
+                <input
+                  type="radio"
+                  name="p-a"
+                  id="radio-activo"
+                  value="0"
+                  checked
+                />
                 <label for="radio-passivo">Passivo</label>
                 <input type="radio" name="p-a" id="radio-passivo" value="1" />
               </div>
@@ -90,9 +96,8 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -116,15 +121,15 @@
         const valor = form.get("valor");
         const categoria = form.get("categoria");
         const validade = form.get("validade");
-        const tipo = form.get('p-a');
-        const periodicidade = form.get('periodicidade');
+        const tipo = form.get("p-a");
+        const periodicidade = form.get("periodicidade");
 
         const data = {
           desc,
           valor,
           categoria,
           tipo,
-          periodicidade
+          periodicidade,
         };
 
         const res = await fetch(api_url + "/cronus/asset/create", {
@@ -201,7 +206,7 @@
       }
     }
 
-    getColaboradores()
+    getColaboradores();
     async function getColaboradores() {
       let trows = "";
 
@@ -216,7 +221,9 @@
       if (res.status === 200) {
         const data = await res.json();
         console.log(data);
-        let options = new String('<option value="">--Seleccionar um--</option>');
+        let options = new String(
+          '<option value="">--Seleccionar um--</option>'
+        );
         for (c of data) {
           const { _id, firstName } = c;
           options += `<option value='${_id}'>${firstName}</option>`;

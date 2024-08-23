@@ -76,7 +76,7 @@
         console.log(data);
 
         localStorage.setItem("user", data.user._id);
-        
+
         if (data.assoc_user) {
           localStorage.setItem("assoc_user", data.assoc_user._id);
           localStorage.setItem("modulos", data.assoc_user.modulos.toString());

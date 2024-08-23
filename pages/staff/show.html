@@ -30,7 +30,9 @@
       <div class="main">
         <div class="main-header">
           <h3>Consultar colaborador</h3>
-          <a href="./new.html" class="btn-new"><i class="la la-edit"></i> Editar</a>
+          <a href="./new.html" class="btn-new"
+            ><i class="la la-edit"></i> Editar</a
+          >
         </div>
         <div class="main-body">
           <form id="form-new-staff">
@@ -166,7 +168,6 @@
                   id="select-categoria"
                   disabled
                 ></select>
-               
               </div>
             </div>
           </form>
@@ -178,9 +179,8 @@
         <p>Loading...</p>
       </div>
       <div class="menu-container">
-        <div class="menu">
+        <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -195,7 +195,7 @@
     const url = new URL(window.location.href);
     const staff = url.searchParams.get("col");
 
-    document.querySelector('.main-header a').href = './edit.html?col=' + staff;
+    document.querySelector(".main-header a").href = "./edit.html?col=" + staff;
 
     getCategorias().then(() => {
       getStaff();
@@ -310,7 +310,6 @@
 
         btnUpdate.disabled = false;
       });
-
 
     async function getCategorias() {
       let trows = "";
