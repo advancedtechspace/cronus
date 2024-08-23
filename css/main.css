@@ -253,7 +253,7 @@ button {
   padding: 10px;
   min-width: 120px;
   cursor: pointer;
-  box-shadow: 0 0 1px 1px #f8f8f8;
+  /* box-shadow: 0 0 1px 1px #f8f8f8; */
 }
 
 input:disabled {
@@ -612,10 +612,6 @@ tbody {
 
 th {
   padding: 5px 10px;
-}
-
-td {
-  padding: 10px;
 }
 
 .inp-search {
