@@ -23,8 +23,9 @@ async function getAsset() {
   });
 
   if (res.status === 200) {
-    const data = (await res.json()).filter((e) => !!e.assoc_user);
-    console.log(data);
+    const data = (await res.json()).filter(
+      (e) => !!e.assoc_user & (e.assoc_user === localStorage.getItem("user"))
+    );
 
     showTable(data, lInf, lSup);
 
@@ -146,7 +147,9 @@ const showTable = (data, limInf, limSup) => {
 
     trows += `
         <tr>
-          <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${nome || ''}</a></td>
+          <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${
+      nome || ""
+    }</a></td>
           <td width='20%'>
             <a href="edit-user.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
