@@ -54,7 +54,7 @@ const main_header = `
 
 const main_footer = `
     <p>CRONUS &copy; 2024</p>
-    <p>Powered by <a href='https://advancedtechspace.com' target='_blank'>AdvancedTechSpace (ATS)</a></p>
+    <p>Powered by <a href='https://advancedtechspace.com' target='_blank'>AdvancedTechSpace</a></p>
 `;
 
 let shown = false;
@@ -71,6 +71,7 @@ function toggleNottifications() {
 }
 
 function changeTheme() {
+  return
   const themeMode = localStorage.getItem("theme-mode");
   if (!themeMode) {
     localStorage.setItem("theme-mode", "dark");

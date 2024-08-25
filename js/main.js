@@ -2,8 +2,8 @@ let modulos = [];
 
 const modulos_aux = localStorage.getItem("modulos");
 
-if(modulos_aux) {
-  modulos = modulos_aux.split(",")
+if (modulos_aux) {
+  modulos = modulos_aux.split(",");
 }
 
 const nav = [
@@ -11,8 +11,8 @@ const nav = [
     id: "dashboard",
     name: "Admin",
     path: "",
-    icon: "chart-pie",
-    show: !localStorage.getItem('assoc_user'),
+    icon: "user-tie",
+    show: !localStorage.getItem("assoc_user"),
     submenu: [
       {
         id: "dashboard-config",
@@ -30,7 +30,7 @@ const nav = [
         id: "dashboard-users",
         label: "Listagem de utilizadores",
         url: "pages/dashboard/users.html",
-        icon: "",
+        icon: 'la-list',
       },
       {
         id: "dashboard-new-user",
@@ -45,19 +45,19 @@ const nav = [
     name: "Colaboradores",
     path: "pages/staff",
     icon: "male",
-    show: modulos?.includes('staff'),
+    show: modulos?.includes("staff"),
     submenu: [
       {
         id: "staff-dashboard",
         label: "Dashboard",
-        url: "#",
-        icon: null,
+        url: "dash.html",
+        icon: "la-chart-pie",
       },
       {
         id: "staff-list",
         label: "Listagem",
         url: "#",
-        icon: null,
+        icon: 'la-list',
       },
       {
         id: "staff-new",
@@ -78,19 +78,19 @@ const nav = [
     name: "Consumidores",
     path: "pages/clients",
     icon: "male",
-    show: modulos?.includes('clients'),
+    show: modulos?.includes("clients"),
     submenu: [
-      {
-        id: "clients-dashboard",
-        label: "Dashboard",
-        url: "#",
-        icon: null,
-      },
+      // {
+      //   id: "clients-dashboard",
+      //   label: "Dashboard",
+      //   url: "#",
+      //   icon: "la-chart-pie",
+      // },
       {
         id: "clients-list",
         label: "Listagem",
         url: "#",
-        icon: null,
+        icon: 'la-list',
       },
       {
         id: "clients-new",
@@ -111,19 +111,19 @@ const nav = [
     name: "Activos e passivos",
     path: "pages/asset",
     icon: "couch",
-    show: modulos?.includes('asset'),
+    show: modulos?.includes("asset"),
     submenu: [
       {
         id: "asset-dashboard",
         label: "Dashboard",
-        url: "#",
-        icon: null,
+        url: "dash.html",
+        icon: "la-chart-pie",
       },
       {
         id: "asset-list",
         label: "Listagem",
         url: "#",
-        icon: null,
+        icon: 'la-list',
       },
       {
         id: "asset-new",
@@ -141,22 +141,22 @@ const nav = [
   },
   {
     id: "stock",
-    name: "Inventário e serviços",
+    name: "Stock e serviços",
     path: "pages/stock",
     icon: "archive",
-    show: modulos?.includes('stock'),
+    show: modulos?.includes("stock"),
     submenu: [
       {
         id: "asset-dashboard",
         label: "Dashboard",
-        url: "#",
-        icon: null,
+        url: "dash.html",
+        icon: "la-chart-pie",
       },
       {
         id: "stock-list",
         label: "Listagem",
         url: "#",
-        icon: null,
+        icon: 'la-list',
       },
       {
         id: "stock-new",
@@ -183,13 +183,13 @@ const nav = [
         id: "alocation-dashboard",
         label: "Dashboard",
         url: "#",
-        icon: null,
+        icon: "la-chart-pie",
       },
       {
         id: "alocation-list",
         label: "Listagem de entidades",
         url: "#",
-        icon: null,
+        icon: 'la-list',
       },
       {
         id: "alocation-new",
@@ -216,19 +216,19 @@ const nav = [
     name: "Contabilidade",
     path: "pages/sales",
     icon: "dollar",
-    show: modulos?.includes('sales'),
+    show: modulos?.includes("sales"),
     submenu: [
       {
         id: "sales-dashboard",
         label: "Dashboard",
-        url: "dashboard.html",
-        icon: null,
+        url: "dash.html",
+        icon: 'la-chart-pie',
       },
       {
         id: "sales-list",
         label: "Listagem de facturas",
         url: "#",
-        icon: null,
+        icon: 'la-list',
       },
       {
         id: "sales-new",
@@ -249,7 +249,7 @@ const nav = [
         id: "accounting-dashboard",
         label: "Dashboard",
         url: "#",
-        icon: null,
+        icon: "la-chart-pie",
       },
       {
         id: "accounting-new",
@@ -393,7 +393,7 @@ document.getElementById("a-dashboard").addEventListener("click", () => {
   localStorage.removeItem("user");
   if (localStorage.getItem("assoc_user")) {
     localStorage.removeItem("assoc_user");
-    localStorage.removeItem('modulos');
+    localStorage.removeItem("modulos");
   }
   window.location.href = base_url + "/login.html";
 });
@@ -428,7 +428,7 @@ const menuContainer = document.querySelector(".menu-container");
 
 if (menuContainer) {
   menuContainer.addEventListener("click", (e) => {
-    if ((e.target.className = "menu-container")) {
+    if ((e.target.className === "menu-container")) {
       e.target.style.display = "none";
     }
   });

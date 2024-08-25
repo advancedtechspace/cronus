@@ -20,14 +20,17 @@
     <main>
       <div id="suggestions"></div>
 
-      <div class="chart-container"></div>
+      <div class="cards">
+        <div class="card-container">
+          <span class="title">Total em stock</span>
+          <div class="content" style="color: #78ee9b">
+            <span id="activo-total" class="counter"></span>
+          </div>
+        </div>
+      </div>
+
       <div class="chart-container">
-        <canvas id="chart" width="640px" height="250px"></canvas>
-        <canvas
-          id="chart-sales-per-stock"
-          width="340px"
-          height="150px"
-        ></canvas>
+        <canvas id="chart" width="640px" height="420px"></canvas>
       </div>
     </main>
     <div id="loader">
@@ -43,8 +46,9 @@
     <div class="menu-container">
       <div class="menu"></div>
     </div>
-
-    <footer></footer>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
   </body>
   <script src="../../libraries/js/jquery-3.6.0.min.js"></script>
   <script src="../../libraries/js/chart.umd.js"></script>
@@ -52,16 +56,47 @@
   <script src="../../js/util.js"></script>
   <script src="../../js/components/index.js"></script>
   <script src="../../js/main.js"></script>
-  <script src="../../js/index.js"></script>
+  <script src="../../js/stock/index.js"></script>
   <script>
     if (localStorage.getItem("user") === null) {
       window.location.href = base_url + "/login.html";
     }
 
+    getTotalStock();
+
+    async function getTotalStock() {
+      const res = await fetch(api_url + "/cronus/stock/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = (await res.json()).filter(
+          ({ desc, removed }) => desc && !removed
+        );
+
+        let total = 0;
+
+        for (const s of data) {
+          if (s.tipo === "0") {
+            total +=
+              (parseFloat(s.valor) || 0) * (parseFloat(s.quantidade) || 1);
+          }
+        }
+
+        document.querySelector("#activo-total").innerText =
+          formatCurrency(total);
+      }
+    }
+
+    //
     document.addEventListener("DOMContentLoaded", async () => {
       const ctx = document.getElementById("chart").getContext("2d");
 
-      const res = await fetch(api_url + "/cronus/sales/per-month", {
+      const res = await fetch(api_url + "/cronus/stock", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -72,28 +107,30 @@
 
       if (res.status === 200) {
         const d = await res.json();
+        let data = d.filter((e) => (e.tipo === "0") & !!e.expira);
+
+        data = data.map(({ expira, desc }) => {
+          const oneDay = 1000 * 60 * 60 * 24;
+          const exp = !expira
+            ? ""
+            : (new Date().getTime() - new Date(expira).getTime()) / oneDay;
+          const ramainingDays = Math.round(Math.abs(exp));
+          return {
+            desc,
+            ramainingDays,
+          };
+        });
+
+        console.log(data);
 
         new Chart(ctx, {
-          type: "line",
+          type: "bar",
           data: {
-            labels: [
-              "Jan",
-              "Fev",
-              "Mar",
-              "Abr",
-              "Mai",
-              "Jun",
-              "Jul",
-              "Ago",
-              "Set",
-              "Out",
-              "Nov",
-              "Dez",
-            ],
+            labels: data.map(({ desc }) => desc),
             datasets: [
               {
-                label: "Vendas mensais",
-                data: d,
+                label: "Stock por dias de validade",
+                data: data.map(({ ramainingDays }) => ramainingDays),
                 borderColor: colors.primary,
                 backgroundColor: "rgba(175, 142, 192, 0.6)",
                 fill: false,
@@ -110,60 +147,10 @@
                 beginAtZero: true,
               },
             },
-            tension: 0.7,
           },
         });
       }
-
-      getSalesPerProduct();
     });
-
-    async function getSalesPerProduct() {
-      const ctx2 = document
-        .getElementById("chart-sales-per-stock")
-        .getContext("2d");
-
-      const res = await fetch(api_url + "/cronus/sales/per-stock", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          user: localStorage.getItem("user"),
-          app: "cronus",
-        },
-      });
-
-      if (res.status === 200) {
-        const d = await res.json();
-
-        new Chart(ctx2, {
-          type: "bar",
-          data: {
-            labels: d.map(({ desc }) => desc),
-            datasets: [
-              {
-                label: "Vendas por productos e serviços",
-                data: d.map(({ sales }) => sales),
-                borderColor: colors.primary,
-                backgroundColor: "rgba(175, 142, 192, 0.6)",
-                fill: true,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                beginAtZero: true,
-              },
-              y: {
-                beginAtZero: true,
-              },
-            },
-          },
-        });
-      }
-    }
-
     wakeupAPI();
   </script>
 </html>

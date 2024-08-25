@@ -92,10 +92,12 @@
 
         ["staff", "clients", "asset", "stock", "sales"].map((e) => {
           mds += `
-            <label for="staff">${e}: </label>
-            <input type="checkbox" name="${e}" id="${e}" ${
+          <input type="checkbox" name="${e}" id="${e}" ${
             data.modulos.includes(e) ? "checked" : "unchecked"
-          }>`;
+          }
+          >
+          <label for="${e}">${e}: </label>
+          `;
         });
 
         document.getElementById("modules").innerHTML = mds;

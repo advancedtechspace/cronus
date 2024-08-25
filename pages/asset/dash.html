@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div id="suggestions"></div>
+
+      <div class="cards">
+        <div class="card-container">
+          <span class="title">Total em activos</span>
+          <div class="content" style="color: #78ee9b">
+            <span id="activo-total" class="counter"></span>
+          </div>
+        </div>
+        <div class="card-container">
+          <span class="title">Passivos mensais</span>
+          <div class="content" style="color: coral">
+            <span id="passivos-mensais" class="counter"></span>
+          </div>
+        </div>
+        <div class="card-container">
+          <span class="title">Passivos anuais</span>
+          <div class="content" style="color: coral">
+            <span id="passivos-anuais" class="counter"></span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart" width="768px" height="420px"></canvas>
+      </div>
+    </main>
+    <div id="loader">
+      <p>
+        <img
+          src="../../assets/img/loading.gif"
+          width="20"
+          height="20"
+          alt="loader"
+        /><span>Carregando...</span>
+      </p>
+    </div>
+    <div class="menu-container">
+      <div class="menu"></div>
+    </div>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../libraries/js/jquery-3.6.0.min.js"></script>
+  <script src="../../libraries/js/chart.umd.js"></script>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
+  <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/index.js"></script> -->
+  <script>
+    if (localStorage.getItem("user") === null) {
+      window.location.href = base_url + "/login.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const ctx = document.getElementById("chart").getContext("2d");
+
+      const res = await fetch(api_url + "/cronus/asset", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+          app: "cronus",
+        },
+      });
+
+      if (res.status === 200) {
+        const d = await res.json();
+        const data = d.filter((e) => e.tipo === "1");
+
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: data.map(
+              ({ desc, periodicidade }) =>
+                `${desc} (${periodicidade === "0" ? "Mensal" : "Anual"})`
+            ),
+            datasets: [
+              {
+                label: "Gastos por passivo",
+                data: data.map(({ valor }) => valor),
+                borderColor: colors.primary,
+                backgroundColor: "rgba(175, 142, 192, 0.6)",
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                beginAtZero: true,
+              },
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    });
+
+    getTotalAsset();
+    async function getTotalAsset() {
+      const res = await fetch(api_url + "/cronus/asset/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = (await res.json()).filter(
+          ({ desc, removed }) => desc && !removed
+        );
+
+        let total_activos = 0;
+        let passivos_mensais = 0;
+        let passivos_anuais = 0;
+
+        data.forEach((e) => {
+          if (e.tipo === "0") {
+            total_activos += parseFloat(e.valor) || 0;
+          }
+
+          if ((e.tipo === "1") & (e.periodicidade === "0")) {
+            passivos_mensais += parseFloat(e.valor) || 0;
+          }
+
+          if ((e.tipo === "1") & (e.periodicidade === "1")) {
+            passivos_anuais += parseFloat(e.valor) || 0;
+          }
+        });
+
+        document.querySelector("#activo-total").innerText =
+          formatCurrency(total_activos);
+        document.querySelector("#passivos-mensais").innerText =
+          formatCurrency(passivos_mensais);
+        document.querySelector("#passivos-anuais").innerText =
+          formatCurrency(passivos_anuais);
+      }
+    }
+
+    wakeupAPI();
+  </script>
+</html>
