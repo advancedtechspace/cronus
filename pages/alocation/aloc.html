@@ -33,10 +33,39 @@
         <div class="main-body">
           <form id="form-new-asset">
             <div class="form">
-              <div class="form-group">
-                <label for="desc">Nome:</label>
-                <input type="text" name="desc" id="" required />
-              </div>
+              <table width="100%">
+                <thead>
+                  <th>Activo</th>
+                  <th>Tempo</th>
+                  <th>Entidade</th>
+                  <th>Local</th>
+                </thead>
+                <tbody>
+                  <td>
+                    <select name="" id="">
+                      <option value="">--Selectionar---</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="" id="">
+                      <option value="">--Selectionar---</option>
+                      <option value="0">Manhã</option>
+                      <option value="1">Tarde</option>
+                      <option value="2">Noite</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="" id="">
+                      <option value="">--Selectionar---</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="" id="">
+                      <option value="">--Selectionar---</option>
+                    </select>
+                  </td>
+                </tbody>
+              </table>
             </div>
           </form>
         </div>
@@ -54,7 +83,6 @@
       <div class="menu-container">
         <div class="menu"></div>
       </div>
-  
     </main>
     <footer>
       <p>CRONUS &copy; 2024</p>
@@ -75,7 +103,6 @@
         const form = new FormData(e.target);
 
         const desc = form.get("desc");
-        
 
         const data = {
           desc,

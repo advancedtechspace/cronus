@@ -1,3 +1,18 @@
+const modules = [
+  { id: "dashboard", name: "Admin" },
+  { id: "staff", name: "Colaboradores" },
+  { id: "clients", name: "Consumidores" },
+  { id: "asset", name: "Activos e passivos" },
+  { id: "stock", name: "Stock e serviços" },
+  { id: "alocation", name: "Alocações" },
+  { id: "sales", name: "Contabilidade" },
+  { id: "accounting", name: "Contabilidade" },
+  { id: "credito", name: "Microcrédito" },
+  { id: "ensurance", name: "Seguros" },
+  { id: "hotel", name: "Hotel" },
+  { id: "transport", name: "Transporte" },
+];
+
 const api_url =
   window.location.protocol === "https:"
     ? "https://api.advancedtechspace.com"
@@ -84,8 +99,8 @@ function theme() {
     mainBorder: themeMode === "light" ? "1px solid #eee" : "1px solid #777",
     cardColor: themeMode === "light" ? "#fff" : "#888",
     inputColor: themeMode === "light" ? "#888" : "#ddd",
-    submenuShadow: themeMode === "light" ? "0 0 10px 5px #f8f8f8" : "0 0 10px 5px #444",
-    
+    submenuShadow:
+      themeMode === "light" ? "0 0 10px 5px #f8f8f8" : "0 0 10px 5px #444",
   };
 
   document.querySelector("header").style.backgroundColor =
@@ -125,8 +140,6 @@ function theme() {
     input.style.backgroundColor = theme_config.cardColor;
     input.style.color = theme_config.inputColor;
   });
-
-  
 
   // document.querySelector(".inp-search").style.border = theme_config.mainBorder;
 

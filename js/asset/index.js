@@ -164,7 +164,7 @@ const showTable = (data, limInf, limSup) => {
   if (data.length > perPage) {
     document.querySelector(".pagination").innerHTML = `
       <button id='btn-left'><i class='la la-angle-left'></i></button>
-        <p>Página <span class='current-page'>${page}</span> de ${Math.round(
+        <p>Página <span class='current-page'>${page}</span> de ${Math.ceil(
       data.length / perPage
     )}</p>
       <button id='btn-right'><i class='la la-angle-right'></i></button>

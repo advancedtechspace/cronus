@@ -22,11 +22,18 @@
 
       <div class="cards">
         <div class="card-container">
-          <span class="title">Gasto com salários</span>
+          <span class="title">Despesa mensal salarial</span>
           <div class="content" style="color: coral">
             <span id="activo-total" class="counter"></span>
           </div>
         </div>
+      </div>
+      <div class="chart-container">
+        <canvas
+          id="chart-salary-per-category"
+          width="640px"
+          height="270px"
+        ></canvas>
       </div>
     </main>
     <div id="loader">
@@ -79,7 +86,77 @@
           total += parseFloat(s.salario) || 0;
         }
 
-        document.querySelector("#activo-total").innerText = formatCurrency(total);
+        document.querySelector("#activo-total").innerText =
+          formatCurrency(total);
+      }
+    }
+
+    getSalariosPorCategoria();
+    async function getSalariosPorCategoria() {
+      const ctx2 = document
+        .getElementById("chart-salary-per-category")
+        .getContext("2d");
+
+      const res = await fetch(api_url + "/cronus/staff/categoria", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        const res2 = await fetch(api_url + "/cronus/staff/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            user: localStorage.getItem("user"),
+          },
+        });
+
+        if (res2.status === 200) {
+          const data2 = await res2.json();
+          for (let i = 0; i < data.length; i++) {
+            const e = data[i];
+            for (let j = 0; j < data2.length; j++) {
+              const el = data2[j];
+              if (e._id === el.categoria) {
+                data[i].salario_total =
+                  parseFloat(data[i].salario_total || 0) +
+                  parseFloat(data2[j].salario || 0);
+              }
+            }
+          }
+        }
+
+
+        new Chart(ctx2, {
+          type: "bar",
+          data: {
+            labels: data.map(({ label }) => label),
+            datasets: [
+              {
+                label: "Despesa salarial mensal por categoria",
+                data: data.map(({ salario_total }) => salario_total),
+                borderColor: colors.primary,
+                backgroundColor: "rgba(175, 142, 192, 0.6)",
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                beginAtZero: true,
+              },
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
       }
     }
     wakeupAPI();

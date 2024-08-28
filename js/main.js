@@ -30,7 +30,7 @@ const nav = [
         id: "dashboard-users",
         label: "Listagem de utilizadores",
         url: "pages/dashboard/users.html",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "dashboard-new-user",
@@ -57,7 +57,7 @@ const nav = [
         id: "staff-list",
         label: "Listagem",
         url: "#",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "staff-new",
@@ -90,7 +90,7 @@ const nav = [
         id: "clients-list",
         label: "Listagem",
         url: "#",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "clients-new",
@@ -123,7 +123,7 @@ const nav = [
         id: "asset-list",
         label: "Listagem",
         url: "#",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "asset-new",
@@ -156,7 +156,7 @@ const nav = [
         id: "stock-list",
         label: "Listagem",
         url: "#",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "stock-new",
@@ -189,7 +189,7 @@ const nav = [
         id: "alocation-list",
         label: "Listagem de entidades",
         url: "#",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "alocation-new",
@@ -222,13 +222,13 @@ const nav = [
         id: "sales-dashboard",
         label: "Dashboard",
         url: "dash.html",
-        icon: 'la-chart-pie',
+        icon: "la-chart-pie",
       },
       {
         id: "sales-list",
         label: "Listagem de facturas",
         url: "#",
-        icon: 'la-list',
+        icon: "la-list",
       },
       {
         id: "sales-new",
@@ -428,7 +428,7 @@ const menuContainer = document.querySelector(".menu-container");
 
 if (menuContainer) {
   menuContainer.addEventListener("click", (e) => {
-    if ((e.target.className === "menu-container")) {
+    if (e.target.className === "menu-container") {
       e.target.style.display = "none";
     }
   });
