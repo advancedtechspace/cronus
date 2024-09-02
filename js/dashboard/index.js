@@ -9,6 +9,7 @@ let trows = "";
 
 const thead = `
 <th>Nome</th>
+<th>Email</th>
 <th>Acções</th>
 `;
 
@@ -87,6 +88,7 @@ function searchAsset(value, data) {
     }</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
+            <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
           </td>
@@ -143,14 +145,16 @@ const showTable = (data, limInf, limSup) => {
     const user = data[i];
     if (!user) continue;
 
-    const { nome, tipo, valor, _id } = user;
+    const { nome, email, _id } = user;
 
     trows += `
         <tr>
           <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${
       nome || ""
     }</a></td>
+          <td>${email}</td>
           <td width='20%'>
+            <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="edit-user.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
           </td>

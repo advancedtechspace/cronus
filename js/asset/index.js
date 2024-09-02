@@ -87,6 +87,7 @@ function searchAsset(value, data) {
           <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "Passivo" : "Activo"}</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
+            <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
           </td>
@@ -151,6 +152,7 @@ const showTable = (data, limInf, limSup) => {
           <td style='color: ${tipo == "1" ? 'coral' : 'green'};'>${tipo == "1" ? "Passivo" : "Activo"}</td>
           <td>${formatCurrency(valor)}</td>
           <td width='20%'>
+            <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-asset" id="${_id}"><i class='la la-trash'></i></button>
           </td>

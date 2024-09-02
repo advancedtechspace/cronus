@@ -17,10 +17,16 @@
     });
     const v = data.total;
 
-    document.getElementById("activo-total").style = `--from: ${(
-      v -
-      0.1 * v
-    ).toFixed(2)}; --to: ${v}; --time: 1s`;
+    document.getElementById("activo-total").style = `--from: ${
+      v - 0.1 * v
+    }; --to: ${v}; --time: 1s`;
+
+    setTimeout(() => {
+      document.getElementById("activo-total").style = 'none';
+      document.getElementById("activo-total").innerHTML = formatCurrency(
+        data.total
+      );
+    }, 2000);
   }
 })();
 

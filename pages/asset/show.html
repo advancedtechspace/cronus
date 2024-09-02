@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="../../assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="../../assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <div class="main">
+        <div class="main-header">
+          <h3>Editar item</h3>
+          <a href="" class="btn-new"
+            ><i class="la la-edit"></i> Editar</a
+          >
+        </div>
+        <div class="main-body">
+          <form id="form-new-asset">
+            <div class="form">
+              <div class="form-group">
+                <label for="desc">Nome:</label>
+                <input type="text" name="desc" id="desc" disabled />
+              </div>
+              <div class="form-group">
+                <label for="valor">Valor: </label>
+                <input type="number" name="valor" id="valor" disabled />
+              </div>
+              <div class="form-group">
+                <label for="periodicidade">Periodicidade: </label>
+                <select name="periodicidade" id="periodicidade" disabled>
+                  <option value="">Seleccione uma</option>
+                  <option value="0">Mensal</option>
+                  <option value="1">Anual</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tipo:</label>
+                <label for="radio-activo">Activo</label>
+                <input
+                  type="radio"
+                  name="p-a"
+                  id="radio-activo"
+                  value="0"
+                  checked
+                  disabled
+                />
+                <label for="radio-passivo">Passivo</label>
+                <input type="radio" name="p-a" id="radio-passivo" value="1" disabled />
+              </div>
+              <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select
+                  type="text"
+                  name="categoria"
+                  id="select-categoria"
+                  disabled
+                ></select>
+              </div>
+              <div class="form-group">
+                <label for="colaborador">O colaborador:</label>
+                <select
+                  type="text"
+                  name="colaborador"
+                  id="colaborador"
+                  disabled
+                ></select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="main-footer"></div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+      <div class="menu-container">
+        <div class="menu"></div>
+      </div>
+    </main>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
+  <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
+  <script>
+    const url = new URL(window.location.href);
+    const asset = url.searchParams.get("id");
+
+    document.querySelector(".main-header a").href = "./edit.html?id=" + asset;
+
+    getCategorias().then(() => {
+      getAsset();
+    });
+
+    async function getAsset() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/asset/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        const col = data.find(({ _id }) => _id === asset);
+        const { desc, valor, categoria, tipo, periodicidade, colaborador } =
+          col;
+        document.querySelector("#desc").value = desc;
+        document.querySelector("#valor").value = valor;
+        document.querySelector("#select-categoria").value = categoria;
+        document.querySelector("#radio-activo").checked =
+          (tipo == "0") | null | undefined;
+        document.querySelector("#radio-passivo").checked = tipo != "0";
+        document.querySelector("#periodicidade").value = periodicidade || "";
+        document.querySelector("#colaborador").value = colaborador || "";
+      }
+    }
+
+    async function getCategorias() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/asset/categoria", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        let options = new String();
+        for (c of data) {
+          const { _id, label } = c;
+          options += `<option value='${_id}'>${label}</option>`;
+        }
+        document.getElementById("select-categoria").innerHTML = options;
+      }
+    }
+
+    getColaboradores();
+    async function getColaboradores() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/staff/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        let options = new String(
+          '<option value="">--Seleccionar um--</option>'
+        );
+        for (c of data) {
+          const { _id, firstName } = c;
+          options += `<option value='${_id}'>${firstName}</option>`;
+        }
+        document.getElementById("colaborador").innerHTML = options;
+      }
+    }
+
+    wakeupAPI();
+  </script>
+</html>

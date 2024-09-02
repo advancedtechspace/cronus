@@ -70,7 +70,7 @@ a {
   color: var(--primary-color);
   padding: 5px;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #suggestions a {
@@ -214,6 +214,7 @@ footer {
   justify-content: center;
   padding: 10px;
   background-color: #fafafa;
+  border-top: 1px solid #eee;
 }
 
 footer p {
@@ -413,20 +414,19 @@ label {
   top: calc(var(--header-height) + 20px);
   z-index: 1;
   height: 60px;
-  /* box-shadow: 0 0 2px 2px #f9f9f9; */
+  box-shadow: 0 0 1px 1px #fafafa;
 }
 
 #suggestions a {
-  border-radius: 5px;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 2px;
+  padding: 5px;
 }
 
 #suggestions > li a {
+  /* font-size: 12px; */
   border-radius: 10px;
   cursor: pointer;
   color: var(--primary-color);
-  font-size: 14px;
   display: flex;
   align-items: center;
   transition: all 0.3s ease-in-out;
@@ -445,8 +445,8 @@ label {
 }
 
 .main-link {
-  margin: 5px 5px;
   border-radius: var(--btn-radius);
+  color: red;
 }
 
 .main-link > li {
@@ -459,8 +459,6 @@ label {
 
 .main-link:hover > li a {
   opacity: 0.8;
-  /* color: #fff;
-  background-color: var(--primary-color); */
 }
 
 #suggestions button:active {

@@ -78,7 +78,7 @@ const nav = [
     name: "Consumidores",
     path: "pages/clients",
     icon: "male",
-    show: modulos?.includes("clients"),
+    show: modulos?.includes("clients") & false,
     submenu: [
       // {
       //   id: "clients-dashboard",
@@ -318,15 +318,17 @@ for (let elt of nav) {
         }'><i class='la ${ic || "la-circle"}'></i>${label}</a></li>`;
       }
     }
-
     n += `
     <ul class='main-link'>
       <li>
         <a href='${base_url}/${path}' id='${id}'
-          style='background-color: ${color};color: ${active ? "#fff" : "auto"};'
+          style='
+            font-weight: ${active ? "bold" : "auto"};
+            font-size: 12px;
+          '
         >
           <i class='la la-${icon}'></i>
-          <span>${name}</span><tiny><i class='la la-angle-down dropdown-icon'></i></tiny>
+          <span>${name.toUpperCase()}</span><tiny><i class='la la-angle-down dropdown-icon'></i></tiny>
         </a>
       </li>
       <ul class='sub-menu' id='${id}' style='
@@ -355,7 +357,7 @@ for (let elt of nav) {
     let sm = "";
     if (submenu !== undefined) {
       for ({ label, url, icon: ic } of submenu) {
-        sm += `<li style='margin-bottom: 10px;'><a style='font-size: 14px;' href='${
+        sm += `<li style='margin-bottom: 10px;'><a style='font-size: 18px;' href='${
           base_url + "/" + path + "/" + url
         }'><i class='la ${
           ic || "la-circle"
@@ -381,9 +383,7 @@ for (let elt of nav) {
 document.querySelector(".menu").innerHTML = links;
 
 if (window.location.href === base_url + "/") {
-  document.querySelector("#suggestions a").style.backgroundColor =
-    colors.primary;
-  document.querySelector("#suggestions a").style.color = "#fff";
+  document.querySelector("#suggestions a").style.fontWeight = 'bold';
 }
 
 document.querySelector("header").innerHTML = main_header;

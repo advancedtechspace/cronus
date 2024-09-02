@@ -97,6 +97,7 @@ function searchStock(value, data) {
       exp == 0 ? "" : `${expira} (${ramainingDays} dias)`
     }</td>
           <td width='20%'>
+            <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
             <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
             <button class="btn-circle btn-circle-delete btn-delete-stock" id="${_id}"><i class='la la-trash'></i></button>
           </td>
@@ -166,11 +167,12 @@ const showTable = (data, limInf, limSup) => {
       <tr>
         <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
         <td>${formatCurrency(valor)}</td>
-        <td>${quantidade}</td>
+        <td>${formatCurrency(quantidade)}</td>
         <td style='color:${ramainingDays < 32 ? "red" : "green"};'>${
       exp == 0 ? "" : `${expira} (${ramainingDays} dias)`
     }</td>
         <td width='20%'>
+          <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
           <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>
           <button class="btn-circle btn-circle-delete btn-delete-stock" id="${_id}"><i class='la la-trash'></i></button>
         </td>
