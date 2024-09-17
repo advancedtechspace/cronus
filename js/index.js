@@ -19,14 +19,14 @@
 
     document.getElementById("activo-total").style = `--from: ${
       v - 0.1 * v
-    }; --to: ${v}; --time: 1s`;
+    }; --to: ${v}; --time: 6s`;
 
     setTimeout(() => {
       document.getElementById("activo-total").style = 'none';
       document.getElementById("activo-total").innerHTML = formatCurrency(
         data.total
       );
-    }, 2000);
+    }, 3000);
   }
 })();
 

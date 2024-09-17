@@ -264,13 +264,14 @@ const nav = [
     name: "Microcrédito",
     path: "pages/credito",
     icon: "hand-holding-usd",
-    show: false,
+    show: true,
+    special: true,
     submenu: [
       {
         id: "credito-dashboard",
-        label: "Dashboard",
+        label: "Listagem",
         url: "#",
-        icon: null,
+        icon: "la-list",
       },
       {
         id: "credito-new",
@@ -292,7 +293,8 @@ const nav = [
     name: "Hotel",
     path: "pages/hotel",
     icon: "hotel",
-    show: false,
+    show: !false,
+    special: true
   },
   {
     id: "transport",
@@ -306,7 +308,7 @@ const nav = [
 let n = "";
 
 for (let elt of nav) {
-  const { id, name, path, icon, show, submenu } = elt;
+  const { id, name, path, icon, show, submenu, special } = elt;
   const active = window.location.href.includes(id);
   if (show) {
     const color = active ? colors.primary : "auto;";
@@ -324,11 +326,12 @@ for (let elt of nav) {
         <a href='${base_url}/${path}' id='${id}'
           style='
             font-weight: ${active ? "bold" : "auto"};
-            font-size: 12px;
+            font-size: 14px;
+            text-decoration-line: ${special ? "underline" : "none"} ;
           '
         >
           <i class='la la-${icon}'></i>
-          <span>${name.toUpperCase()}</span><tiny><i class='la la-angle-down dropdown-icon'></i></tiny>
+          <span>${name}</span><tiny><i class='la la-angle-down dropdown-icon'></i></tiny>
         </a>
       </li>
       <ul class='sub-menu' id='${id}' style='
@@ -383,7 +386,7 @@ for (let elt of nav) {
 document.querySelector(".menu").innerHTML = links;
 
 if (window.location.href === base_url + "/") {
-  document.querySelector("#suggestions a").style.fontWeight = 'bold';
+  document.querySelector("#suggestions a").style.fontWeight = "bold";
 }
 
 document.querySelector("header").innerHTML = main_header;
@@ -438,4 +441,18 @@ const btnMenu = document.querySelector("#btn-menu");
 
 btnMenu.addEventListener("click", () => {
   menuContainer.style.display = "block";
+});
+
+// Scroll Menu horizontal
+const padding_inc = 150;
+let left_padding = 0;
+let right_padding = 0;
+document.querySelector("#go-left").addEventListener("click", () => {
+  right_padding += padding_inc;
+  $("#suggestions").animate({ "padding-right": right_padding });
+});
+
+document.querySelector("#go-right").addEventListener("click", () => {
+  left_padding += padding_inc;
+  $("#suggestions").animate({ "padding-left": left_padding });
 });

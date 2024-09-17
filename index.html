@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
     <link rel="stylesheet" href="libraries/css/line-awesome.min.css" />
     <link rel="stylesheet" href="libraries/css/sweetalert2.min.css" />
+    <script src="libraries/js/jquery-3.6.0.min.js"></script>
     <script src="libraries/js/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/index.css" />
@@ -15,15 +16,17 @@
     <header></header>
     <main>
       <div id="suggestions"></div>
+      <div class="menu-controller">
+        <button id="go-left"><i class="la la-angle-left"></i></button>
+        <button id="go-right"><i class="la la-angle-right" ></i></button>
+      </div>
       <div class="company-name">
         <p></p>
       </div>
 
       <div class="cards">
         <div class="card-container">
-          <span class="title"
-            >Total em activos e stock</span
-          >
+          <span class="title">Total em activos e stock</span>
           <div class="content" style="color: #78ee9b">
             <span id="activo-total" class="counter"></span>
           </div>
@@ -31,6 +34,10 @@
       </div>
     </main>
     <div id="loader">
+      <a href="/" class="logo">
+        <img src="assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
       <p>
         <img
           src="assets/img/loading.gif"
@@ -39,6 +46,15 @@
           alt="loader"
         /><span>Carregando...</span>
       </p>
+
+      <div class="loader-footer">
+        <p>
+          Powered by
+          <a href="https://advancedtechspace.com" target="_blank"
+            >AdvancedTechSpace (ATS)</a
+          >
+        </p>
+      </div>
     </div>
     <div class="menu-container">
       <div class="menu"></div>

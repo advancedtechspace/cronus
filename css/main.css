@@ -177,6 +177,7 @@ header {
   position: sticky;
   top: 0;
   background-color: #fff;
+  border-bottom: 1px solid #aaa;
   z-index: 2;
 }
 
@@ -213,8 +214,8 @@ footer {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: #fafafa;
-  border-top: 1px solid #eee;
+  background-color: red;
+  display: none;
 }
 
 footer p {
@@ -241,6 +242,7 @@ h1 {
   color: #666;
   text-align: center;
   font-weight: lighter;
+  font-size: 24px;
 }
 
 button {
@@ -408,18 +410,50 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  flex-wrap: nowrap;
+  width: 150%;
   margin-top: 0;
   position: fixed;
   top: calc(var(--header-height) + 20px);
   z-index: 1;
   height: 60px;
-  box-shadow: 0 0 1px 1px #fafafa;
+  /* box-shadow: 0 0 1px 1px #fafafa; */
+  border-bottom: 1px solid #eee;
+}
+
+.menu-controller {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0;
+  position: fixed;
+  padding: auto 20px;
+  top: calc(var(--header-height) + 20px);
+  z-index: 5;
+  height: 60px;
+  /* background-color: red; */
+  pointer-events: none;
+}
+
+.menu-controller button {
+  pointer-events: all;
+  cursor: pointer;
+  min-width: unset;
+  width: 40px;
+  border-radius: 0;
+  color: var(--primary-color);
+  background-color: #fff;
+}
+
+.menu-controller button:hover {
+  opacity: unset;
 }
 
 #suggestions a {
   border-radius: 2px;
   padding: 5px;
+  flex-wrap: nowrap;
 }
 
 #suggestions > li a {
@@ -429,6 +463,7 @@ label {
   color: var(--primary-color);
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   transition: all 0.3s ease-in-out;
   position: relative;
   padding: 5px;
@@ -514,10 +549,16 @@ label {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
 }
 
 #loader img {
   margin-right: 10px;
+}
+
+.loader-footer {
+  position: absolute;
+  bottom: 30px;
 }
 
 .menu-container {
@@ -810,7 +851,7 @@ td {
   }
 
   #suggestions {
-    display: none;
+    /* display: none; */
   }
 
   main {

@@ -15,7 +15,7 @@ const main_header = `
 
     <div id="header-center">
         <a href="#" class="logo">
-        <img src="${base_url}/assets/logo.svg" width="25" height="25" />
+        <img src="${base_url}/assets/logo.svg" width="20" height="20" />
         <h1>CRONUS</h1>
         </a>
     </div>
@@ -54,7 +54,7 @@ const main_header = `
 
 const main_footer = `
     <p>CRONUS &copy; 2024</p>
-    <p>Powered by <a href='https://advancedtechspace.com' target='_blank'>AdvancedTechSpace</a></p>
+    <p>Powered by <a href='https://advancedtechspace.com' target='_blank'>AdvancedTechSpace (ATS)</a></p>
 `;
 
 let shown = false;
