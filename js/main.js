@@ -264,8 +264,8 @@ const nav = [
     name: "Microcrédito",
     path: "pages/credito",
     icon: "hand-holding-usd",
-    show: true,
-    special: false,
+    show: false,
+    special: true,
     submenu: [
       {
         id: "credito-dashboard",
@@ -287,14 +287,15 @@ const nav = [
     path: "pages/ensurance",
     icon: "shield",
     show: false,
+    special: true,
   },
   {
     id: "hotel",
     name: "Hotel",
     path: "pages/hotel",
     icon: "hotel",
-    show: !false,
-    special: false
+    show: false,
+    special: true
   },
   {
     id: "transport",
