@@ -265,7 +265,7 @@ const nav = [
     path: "pages/credito",
     icon: "hand-holding-usd",
     show: true,
-    special: true,
+    special: false,
     submenu: [
       {
         id: "credito-dashboard",
@@ -294,7 +294,7 @@ const nav = [
     path: "pages/hotel",
     icon: "hotel",
     show: !false,
-    special: true
+    special: false
   },
   {
     id: "transport",
