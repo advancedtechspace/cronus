@@ -448,12 +448,12 @@ btnMenu.addEventListener("click", () => {
 const padding_inc = 150;
 let left_padding = 0;
 let right_padding = 0;
-document.querySelector("#go-left").addEventListener("click", () => {
+document.querySelector("#go-right").addEventListener("click", () => {
   right_padding += padding_inc;
   $("#suggestions").animate({ "padding-right": right_padding });
 });
 
-document.querySelector("#go-right").addEventListener("click", () => {
+document.querySelector("#go-left").addEventListener("click", () => {
   left_padding += padding_inc;
   $("#suggestions").animate({ "padding-left": left_padding });
 });
