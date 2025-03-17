@@ -304,6 +304,27 @@ const nav = [
     icon: "bus",
     show: false,
   },
+  {
+    id: "imoveis",
+    name: "Imóveis",
+    path: "pages/imoveis",
+    icon: "home",
+    show: true,
+    submenu: [
+      {
+        id: "credito-dashboard",
+        label: "Listagem de imóveis",
+        url: "#",
+        icon: "la-list",
+      },
+      {
+        id: "credito-new",
+        label: "Novo imóvel",
+        url: "new.html",
+        icon: "la-plus",
+      },
+    ],
+  },
 ];
 
 let n = "";

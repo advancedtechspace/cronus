@@ -21,16 +21,16 @@ const main_header = `
     </div>
 
     <div id="header-right">
-        <button 
+        <!--<button 
           style='margin-right: 10px;
           padding: 5px; 
           color: #2bccb1; width: 100px; 
           background-color: unset;border: 1px solid #2bccb1; min-width: unset;'>
           Trial Plan
-        </button>
-        <a href="#" id="a-notifications" onclick='toggleNottifications();'>
+        </button>-->
+        <!--<a href="#" id="a-notifications" onclick='toggleNottifications();'>
             <i class="la la-bell la-lg"></i>
-            <span></span>
+            <span></span>-->
         </a>
         <a id="a-dashboard" href="#">
             <img width="20" height="20" src="${base_url}/assets/user.svg" alt="user" />

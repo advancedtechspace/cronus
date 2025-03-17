@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/logo.svg"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
+    <script src="../../libraries/js/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">
+        <img src="../../assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <a id="a-dashboard" href="#">
+        <img width="20" height="20" src="../../assets/user.svg" alt="user" />
+      </a>
+    </header>
+    <main>
+      <div id="suggestions"></div>
+      <div class="main">
+        <div class="main-header">
+          <h3>Ver item</h3>
+          <a href="" class="btn-new"><i class="la la-edit"></i> Editar</a>
+        </div>
+        <div class="main-body">
+          <form id="form-new-house">
+            <div class="form">
+              <div class="form-group">
+                <select name="local" id="select-local" disabled></select>
+              </div>
+              <div class="form-group">
+                <label for="preco">Preço: </label>
+                <input type="number" name="preco" id="preco" disabled />
+              </div>
+              <div class="form-group">
+                <label for="quartos">Quartos: </label>
+                <input
+                  type="number"
+                  name="quartos"
+                  class="input-thin"
+                  id="quartos"
+                  min="1" disabled
+                />
+              </div>
+              <div class="form-group">
+                <label for="andar">Andar: </label>
+                <input
+                  type="number"
+                  name="andar"
+                  class="input-thin"
+                  id="andar"
+                  min="0"
+                  value="0" disabled
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="checkbox"
+                  name="negociavel"
+                  id="negociavel"
+                  checked disabled
+                />
+                <label for="negociavel">Negociável</label>
+              </div>
+              <div class="form-group">
+                <input
+                  type="checkbox"
+                  name="available"
+                  id="available"
+                  checked disabled
+                />
+                <label for="available">Disponível</label>
+              </div>
+
+              <div class="form-group">
+                <label for="radio-renda">Renda</label>
+                <input
+                  type="radio"
+                  name="radio-renda-venda"
+                  id="radio-renda"
+                  value="0"
+                  checked disabled
+                />
+                <label for="radio-venda">Venda</label>
+                <input
+                  type="radio"
+                  name="radio-renda-venda"
+                  id="radio-venda"
+                  value="1" disabled
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="main-footer"></div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
+      </div>
+
+      <div class="menu-container">
+        <div class="menu"></div>
+      </div>
+    </main>
+    <footer>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
+  </body>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/components/index.js"></script>
+  <script src="../../js/main.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
+  <script>
+    const url = new URL(window.location.href);
+    const item = url.searchParams.get("id");
+
+    document.querySelector(".main-header a").href = "./edit.html?id=" + item;
+
+    let lcs = new String('<option value="">--Seleccionar distrito--</option>');
+
+    for (let i = 0; i < distritos.length; i++) {
+      const l = distritos[i];
+      lcs += `<option value="${l.id}">${l.label}</option>`;
+    }
+
+    document.querySelector("#select-local").innerHTML = lcs;
+
+    getItem();
+
+    async function getItem() {
+      const res = await fetch(api_url + "/house/" + item);
+
+      const data = await res.json();
+
+      document.getElementById('preco').value = data.preco
+      document.getElementById('quartos').value = data.quartos
+      document.getElementById('andar').value = data.andar
+      document.getElementById('select-local').value = data.local
+      console.log(data);
+    }
+
+    wakeupAPI();
+  </script>
+</html>
