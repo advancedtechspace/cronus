@@ -3,22 +3,27 @@ const main_header = `
       <button id="btn-menu">
         <i class='la la-bars btn-menu'></i>
       </button>
-      <label class="ui-switch">
+      <!--<label class="ui-switch">
         <input type="checkbox" ${
           localStorage.getItem("theme-mode") !== "light" && "checked"
         } onchange="changeTheme();">
         <div class="slider">
           <div class="circle"></div>
         </div>
-      </label>
-    </div>
+      </label>-->
 
-    <div id="header-center">
-        <a href="#" class="logo">
+      <a href="#" class="logo">
         <img src="${base_url}/assets/logo.svg" width="20" height="20" />
         <h1>CRONUS</h1>
         </a>
     </div>
+
+    <!--<div id="header-center">
+        <a href="#" class="logo">
+        <img src="${base_url}/assets/logo.svg" width="20" height="20" />
+        <h1>CRONUS</h1>
+        </a>
+    </div>-->
 
     <div id="header-right">
         <!--<button 

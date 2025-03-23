@@ -37,10 +37,11 @@ form {
   width: 340px;
   height: 370px;
   margin: auto;
-  box-shadow: 0 0 10px 1px #f8f8f8;
+  /* box-shadow: 0 0 6px 3px #f8f8f8; */
+  border: 1px solid #eee;
   border-radius: 10px;
   background-color: #fff;
-  padding: 20px 25px;
+  padding: 30px 30px;
 }
 
 form label {
@@ -49,7 +50,8 @@ form label {
 
 form input,
 button {
-  padding: 15px;
+  padding: 20px;
+  border-radius: 7px;
 }
 
 .logo {
@@ -67,6 +69,7 @@ button {
 
   form {
     box-shadow: none;
+    border: none;
     background-color: unset;
     padding: 20px;
     height: 90%;

@@ -432,6 +432,7 @@ label {
   height: 60px;
   /* background-color: red; */
   pointer-events: none;
+  display: none;
 }
 
 .menu-controller button {
@@ -503,16 +504,13 @@ label {
   padding: 10px 10px;
   position: absolute;
   min-width: 200px;
-  border-radius: var(--btn-radius);
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 10px;
   top: calc(var(--header-height) + 10px);
   transition: all 0.3s ease-in-out;
   display: none;
   z-index: -1;
   border-width: 1px;
-  box-shadow: 0 0 12px 12px rgba(249, 249, 249, 0.8);
-  /* border-style: solid; */
+  box-shadow: 0 0 12px 12px #f6f6f6;
 }
 
 .sub-menu li {
@@ -840,16 +838,16 @@ td {
     display: inline-block;
   }
 
-  .logo h1 {
+  /* .logo h1 {
     display: none;
-  }
+  } */
 
-  .logo img {
+  /* .logo img {
     margin-right: 0;
-  }
+  } */
 
   #suggestions {
-    /* display: none; */
+    display: none;
   }
 
   main {
