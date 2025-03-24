@@ -68,6 +68,8 @@ button {
   }
 
   form {
+    width: fill-content;
+    box-sizing: border-box;
     box-shadow: none;
     border: none;
     background-color: unset;
