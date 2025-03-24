@@ -11,6 +11,7 @@ let trows = "";
 const thead = `
   <th>Designação</th>
   <th>Preço</th>
+  <th>Local</th>
   <th>Acções</th>
 `;
 
@@ -168,7 +169,7 @@ const showTable = (data, limInf, limSup) => {
 
     if (!stock) continue;
 
-    const { desc, preco, quantidade, _id, expira, quartos } = stock;
+    const { local, preco, _id, expira, quartos } = stock;
 
     const oneDay = 1000 * 60 * 60 * 24;
     const exp = !expira
@@ -180,6 +181,7 @@ const showTable = (data, limInf, limSup) => {
       <tr>
         <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>Residência tipo ${quartos}</a></td>
         <td>${formatCurrency(preco)}</td>
+        <td>${distritos.find(({id}) => id == local).label}</td>
         <td width='20%'>
           <a href="./show.html?id=${_id}"><button class="btn-circle btn-circle-show" id="staff-show-0"><i class='la la-eye'></i></button></a>
           <a href="edit.html?id=${_id}"><button class="btn-circle btn-circle-edit" id="staff-edit-0"><i class='la la-edit'></i></button></a>

@@ -124,8 +124,15 @@ const showTable = (data, limInf, limSup) => {
   trows = "";
   for (let i = limInf; i < limSup; i++) {
     const sale = data[i];
+    console.log(sale)
     if (!sale) continue;
     const { created_at, cart, _id } = sale;
+
+    let qtd = 0;
+
+    for (const item of cart) {
+      qtd += parseFloat(item.quantidade);
+    }
 
     trows += `
           <tr>
@@ -134,7 +141,7 @@ const showTable = (data, limInf, limSup) => {
               ${new Date(created_at).toLocaleDateString()}
               ${new Date(created_at).toLocaleTimeString()}
             </td>
-            <td>${formatCurrency(cart.length)}</td>
+            <td>${formatCurrency(qtd)}</td>
             <td width='20%'>
             <a href="./factura.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-edit-0"><i class='la la-eye'></i></button></a>
               <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>

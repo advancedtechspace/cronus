@@ -32,14 +32,13 @@
   padding: 10px;
   margin-bottom: 40px;
   border-radius: 10px;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 0;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: none;
+  border: 1px solid #eee;
   background-color: #fff;
-  box-shadow: 0 0 5px rgba(249, 249, 249, .8);
 }
 
 .card-container .title {

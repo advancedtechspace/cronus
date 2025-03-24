@@ -212,6 +212,27 @@ const nav = [
     ],
   },
   {
+    id: "imoveis",
+    name: "Imóveis",
+    path: "pages/imoveis",
+    icon: "home",
+    show: true,
+    submenu: [
+      {
+        id: "credito-dashboard",
+        label: "Listagem de imóveis",
+        url: "#",
+        icon: "la-list",
+      },
+      {
+        id: "credito-new",
+        label: "Novo imóvel",
+        url: "new.html",
+        icon: "la-plus",
+      },
+    ],
+  },
+  {
     id: "sales",
     name: "Contabilidade",
     path: "pages/sales",
@@ -295,7 +316,7 @@ const nav = [
     path: "pages/hotel",
     icon: "hotel",
     show: false,
-    special: true
+    special: true,
   },
   {
     id: "transport",
@@ -303,27 +324,6 @@ const nav = [
     path: "pages/transport",
     icon: "bus",
     show: false,
-  },
-  {
-    id: "imoveis",
-    name: "Imóveis",
-    path: "pages/imoveis",
-    icon: "home",
-    show: true,
-    submenu: [
-      {
-        id: "credito-dashboard",
-        label: "Listagem de imóveis",
-        url: "#",
-        icon: "la-list",
-      },
-      {
-        id: "credito-new",
-        label: "Novo imóvel",
-        url: "new.html",
-        icon: "la-plus",
-      },
-    ],
   },
 ];
 
@@ -469,12 +469,13 @@ btnMenu.addEventListener("click", () => {
 const padding_inc = 150;
 let left_padding = 0;
 let right_padding = 0;
-document.querySelector("#go-right").addEventListener("click", () => {
-  right_padding += padding_inc;
-  $("#suggestions").animate({ "padding-right": right_padding });
-});
 
-document.querySelector("#go-left").addEventListener("click", () => {
-  left_padding += padding_inc;
-  $("#suggestions").animate({ "padding-left": left_padding });
-});
+// document.querySelector("#go-right").addEventListener("click", () => {
+//   right_padding += padding_inc;
+//   $("#suggestions").animate({ "padding-right": right_padding });
+// });
+
+// document.querySelector("#go-left").addEventListener("click", () => {
+//   left_padding += padding_inc;
+//   $("#suggestions").animate({ "padding-left": left_padding });
+// });
