@@ -65,12 +65,14 @@
       window.location.href = base_url + "/login.html";
     }
 
+    let chart;
+
     document.addEventListener("DOMContentLoaded", () => {
       getSalesPerMonth();
     });
 
     document.getElementById("year").addEventListener("change", (e) => {
-      getSalesPerMonth();
+      chart.update();
     });
 
     async function getSalesPerMonth() {
@@ -90,7 +92,7 @@
       if (res.status === 200) {
         const d = await res.json();
 
-        new Chart(ctx, {
+        chart = new Chart(ctx, {
           type: "line",
           data: {
             labels: [
