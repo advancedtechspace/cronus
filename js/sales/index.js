@@ -7,7 +7,7 @@ let page = 1;
 
 let trows = "";
 const thead = `
-      <th>ID</th>
+      <th>Código da factura</th>
       <th>Data</th>
       <th>Quantidade</th>
       <th>Acções</th>`;
@@ -25,6 +25,7 @@ async function getSales() {
 
   if (res.status === 200) {
     const d = await res.json();
+    console.log('fact', d)
     const data = d.filter(({ removed }) => !removed);
 
     showTable(data, lInf, lSup);
@@ -82,14 +83,14 @@ function searchSales(value, data) {
 
     trows += `
       <tr>
-        <td><a href='./factura.html?col=${_id}' style='font-size: 14px;'>${_id}</a></td>
+        <td><a href='${api_url}/cronus-facturas/${_id}.pdf' style='font-size: 14px;' target='_blank'>${_id}</a></td>
         <td>
           ${new Date(created_at).toLocaleDateString()}
           ${new Date(created_at).toLocaleTimeString()}
         </td>
         <td>${cart.length}</td>
         <td width='20%'>
-          <a href="./factura.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-edit-0"><i class='la la-eye'></i></button></a>
+          <a href='${api_url}/cronus-facturas/${_id}.pdf'><button class="btn-circle btn-circle-show" id="staff-edit-0" target='_blank'><i class='la la-eye'></i></button></a>
           <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
         </td>
       </tr>
@@ -136,14 +137,14 @@ const showTable = (data, limInf, limSup) => {
 
     trows += `
           <tr>
-            <td><a href='./factura.html?col=${_id}' style='font-size: 14px;'>${_id}</a></td>
+            <td><a href='${api_url}/cronus-facturas/${_id}.pdf' style='font-size: 14px;' target='_blank'>${_id}</a></td>
             <td>
               ${new Date(created_at).toLocaleDateString()}
               ${new Date(created_at).toLocaleTimeString()}
             </td>
             <td>${formatCurrency(qtd)}</td>
             <td width='20%'>
-            <a href="./factura.html?col=${_id}"><button class="btn-circle btn-circle-show" id="staff-edit-0"><i class='la la-eye'></i></button></a>
+            <a href='${api_url}/cronus-facturas/${_id}.pdf' target='_blank'><button class="btn-circle btn-circle-show" id="staff-edit-0"><i class='la la-eye'></i></button></a>
               <button class="btn-circle btn-circle-delete btn-delete-staff" id="${_id}"><i class='la la-trash'></i></button>
             </td>
           </tr>

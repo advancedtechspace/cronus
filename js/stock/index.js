@@ -10,7 +10,9 @@ let page = 1;
 let trows = "";
 const thead = `
   <th>Nome</th>
-  <th>Valor unitario</th>
+   <th>Código</th>
+  <th>Barcode</th>
+  <th>Preço unitario</th>
   <th>Quantidade</th>
   <th>Expira</th>
   <th>Acções</th>
@@ -36,8 +38,8 @@ async function getStock() {
       document.querySelector(".pagination").innerHTML = `
         <button id='btn-left'><i class='la la-angle-left'></i></button>
           <p>Página <span class='current-page'>${page}</span> de ${Math.ceil(
-            data.length / perPage
-          )}</p>
+        data.length / perPage
+      )}</p>
         <button id='btn-right'><i class='la la-angle-right'></i></button>
     `;
 
@@ -75,12 +77,15 @@ async function getStock() {
 function searchStock(value, data) {
   let trows = "";
 
-  const d = data.filter(({ desc }) =>
-    desc.toLowerCase().includes(value.toLowerCase())
+  const d = data.filter(
+    ({ desc, code, barcode }) =>
+      desc.toLowerCase().includes(value.toLowerCase()) ||
+      code.toLowerCase().includes(value.toLowerCase()) ||
+      barcode.toLowerCase().includes(value.toLowerCase())
   );
 
   for (stock of d) {
-    const { desc, valor, quantidade, _id, expira } = stock;
+    const { desc, valor, quantidade, _id, expira, code, barcode } = stock;
 
     const oneDay = 1000 * 60 * 60 * 24;
     const exp = !expira
@@ -90,7 +95,9 @@ function searchStock(value, data) {
 
     trows += `
         <tr>
-          <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
+          <td><a href='./show.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
+          <td>PD${code || ""}</td>
+          <td>${barcode || ""}</td>
           <td>${formatCurrency(valor)}</td>
           <td>${quantidade}</td>
           <td style='color:${ramainingDays < 32 ? "red" : "green"};'>${
@@ -155,7 +162,7 @@ const showTable = (data, limInf, limSup) => {
 
     if (!stock) continue;
 
-    const { desc, valor, quantidade, _id, expira } = stock;
+    const { desc, valor, quantidade, _id, expira, code, barcode } = stock;
 
     const oneDay = 1000 * 60 * 60 * 24;
     const exp = !expira
@@ -165,7 +172,9 @@ const showTable = (data, limInf, limSup) => {
 
     trows += `
       <tr>
-        <td><a href='./edit.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
+        <td><a href='./show.html?id=${_id}' style='font-size: 14px;'>${desc}</a></td>
+        <td>PD${code || ""}</td>
+        <td>${barcode || ""}</td>
         <td>${formatCurrency(valor)}</td>
         <td>${formatCurrency(quantidade)}</td>
         <td style='color:${ramainingDays < 32 ? "red" : "green"};'>${

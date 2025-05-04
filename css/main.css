@@ -281,6 +281,10 @@ button:active {
   border: 1px solid var(--primary-color);
 }
 
+.select2 {
+  width: 420px;
+}
+
 input,
 select {
   font-size: 14px;

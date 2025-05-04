@@ -9,6 +9,17 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../../libraries/js/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="../../libraries/css/sweetalert2.min.css" />
     <link rel="stylesheet" href="../../libraries/css/line-awesome.min.css" />
@@ -36,6 +47,7 @@
               <div class="form-group">
                 <label for="select-product">Producto:</label>
                 <select
+                  class="select2"
                   type="text"
                   name="categoria"
                   id="select-product"
@@ -65,14 +77,20 @@
           </form>
         </div>
         <div class="main-footer">
+          <h2 id="total-a-pagar">Total a pagar: 0,0</h2>
           <div class="form-group">
-            <label for="bi">BI: </label>
+            <label for="client-name">Nome do cliente *:</label>
             <input
               type="text"
-              name="bi"
-              id="bi"
-              placeholder="BI do consumidor"
+              name="client-name"
+              id="client-name"
+              placeholder=""
+              required
             />
+          </div>
+          <div class="form-group">
+            <label for="bi">BI do cliente: </label>
+            <input type="text" name="bi" id="bi" placeholder="" />
           </div>
           <button type="submit" form="form-new-sell" id="btn-submit">
             <i class="la la-save"></i>
@@ -98,7 +116,16 @@
   <script src="../../js/main.js"></script>
   <!-- <script src="../../js/asset/index.js"></script> -->
   <script>
+    $(document).ready(function () {
+      $(".select2").select2({
+        data: [],
+        placeholder: 'Código ou nome do item'
+      });
+    });
+  </script>
+  <script>
     let cart = [];
+    let valor_total = 0;
 
     document
       .getElementById("form-new-sell")
@@ -120,7 +147,7 @@
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
           },
-          body: JSON.stringify({ cart, bi }),
+          body: JSON.stringify({ cart, bi, valor_total }),
         });
 
         if (res.status === 200) {
@@ -130,10 +157,14 @@
           }).then(async () => {
             const sell = await res.json();
             cart = [];
+            document.getElementById("total-a-pagar");
             document.querySelector("thead").innerHTML = "";
             document.querySelector("tbody").innerHTML = "";
             document.getElementById("quantidade").value = 1;
+            document.getElementById("total-a-pagar").innerHTML =
+              "Total a pagar: " + formatCurrency(0);
             getStock();
+            window.open(api_url + "/cronus-facturas/" + sell._id + ".pdf", '_blank');
           });
         }
 
@@ -164,10 +195,13 @@
 
       if (res.status === 200) {
         const data = await res.json();
+        console.log("stock", data);
         let options = new String();
         for (c of data) {
-          const { _id, desc } = c;
-          options += `<option value='${_id}'>${desc}</option>`;
+          const { _id, desc, code, barcode } = c;
+          options += `<option value='${_id}' preco='${
+            c.valor
+          }'>${barcode || ''} - ${desc} (${c.valor} MT)</option>`;
         }
         document.getElementById("select-product").innerHTML = options;
       }
@@ -179,6 +213,8 @@
       const selected = document.getElementById("select-product");
       const product = selected.value;
       const quantidade = document.getElementById("quantidade").value;
+
+      const valor = product.valor;
 
       const product_label =
         document.getElementById("select-product").options[
@@ -193,8 +229,8 @@
         return;
       }
 
-      cart.push({ product, quantidade, product_label });
-      console.log(cart);
+      cart.push({ product, quantidade, product_label, valor });
+      console.log("cart", cart);
 
       const thead = `
           <th>Producto</th>
@@ -203,8 +239,14 @@
 
       let trows = new String();
 
+      valor_total = 0;
+
       if (cart.length !== 0) {
         for (p of cart) {
+          // Calcula total a pagar
+          const preco = parseFloat(p.product_label.split("(")[1].split(" ")[0]);
+          valor_total += preco * parseFloat(p.quantidade);
+
           trows += `
             <tr>
               <td>${p.product_label}</td>
@@ -218,14 +260,21 @@
 
         document.querySelector("thead").innerHTML = thead;
         document.querySelector("tbody").innerHTML = trows;
+        document.getElementById("total-a-pagar").innerHTML =
+          "Total a pagar: " + formatCurrency(valor_total) + " MT";
 
         document.querySelectorAll(".btn-delete-staff").forEach((btn) => {
           btn.addEventListener("click", (evt) => {
+            valor_total = 0;
             const id = evt.target.id;
             cart = cart.filter(({ product }) => product !== id);
             trows = "";
             for (p of cart) {
               console.log(p);
+              const preco = parseFloat(
+                p.product_label.split("(")[1].split(" ")[0]
+              );
+              valor_total += preco * parseFloat(p.quantidade);
               trows += `
                 <tr>
                   <td>${p.product_label}</td>
@@ -239,6 +288,8 @@
 
             document.querySelector("thead").innerHTML = thead;
             document.querySelector("tbody").innerHTML = trows;
+            document.getElementById("total-a-pagar").innerHTML =
+              "Total a pagar: " + formatCurrency(valor_total) + " MT";
           });
         });
       }

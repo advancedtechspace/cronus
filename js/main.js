@@ -216,7 +216,7 @@ const nav = [
     name: "Imóveis",
     path: "pages/imoveis",
     icon: "home",
-    show: true,
+    show: false,
     submenu: [
       {
         id: "credito-dashboard",

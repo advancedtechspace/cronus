@@ -38,7 +38,11 @@
                 <input type="text" name="desc" id="" required />
               </div>
               <div class="form-group">
-                <label for="valor">Valor unitáro: </label>
+                <label for="desc">Cód. barras:</label>
+                <input type="text" name="bar-code" id="" />
+              </div>
+              <div class="form-group">
+                <label for="valor">Preço unitáro: </label>
                 <input type="number" name="valor" id="" />
               </div>
               <div class="form-group">
@@ -122,6 +126,7 @@
         const categoria = form.get("categoria");
         const tipo = form.get("s-s");
         const expira = form.get("expira");
+        const barcode = form.get("bar-code");
 
         const data = {
           desc,
@@ -130,6 +135,7 @@
           categoria,
           tipo,
           expira,
+          barcode
         };
 
         const res = await fetch(api_url + "/cronus/stock/create", {
