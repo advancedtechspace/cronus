@@ -139,6 +139,8 @@
           return;
         }
 
+        // console.log('Cart', cart);
+
         document.querySelector("#btn-submit").disabled = true;
 
         const res = await fetch(api_url + "/cronus/sales/create", {

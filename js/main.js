@@ -45,7 +45,7 @@ const nav = [
     name: "Colaboradores",
     path: "pages/staff",
     icon: "male",
-    show: modulos?.includes("staff"),
+    show: modulos?.includes("staff") && false,
     submenu: [
       {
         id: "staff-dashboard",
@@ -111,7 +111,7 @@ const nav = [
     name: "Activos e passivos",
     path: "pages/asset",
     icon: "couch",
-    show: modulos?.includes("asset"),
+    show: modulos?.includes("asset") && false,
     submenu: [
       {
         id: "asset-dashboard",
@@ -153,16 +153,16 @@ const nav = [
         icon: "la-chart-pie",
       },
       {
-        id: "stock-list",
-        label: "Listagem",
-        url: "#",
-        icon: "la-list",
-      },
-      {
         id: "stock-new",
         label: "Cadastrar novo",
         url: "new.html",
         icon: "la-plus",
+      },
+      {
+        id: "stock-list",
+        label: "Listagem",
+        url: "#",
+        icon: "la-list",
       },
       {
         id: "stock-category",
@@ -246,16 +246,16 @@ const nav = [
         icon: "la-chart-pie",
       },
       {
+        id: "sales-new",
+        label: "Efecturar nova venda",
+        url: "new.html",
+        icon: "la-plus",
+      },
+      {
         id: "sales-list",
         label: "Listagem de facturas",
         url: "#",
         icon: "la-list",
-      },
-      {
-        id: "sales-new",
-        label: "Nova venda",
-        url: "new.html",
-        icon: "la-plus",
       },
     ],
   },

@@ -30,7 +30,7 @@
       </div>
 
       <div class="chart-container">
-        <canvas id="chart" width="640px" height="420px"></canvas>
+        <canvas id="chart" width="640px" height="320px"></canvas>
       </div>
     </main>
     <div id="loader">
@@ -124,15 +124,15 @@
         console.log(data);
 
         new Chart(ctx, {
-          type: "bar",
+          type: "pie",
           data: {
             labels: data.map(({ desc }) => desc),
             datasets: [
               {
-                label: "Stock por dias de validade",
+                label: "Stock por quantidade",
                 data: data.map(({ ramainingDays }) => ramainingDays),
-                borderColor: colors.primary,
-                backgroundColor: "rgba(175, 142, 192, 0.6)",
+                // borderColor: colors.primary,
+                // backgroundColor: "rgba(175, 142, 192, 0.6)",
                 fill: false,
               },
             ],
@@ -141,11 +141,17 @@
             responsive: true,
             scales: {
               x: {
-                beginAtZero: true,
+                beginAtZero: true
               },
               y: {
-                beginAtZero: true,
+                beginAtZero: true
               },
+            },
+            padding: {
+              top: 200,
+              right: 300,
+              bottom: 200,
+              left: 100,
             },
           },
         });

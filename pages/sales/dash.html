@@ -30,6 +30,9 @@
           max="2027"
         />
         <canvas id="chart" width="640px" height="250px"></canvas>
+      </div>
+
+      <div class="chart-container">
         <canvas
           id="chart-sales-per-stock"
           width="340px"
@@ -160,7 +163,7 @@
             labels: d.map(({ desc }) => desc),
             datasets: [
               {
-                label: "Vendas por productos e serviços",
+                label: "Vendas top 10",
                 data: d.map(({ sales }) => sales),
                 borderColor: colors.primary,
                 backgroundColor: "rgba(175, 142, 192, 0.6)",
