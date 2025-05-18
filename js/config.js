@@ -15,7 +15,7 @@ const modules = [
 
 const api_url =
   window.location.protocol === "https:"
-    ? "https://api-master.onrender.com"
+    ? "https://api.advancedtechspace.com"
     : "http://localhost:8000";
 
 //  https://api-production-dbdb.up.railway.app
